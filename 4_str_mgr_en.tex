@@ -1,12 +1,26 @@
 % !TEX encoding = UTF-8 Unicode
 \documentclass[a4paper,12pt]{article}
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{polski}
-\usepackage{helvet}
-\usepackage{graphicx}
-\usepackage{color}
+\usepackage{xltxtra}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{polski}
+%\usepackage{helvet}
+%\usepackage{graphicx}
+%\usepackage{color}
+\usepackage{xfrac}
 \usepackage{geometry}
+
+\usepackage{fontspec}
+\setmainfont[
+  Mapping=tex-text,
+  Fractions=On,
+  Ligatures={TeX},
+%  Contextuals={Swash,Alternate},
+  Alternate=1,
+%  Style={Historic},
+  BoldFont=Calendas_Plus_Bold.otf,
+  ItalicFont=Calendas_Plus_Italic.otf
+]{Calendas_Plus.otf}
 
 \geometry{hmargin={2cm, 2cm}, height=10.0in}
 
@@ -38,7 +52,7 @@
 {\small \sf specialisation: {\bf \textsf{Databases}}}\\
 \vspace{10ex}
 %% ------------------------ TYTUL PRACY --------------------------------------
-{\bf \huge \textsf{Identyfikacja wybranych typów podstruktur w sieciach reprezentujących opinie}}\\
+{\bf \huge \textsf{Identification of selected substructure types in opinion networks}}\\
 \vspace{14ex}
 %% ------------------------ OPIEKUN PRACY ------------------------------------
 {\Large \sf Supervisor: {\bf \textsf{dr hab. Jarosław Kwapień}}}\\
@@ -64,7 +78,7 @@ student of 5th year major in applied computer science, specialisation in databas
 \end{center}
 
 The subject of the master thesis:
-{\bf Identyfikacja wybranych typów podstruktur w sieciach reprezentujących opinie}\\
+{\bf Identification of selected substructure types in opinion networks.}\\
 
 \begin{tabular}{rl}
 Supervisor:                     & dr hab. Jarosław Kwapień\\
