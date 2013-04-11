@@ -1,4 +1,3 @@
-===
 Grant of License
 ===
  
@@ -17,7 +16,6 @@ with the following restrictions:
  
 Calendas Plus font can be used with @font-face.
 
-===
 Disclaimer
 ===
 
