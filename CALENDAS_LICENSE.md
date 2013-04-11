@@ -1,0 +1,32 @@
+===
+Grant of License
+===
+ 
+This font family is freeware and can be used for personal
+and commercial works. You can use this font at a single home or business location on a maximum of 5 CPUs.
+ 
+You also may give a copy of this software to any service bureau which you hire to output your film, paper or color proofs, provided that they do not use the font software for any purpose other than outputing your work. They may keep the font on file for use with future jobs on your behalf.
+ 
+You may use the fonts to create images on any surface such as computer screens, paper, web pages, photographs, movie credits, printed material,
+T-shirts, and other surfaces where the image is a fixed size,...
+with the following restrictions:
+ 
+- You may not sell this font without permission.
+- You may not redistribute this font without permission.
+- You may not modify, adapt, translate, reverse engineer, decompile, disassemble or create derivative works based on this font.
+ 
+Calendas Plus font can be used with @font-face.
+
+===
+Disclaimer
+===
+
+atipo® give no warranty in relation to this font, and you use this
+at your own risk.
+ 
+atipo® shall not be liable for any direct, indirect, consequential, or incidental damages (including damages from loss of business profits, business interruption, loss of business information, and the like) arising out of the use of or inability to use the fonts.
+ 
+ 
+If you have further questions, please contact us:
+info@atipo.es
+
