@@ -6,7 +6,7 @@ require_once __DIR__ . '/lib/helpers.inc.php';
 require_once __DIR__ . '/lib/config.inc.php';
 require_once __DIR__ . '/lib/Crawler.class.php';
 
-if ($argc !== 3) die('usage: ' . $argv[0] . ' limit offset');
+if ($argc !== 3) die('usage: ' . $argv[0] . ' limit offset'.PHP_EOL);
 
 try
 {
@@ -30,37 +30,35 @@ try
         }
     }
 
-    $keywords = array();
-    $stmt_words = $db->prepare('SELECT word FROM ' . TABLE_KEYWORDS);
-    $result = $stmt_words->execute();
-    if ($result !== false)
-    {
-        while ($row = $stmt_words->fetch(PDO::FETCH_OBJ))
-        {
-            $keywords[] = $row->word;
-        }
+    $brands = array();
+    if (file_exists(RESOURCES_DIR . '/brands.txt')) {
+        $brands = file(RESOURCES_DIR . '/brands.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     }
-
+    $models = array();
+    if (file_exists(RESOURCES_DIR . '/models.txt')) {
+        $models = file(RESOURCES_DIR . '/models.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    }
+    $keywords = array_merge($brands, $models);
+    $positive = array();
+    if (file_exists(RESOURCES_DIR . '/positive.txt')) {
+        $positive = file(RESOURCES_DIR . '/positive.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    }
+    $negative = array();
+    if (file_exists(RESOURCES_DIR . '/negative.txt')) {
+        $negative = file(RESOURCES_DIR . '/negative.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    }
     $stopwords = array();
-    if (file_exists(__DIR__ . '/stopwords.txt'))
-    {
-        $stopwords = file(__DIR__ . '/stopwords.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if (file_exists(RESOURCES_DIR . '/stopwords.txt')) {
+        $stopwords = file(RESOURCES_DIR . '/stopwords.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     }
-/*    $stmt_words = $db->prepare('SELECT word FROM ' . TABLE_STOPWORDS);
-    $result = $stmt_words->execute();
-    if ($result !== false)
-    {
-        while ($row = $stmt_words->fetch(PDO::FETCH_OBJ))
-        {
-            $stopwords[] = $row->word;
-        }
-    }*/
+    $functionwords = array();
+    if (file_exists(RESOURCES_DIR . '/functionwords.txt')) {
+        $functionwords = file(RESOURCES_DIR . '/functionwords.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    }
 
     $row_counter = 0;
-    while ($row = $stmt->fetch(PDO::FETCH_OBJ))
-    {
-        if (++$row_counter % 1000 === 0)
-        {
+    while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+        if (++$row_counter % 1000 === 0) {
             $memory_used = floatval(memory_get_usage(true));
             $memory_used = $memory_used / 1024 / 1024;
             echo sprintf('%010d : %04dM', $row_counter, $memory_used) . PHP_EOL;
@@ -68,18 +66,24 @@ try
 
         $text = $row->body;
         //$tokens = preg_split('/((^\p{P}+)|(\.{2,})|(/(?!/))|(\p{P}*\s+\p{P}*)|(\p{P}+$))/', $text, -1, PREG_SPLIT_NO_EMPTY);
-        $tokens = preg_split('/(\p{P}+)|(\s+)/', $text, -1, PREG_SPLIT_NO_EMPTY);
+        // split spaces or by punctuation characters other than single hyphen
+        $tokens = preg_split('/\s+|-{2,}|(?!-)\p{P}+/', $text, -1, PREG_SPLIT_NO_EMPTY);
         $tokens = array_filter($tokens);
 
-        foreach ($tokens as $token)
-        {
-            if (($word = prepareWord($token)) === false) continue;
+        foreach ($tokens as $token) {
+            $word = prepareWord($token);
+            if ($word === false) continue;
             if (in_array($word, $stopwords)) continue;
+//            if (in_array($word, $functionwords)) continue;
 
-            if (!array_key_exists($word, $words))
-            {
-                $keyword = 0;
-                if (in_array($word, $keywords)) $keyword = 1;
+            if (!array_key_exists($word, $words)) {
+                $keyword = null;
+                if (in_array($word, $positive)) $keyword = '+';
+                if (in_array($word, $negative)) $keyword = '-';
+                if (in_array($word, $functionwords)) $keyword = 'x';
+                if (strpos($word, '$') !== false) $keyword = '$';
+                // check for strings like MODEL-123s
+                if (in_array(rtrim($word, 's'), $keywords)) $keyword = '.';
 
                 $stmt_words = $db->prepare('INSERT INTO ' . TABLE_WORDS . ' VALUES(null, :word, :count, :keyword);');
                 $stmt_words->execute(array(
