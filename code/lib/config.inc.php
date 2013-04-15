@@ -3,11 +3,15 @@
 date_default_timezone_set('UTC');
 
 $db_host = 'localhost';
+if ('ns398311.ovh.net' !== gethostname()) {
+    $db_host = '37.59.1.117';
+}
 $db_name = 'scur_mgr';
 $db_user = 'complex';
 $db_pass = 'networks';
 $dsn = sprintf('mysql:dbname=%s;host=%s', $db_name, $db_host);
 
+define('RESOURCES_DIR', realpath(__DIR__ . '/../resources'));
 define('BASE_URL', 'http://www.head-fi.org');
 define('TABLE_FORUMS', 'headfi_forums');
 define('TABLE_TOPICS', 'headfi_topics');
