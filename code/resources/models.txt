@@ -262,6 +262,7 @@ ah-nc732k
 ah-nc732s
 ah-nc800
 ah-ncw500bk
+ah-px700
 ah-w150bu
 ah-w150yw
 ahd-2000
@@ -1378,6 +1379,7 @@ hearing
 heartbeats
 heath
 heavy
+heed
 helix
 helmet
 hercules
@@ -2543,12 +2545,18 @@ purple
 pwpe10b
 px-5
 px-5r
+px-200
+px-200iii
+px-200-iii
 px-360
 px-360-bt
 px-360bt
 px5
 px5-r
 px5r
+px200
+px200iii
+px200-iii
 px360
 px360-bt
 px360bt
