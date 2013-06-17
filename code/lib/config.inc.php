@@ -4,7 +4,8 @@ date_default_timezone_set('UTC');
 
 $db_host = 'localhost';
 if ('ns398311.ovh.net' !== gethostname()) {
-    $db_host = '37.59.1.117';
+//    $db_host = '37.59.1.117';
+    $db_host = '127.0.0.1';
 }
 $db_name = 'scur_mgr';
 $db_user = 'complex';

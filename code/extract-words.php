@@ -11,7 +11,9 @@ if ($argc !== 3) die('usage: ' . $argv[0] . ' limit offset'.PHP_EOL);
 try
 {
     $db = new PDO($dsn, $db_user, $db_pass);
-    $stmt = $db->prepare('SELECT * FROM ' . TABLE_POSTS . ' ORDER BY id ASC LIMIT ' . intval($argv[1]) . ' OFFSET ' . intval($argv[2]) . ';');
+    $db_limit = intval($argv[1]);
+    $db_offset = intval($argv[2]);
+    $stmt = $db->prepare('SELECT * FROM ' . TABLE_POSTS . ' ORDER BY id ASC LIMIT ' . $db_limit . ' OFFSET ' . $db_offset . ';');
     $result = $stmt->execute();
     if ($result === false) throw new Exception('Empty resultset.');
 
@@ -56,14 +58,8 @@ try
         $functionwords = file(RESOURCES_DIR . '/functionwords.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     }
 
-    $row_counter = 0;
+    $row_counter = $db_offset;
     while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-        if (++$row_counter % 1000 === 0) {
-            $memory_used = floatval(memory_get_usage(true));
-            $memory_used = $memory_used / 1024 / 1024;
-            echo sprintf('%010d : %04dM', $row_counter, $memory_used) . PHP_EOL;
-        }
-
         $text = $row->body;
         //$tokens = preg_split('/((^\p{P}+)|(\.{2,})|(/(?!/))|(\p{P}*\s+\p{P}*)|(\p{P}+$))/', $text, -1, PREG_SPLIT_NO_EMPTY);
         // split spaces or by punctuation characters other than single hyphen
@@ -107,6 +103,22 @@ try
                 ':post_id' => $row->id,
                 ':used' => $row->date,
             ));
+        }
+
+        if (++$row_counter % 1000 === 0) {
+            $memory_used = floatval(memory_get_usage(true));
+            $memory_used = $memory_used / 1024 / 1024;
+            $stmt_count_words = $db->prepare('SELECT count(id) count FROM ' . TABLE_WORDS);
+            $stmt_count_rels = $db->prepare('SELECT count(word_id) count FROM ' . TABLE_WORDS_RELATIONSHIPS);
+            $result_cw = $stmt_count_words->execute();
+            $result_cr = $stmt_count_rels->execute();
+            if ($result_cw !== false && $result_cr) {
+                $row_cw = $stmt_count_words->fetch(PDO::FETCH_OBJ);
+                $row_cr = $stmt_count_rels->fetch(PDO::FETCH_OBJ);
+                echo sprintf('%010d %010d %010d %04dM', $row_counter, $row_cw->count, $row_cr->count, $memory_used) . PHP_EOL;
+            } else {
+                echo sprintf('%010d %04dM', $row_counter, $memory_used) . PHP_EOL;
+            }
         }
     }
 
