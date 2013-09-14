@@ -2,6 +2,7 @@
 \documentclass[a4paper,12pt]{scrbook}
 
 % typesetting
+\raggedbottom
 \usepackage{xltxtra}
 \usepackage{fontspec}
 \setmainfont[
@@ -16,21 +17,49 @@
 ]{Calendas_Plus.otf}
 % special fraction characters
 \usepackage{xfrac}
+% language management
+\usepackage[british]{babel}
+% quotes management
+\usepackage[strict=true,autopunct=true,style=british]{csquotes}
+% cite management
+\usepackage{cite}
+% floats
+\usepackage{float}
+\usepackage{subcaption}
+% lists
+\usepackage{enumitem}
+% tables
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+\newcolumntype{L}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}%
+\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedleft\arraybackslash}X}%
+\newcolumntype{C}[1]{>{\hsize=#1\hsize\centering\arraybackslash}X}%
 
 \usepackage{lscape}
 \usepackage{url}
-\usepackage[pdftitle={Identification of the selected types of substructures in the opinion networks},pdfauthor={Michal Ochman},pdfcreator={LaTeX with hyperref},pdfsubject={Identification of the selected types of substructures in the opinion networks.},pdfkeywords={graph theory, graphs, networks, complex networks, data mining, forums, opinions}]{hyperref}
-\usepackage{listings}
+\usepackage[pdftitle={Identification of the selected types of substructures in the opinion networks},pdfauthor={Michal Ochman},pdfcreator={LaTeX with hyperref},pdfsubject={Identification of the selected types of substructures in the opinion networks.},pdfkeywords={graph theory, graphs, networks, complex networks, data mining, forums, opinions},unicode]{hyperref}
 
-\lstset{basicstyle=\scriptsize,breaklines=true,breakatwhitespace=true,captionpos=b,numbers=left,numbersep=10pt,numberstyle=\scriptsize,showspaces=false,showstringspaces=false,stepnumber=1,tabsize=2}
-
+% geometry
 \usepackage{geometry}
 \geometry{hmargin={2cm, 2cm}, height=10.0in}
-
+% math
 \usepackage{amssymb}
 \usepackage{amsmath}
+% sources
+\usepackage{algpseudocode}
+\usepackage[chapter]{algorithm}
+\usepackage{listings}
+\lstset{basicstyle=\scriptsize,breaklines=true,breakatwhitespace=true,captionpos=b,numbers=left,numbersep=10pt,numberstyle=\scriptsize,showspaces=false,showstringspaces=false,stepnumber=1,tabsize=2}
 
 %\renewcommand{\contentsname}{Table of Contents}
 %\renewcommand{\bibname}{References}
 
 \pagestyle{plain}
+
+% show counter up to the paragraph level
+\setcounter{secnumdepth}{3}
+% show in toc up to the paragraph level
+\setcounter{tocdepth}{2}
+
+% force \displaystyle for all math in a document
+\everymath{\displaystyle}

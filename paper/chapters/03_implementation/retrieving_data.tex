@@ -1,0 +1,239 @@
+\section{Data retrieval}
+
+  The purpose of this thesis was to analyse the discussions that may appear on message boards (or Internet forums) or news groups, hence a set of data like that had to be obtained. I had a freedom of choice, so I decided to take a look at the messages posted on an Internet forum called \emph{\href{http://www.head-fi.org/f/}{head-fi}}. I was already familiar with this message board so I knew---\textit{more or less}---what to expect from the community taking part in conversations on this forum. I also knew the topological structure so it was easier for me to write the software used to \emph{crawl} the site and save the messages in my database.
+  
+  Initially, I have anticipated to download every single message posted on this forum from the beginning of its' existence and that was neither hidden nor removed---i.e. available to browse---at the time of downloading the data. I looked at the most recent \emph{identifier} (or ID) of a post and knew that the total number of messages posted on the forum was nearing $8.5$ million, providing that the posts were not removed during its existence. Section \ref{sec:crawling} describes procedures used to browse the forum.
+  
+  \subsection{Initial data structure}
+    Because the messages on the Internet forums are traditionally saved in a relational dabatase I have decided to reflect the structure of this particular forum in my own---also relational---database, but with a simpler, more fit to my needs, structure.
+    
+    I chose to split the board into three logical parts: \emph{forums}, \emph{topics} (or \emph{threads}) and \emph{posts} (or \emph{messages}) that were also following the order in which the message board was being crawled. Because posts are written by \emph{users} (or \emph{members}), I have also decided to further \emph{normalise} the database by creating a separate table for them. The structure of the database at a time was then as follows, with all the information I could---and wanted---to save:
+    \begin{table}[H]
+      \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
+        \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
+        id & Unique identifier; referenced in topics table as forum\_id. \\
+        title & The title of the forum as text. \\\hline
+      \end{tabularx}
+      \caption{Forums table structure}
+    \end{table}
+    \begin{table}[H]
+      \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
+        \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
+        id & Unique identifier; referenced in posts table as topic\_id. \\
+        forum\_id & Reference of a forum, the topic is in. \\
+        title & The title of the topic as text. \\\hline
+      \end{tabularx}
+      \caption{Topics table structure}
+    \end{table}
+    \begin{table}[H]
+      \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
+        \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
+        id & Unique identifier; referenced in posts table as user\_id. \\
+        name & The name of the user as text. \\\hline
+      \end{tabularx}
+      \caption{Users table structure}
+    \end{table}
+    \begin{table}[H]
+      \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
+        \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
+        id & Unique identifier. \\
+        in\_reply\_to & A comma separated list of IDs of the posts that were quoted in this post. \\
+        topic\_id & ID of the topic the post is in. \\
+        user\_id & ID of the user that is the author of this post. \\
+        date & Date and time the message was posted. \\
+        body & Post contents as text. \\\hline
+      \end{tabularx}
+      \caption{Posts table structure}
+    \end{table}
+    
+    A database table with posts features a \emph{in\_reply\_to} field which I thought would be good to have to specifically bind messages that quote others. However, it was never used later.
+    
+  \subsection{Web crawling}
+    \label{sec:crawling}
+    
+      Starting out from the Home Page I had to download the list of forums first. Algorithm \ref{alg:crawl_forums_list} shows the procedure needed to do that. After running it I had 25 sub-forums available to crawl deeper into the message board.
+  
+    \begin{algorithm}[H]
+      \begin{algorithmic}[1]
+        \Procedure{CrawlForumsList}{URL}
+          \State HTML $\gets$ fetchURL(URL)
+          \State A $\gets$ findForumTitleAnchors(HTML)
+          \ForAll{a $\in$ A}
+            \State forumId $\gets$ idFromAnchor(a)
+            \State forumTitle $\gets$ titleFromAnchor(a)
+            \State \textbf{WriteToDB}(Forums, forumId, forumTitle)
+          \EndFor
+        \EndProcedure
+      \end{algorithmic}
+      \caption{Crawl forums list}
+      \label{alg:crawl_forums_list}
+    \end{algorithm}
+    
+    Then I started with \emph{Headphones (full-size)} forum (the first one on the list) and I began crawling this forum and fetching the topics. This task was a little more complicated, because the topics were not listed all on one page. Instead, they were paginated\footnote{\emph{Pagination} is a process of dividing the content into discrete chunks, called pages. It is used mostly to limit the number of results displayed to the user in order to both reduce the amount of data the server is required to send and the client is required to receive.}: 50 topics per page. I have decided not to use \emph{brute force} techniques to crawl the topics list, but to approach the problem more intelligently and simulate web browser along with HTML parser that allowed me to find and follow hyperlinks labelled as \textquote{Next page}. Procedure required to accomplish this task is featured in the listing of algorithm \ref{alg:crawl_forums}.
+  
+    \begin{algorithm}[H]
+      \begin{algorithmic}[1]
+        \Procedure{CrawlForums}{ForumURL}
+          \State F = \textbf{ReadFromDB}(Forums) \Comment{Set of (id, forum) tuples from DB}
+          \ForAll{(forumId, forumTitle) $\in$ F}
+            \State nextURL $\gets$ prepareURL(ForumURL, forumId)
+            \Repeat
+              \State HTML $\gets$ fetchURL(nextURL)
+              \State A $\gets$ findTopicTitleAnchors(HTML)
+              \ForAll{a $\in$ A}
+                \State topicId $\gets$ idFromAnchor(a)
+                \State topicTitle $\gets$ titleFromAnchor(a)
+                \State \textbf{WriteToDB}(Topics, topicId, topicTitle, forumId)
+              \EndFor
+              \State nextURL $\gets$ findNextURL(HTML) \Comment{Taken from \textquote{Next} hyperlink}
+            \Until nextURL \textbf{is} $\neg\varnothing$
+          \EndFor
+        \EndProcedure
+      \end{algorithmic}
+      \caption{Crawl forums}
+      \label{alg:crawl_forums}
+    \end{algorithm}
+    
+    One problem arose during the fetching of post threads: \emph{bumping}. Bumping is a phenomenon occurring on virtually every message board that have time assigned to each posted message. When a member of the forum posts in a thread it will jump to the top of the list since it is the latest updated thread. That meant that after all pages have been crawled, I had to repeatedly crawl the beginning of the list until I found no new topics on the first page of the sub-forum to save to database.
+    
+    Last step involved browsing the threads in order to save individual messages. It was very similar to the previous one because posts were also paginated. However, this time, bumping was not a problem, since messages inside threads were ordered by time they were posted in ascending order (first-come, first-served), so I only need to crawl each topic once. The process is shown as an algorithm \ref{alg:crawl_topics} below.
+  
+    \begin{algorithm}[H]
+      \begin{algorithmic}[1]
+        \Procedure{CrawlTopics}{ForumURL}
+          \State F = \textbf{ReadFromDB}(Topics) \Comment{Set of (id, topic) tuples from DB}
+          \ForAll{(topicId, topicTitle) $\in$ F}
+            \State nextURL $\gets$ prepareURL(TopicURL, topicId)
+            \Repeat
+              \State HTML $\gets$ fetchURL(nextURL)
+              \State P $\gets$ findPosts(HTML)
+              \ForAll{p $\in$ P}
+                \State postId $\gets$ idFromPost(p)
+                \State postBody $\gets$ bodyFromPost(p)
+                \State postDate $\gets$ dateFromPost(p)
+                \State userID $\gets$ userFromPost(p)
+                \State inResponseTo $\gets$ quotedFromPost(p)
+                \State \textbf{WriteToDB}(Posts, postId, postBody, postDate, userId, inResponseTo, topicId)
+              \EndFor
+              \State nextURL $\gets$ findNextURL(HTML) \Comment{Taken from \textquote{Next} button}
+            \Until nextURL \textbf{is} $\neg\varnothing$
+          \EndFor
+        \EndProcedure
+      \end{algorithmic}
+      \caption{Crawl topics}
+      \label{alg:crawl_topics}
+    \end{algorithm}
+    
+    Executing the three crawling procedures mentioned above took a long time for a single sub-forum so I have decided to stop further browsing. I had a lot of data to analyse so it was not crucial to continue. Table \ref{tab:data_count} displays the number of entities in the database I have extracted.
+    
+    \begin{table}[H]
+      \centering
+      \begin{tabularx}{0.5\textwidth}{|L{1}|R{1}|} \hline
+        \rowcolor[gray]{0.75} \textbf{Entity} & \textbf{Total count} \\\hline
+        Forums & $25$ \\\hline
+        Topics & $111,047$ \\\hline
+        Posts & $1,941,970$ \\\hline
+        Users & $52,605$ \\\hline
+      \end{tabularx}
+      \caption{Total count of extracted entities}
+      \label{tab:data_count}
+    \end{table}
+    
+    At this point, I had one type of nodes that would form my bipartite network: users. Now it was time to get the other type---words---but they had to be extracted first, which I describe in the following section.
+    
+  \subsection{Word extraction}
+
+    Words had to be extracted from the post message, excluding any quotations from earlier posts as they would pollute the actual word usage by users. The process was divided into three parts: \emph{text segmentation}, \emph{word classification} and \emph{word stemming}.
+    
+    \subsubsection{Text segmentation}
+    
+      Fortunately, the problem of hyphenation, where words are split by syllables for presentation purposes (in justified text, especially in articles and books) and then conjoined with hyphens is non-existent in Internet forums due to the fact that advanced text rendering (like hyphenation) is not yet supported in widely used web browsers.
+
+      After several iterations of trial and error I have finally decided to segment words using a regular expression. The final pattern was: \texttt{/\textbackslash s+|-\{2,\}|(?!-)\textbackslash p\{P\}+/}. It consists of three subpatterns that try to segment words in three ways. The breakdown of this pattern can be found in table \ref{tab:splitpattern}. The \textquote{\texttt{|}} (also called \emph{pipe}) character denotes an \texttt{OR} statement inside this regular expression meaning that any one of the subpatterns provided cause the word to split.
+      
+      \begin{table}[H]
+        \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
+          \rowcolor[gray]{0.75} \textbf{Pattern} & \textbf{Description} \\\hline
+          \textbackslash s+ & One or more whitespace characters. \\
+          -\{2,\} & Two or more hyphens. \\
+          (?!-)\textbackslash p\{P\}+ & One or more punctuation characters not preceded by a hyphen, without matching said hyphen. It will split when two or more hyphens are encountered or at least one other punctuation character. \\\hline
+        \end{tabularx}
+        \caption{Breakdown of splitting regular expression pattern.}
+        \label{tab:splitpattern}
+      \end{table}
+      
+      I thought it will be interesting to check whether the number of new distinct words that appeared during segmentation conform to the Heaps' law, which formulated as $V_R(n) = Kn^\beta$ has parameter $K$ typically between $10$ and $100$, and parameter $\beta$ typically between $0.4$ and $0.6$ in english texts. In figure \ref{fig:word_extraction} the red crosses represent the actual numbers (on axis $OX$) of words after the number of posts (on axis $OY$) where blue line is the function $V_R(n)$ that has been fitted to that set of numbers with the values of parameters $K = 83.3142 \pm1.094 (1.313\%)$ and $\beta = 0.598417 \pm0.000932 (0.1557\%)$ respectively. 
+      
+      \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{chapters/03_implementation/extraction}
+        \caption{Heaps'-law plot in linear scale}
+        \label{fig:word_extraction}
+      \end{figure}
+      
+      This is a perfect indication that the messages posted by the users of the head-fi forum I'm analysing conform to Heaps' law. Figure \ref{fig:word_extraction_log} shows the same in logarythmic scale.
+      
+      \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{chapters/03_implementation/extraction_log}
+        \caption{Heaps'-law plot in logarythmic scale}
+        \label{fig:word_extraction_log}
+      \end{figure}
+
+
+    \subsubsection{Word classification}
+    
+      The three main groups of words I have selected to use are \emph{products}, \emph{opinions} and \emph{prices}. Words that did not fit into one of these were not classified, i.e. left as just regular words.
+    
+      \paragraph{Products}
+      
+      \paragraph{Opinions}
+      
+        Opinions were divided into \emph{positive} and \emph{negative}. Examples of both sub-groups can be found in tables \ref{tab:positiveopinionsexamples} and \ref{tab:negativeopinionsexamples}.
+        
+        \begin{table}[H]
+          \begin{subtable}{0.49\textwidth}
+            \centering
+            \begin{tabularx}{0.75\textwidth}{|L{1}|L{1}|} \hline
+              \rowcolor[gray]{0.8} \textbf{Positive opinion} \\\hline
+              love \\
+              portable \\
+              convincing \\
+              recommend \\
+              nice \\
+              superb \\
+              neat \\
+              comfortable \\
+              beautiful \\
+              incredible \\
+              \hline
+            \end{tabularx}
+            \caption{Selected examples of positive opinions.}
+            \label{tab:positiveopinionsexamples}
+          \end{subtable}
+          \begin{subtable}{0.49\textwidth}
+            \centering
+            \begin{tabularx}{0.75\textwidth}{|L{1}|L{1}|} \hline
+              \rowcolor[gray]{0.8} \textbf{Negative opinion} \\\hline
+              joke \\
+              laugh \\
+              distracting \\
+              lacking \\
+              incompetent \\
+              bad \\
+              boring \\
+              suspicious \\
+              horrid \\
+              terrible \\
+              \hline
+            \end{tabularx}
+            \caption{Selected examples of negative opinions.}
+            \label{tab:negativeopinionsexamples}
+          \end{subtable}
+        \end{table}
+
+      \paragraph{Prices}
+
+    \subsubsection{Word stemming}
+    
+      After words have been split and classified, it turned out that there exist some discrepancies in \textquote{conventions} used by users to discuss the products.

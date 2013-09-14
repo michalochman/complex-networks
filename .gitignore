@@ -31,3 +31,5 @@
 *.xdy
 *.tdo
 code/results
+atlassian-ide-plugin.xml
+.texpadtmp/
