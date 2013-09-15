@@ -1,6 +1,6 @@
 \section{Data retrieval}
 
-  The purpose of this thesis was to analyse the discussions that may appear on message boards (or Internet forums) or news groups, hence a set of data like that had to be obtained. I had a freedom of choice, so I decided to take a look at the messages posted on an Internet forum called \emph{\href{http://www.head-fi.org/f/}{head-fi}}. I was already familiar with this message board so I knew---\textit{more or less}---what to expect from the community taking part in conversations on this forum. I also knew the topological structure so it was easier for me to write the software used to \emph{crawl} the site and save the messages in my database.
+  The purpose of this thesis was to analyse the discussions that may appear on message boards (or Internet forums) or news groups, hence a set of data like that had to be obtained. I had a freedom of choice, so I decided to take a look at the messages posted on an Internet forum called \emph{\href{http://www.head-fi.org/f/}{head-fi}}. It is a forum gathering users wanting to talk about audio equipment such as headphones (mainly), amplifiers or speakers. I was already familiar with this message board so I knew---\textit{more or less}---what to expect from the community taking part in conversations on this forum. I also knew the topological structure so it was easier for me to write the software used to \emph{crawl} the site and save the messages in my database.
   
   Initially, I have anticipated to download every single message posted on this forum from the beginning of its' existence and that was neither hidden nor removed---i.e. available to browse---at the time of downloading the data. I looked at the most recent \emph{identifier} (or ID) of a post and knew that the total number of messages posted on the forum was nearing $8.5$ million, providing that the posts were not removed during its existence. Section \ref{sec:crawling} describes procedures used to browse the forum.
   
@@ -14,7 +14,7 @@
         id & Unique identifier; referenced in topics table as forum\_id. \\
         title & The title of the forum as text. \\\hline
       \end{tabularx}
-      \caption{Forums table structure}
+      \caption{Forums table structure.}
     \end{table}
     \begin{table}[H]
       \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
@@ -23,7 +23,7 @@
         forum\_id & Reference of a forum, the topic is in. \\
         title & The title of the topic as text. \\\hline
       \end{tabularx}
-      \caption{Topics table structure}
+      \caption{Topics table structure.}
     \end{table}
     \begin{table}[H]
       \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
@@ -31,7 +31,7 @@
         id & Unique identifier; referenced in posts table as user\_id. \\
         name & The name of the user as text. \\\hline
       \end{tabularx}
-      \caption{Users table structure}
+      \caption{Users table structure.}
     \end{table}
     \begin{table}[H]
       \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
@@ -43,7 +43,7 @@
         date & Date and time the message was posted. \\
         body & Post contents as text. \\\hline
       \end{tabularx}
-      \caption{Posts table structure}
+      \caption{Posts table structure.}
     \end{table}
     
     A database table with posts features a \emph{in\_reply\_to} field which I thought would be good to have to specifically bind messages that quote others. However, it was never used later.
@@ -65,7 +65,7 @@
           \EndFor
         \EndProcedure
       \end{algorithmic}
-      \caption{Crawl forums list}
+      \caption{Crawl forums list.}
       \label{alg:crawl_forums_list}
     \end{algorithm}
     
@@ -90,7 +90,7 @@
           \EndFor
         \EndProcedure
       \end{algorithmic}
-      \caption{Crawl forums}
+      \caption{Crawl forums.}
       \label{alg:crawl_forums}
     \end{algorithm}
     
@@ -120,7 +120,7 @@
           \EndFor
         \EndProcedure
       \end{algorithmic}
-      \caption{Crawl topics}
+      \caption{Crawl topics.}
       \label{alg:crawl_topics}
     \end{algorithm}
     
@@ -135,7 +135,7 @@
         Posts & $1,941,970$ \\\hline
         Users & $52,605$ \\\hline
       \end{tabularx}
-      \caption{Total count of extracted entities}
+      \caption{Total count of extracted entities.}
       \label{tab:data_count}
     \end{table}
     
@@ -167,7 +167,7 @@
       \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{chapters/03_implementation/extraction}
-        \caption{Heaps'-law plot in linear scale}
+        \caption{Heaps'-law plot in linear scale.}
         \label{fig:word_extraction}
       \end{figure}
       
@@ -176,7 +176,7 @@
       \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{chapters/03_implementation/extraction_log}
-        \caption{Heaps'-law plot in logarythmic scale}
+        \caption{Heaps'-law plot in logarithmic scale.}
         \label{fig:word_extraction_log}
       \end{figure}
 
@@ -230,10 +230,16 @@
             \caption{Selected examples of negative opinions.}
             \label{tab:negativeopinionsexamples}
           \end{subtable}
+          \caption{Selected examples of opinions.}
+          \label{tab:opinionsexamples}
         \end{table}
 
       \paragraph{Prices}
+      
+        \ldots
 
     \subsubsection{Word stemming}
     
       After words have been split and classified, it turned out that there exist some discrepancies in \textquote{conventions} used by users to discuss the products.
+      
+      \ldots

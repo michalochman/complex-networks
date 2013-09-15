@@ -68,7 +68,9 @@ As an object of scientific study, citation networks have a great advantage in th
     \subsubsection{Transitivity and clustering coefficient}
     
       In networks it is quite common to find that if vertex A is is connected to vertex B and vertex B is connected to vertex C, then the probability that vertex A is connected to vertex C is higher than the probability that vertex A is connected to any other randomly chosen vertex. For example, in social networks, the friends of your friends are more likely to also be your friends than a random person that is not a friend of your friend. This deviation from the behaviour of random graphs can be seen in a network property called \emph{transitivity} (also known as \emph{clustering}, although this term has another meaning which may be confusing). From topological point of view, transitivity means that there are more sets of three vertices, each of which is connected to the other two -- called triangles -- in the network is heightened. It may be quantified by defining a \emph{clustering coefficient} $C$ thus:
-      \[ C = \frac{3 \times \mbox{number of triangles in the network}}{\mbox{number of connected triples of vertices}} = \frac{\mbox{number of closed triplets}}{\mbox{number of connected triples of vertices}} \mbox{,} \]
+      \begin{equation}
+        C = \frac{3 \times \mbox{number of triangles in the network}}{\mbox{number of connected triples of vertices}} = \frac{\mbox{number of closed triplets}}{\mbox{number of connected triples}} \mbox{,}
+      \end{equation}
       where a \textquote{connected triple} means a single vertex with edges running to an unordered pair of others.
 
       In graph theory, a clustering coefficient is a measure of degree to which nodes in a graph tend to cluster together. Evidence suggests that in most real-world networks, and in particular social networks, nodes tend to create tightly knit groups characterised by a relatively high density of ties; this likelihood tends to be greater than the average probability of a tie randomly established between two nodes\cite{HollandLeinhardt1971,WattsStrogatz1998}.
@@ -88,20 +90,30 @@ As an object of scientific study, citation networks have a great advantage in th
         A graph $G=(V,E)$ formally consists of a set of vertices $V$ and a set of edges $E$ between them. An edge $e_{ij}$ connects vertex $v_i$ with vertex $v_j$.
 
         The neighbourhood $N_i$ for a vertex $v_i$ is defined as its immediately connected neighbours as follows:
-        $$N_i = \left\{v_j: e_{ij} \in E \wedge e_{ji} \in E\right\} \mbox{.}$$
+        \begin{equation}
+          N_i = \left\{v_j: e_{ij} \in E \wedge e_{ji} \in E\right\} \mbox{.}
+        \end{equation}
         We define $k_i$ as the number of vertices, $|N_i|$, in the neighbourhood, $N_i$, of a vertex.
 
         The local clustering coefficient $C_i$ for a vertex $v_i$ is then given by the proportion of links between the vertices within its neighbourhood divided by the number of links that could possibly exist between them. For a directed graph, $e_{ij}$ is distinct from $e_{ji}$, and therefore for each neighbourhood $N_i$ there are $k_i(k_i-1)$ links that could exist among the vertices within the neighbourhood ($k_i$ is the number of neighbours of a vertex). Thus, the local clustering coefficient for directed graphs is given as \cite{WattsStrogatz1998}
-        $$C_i = \frac{\|\{e_{jk}: v_j,v_k \in N_i, e_{jk} \in E\}\|}{k_i(k_i-1)} \mbox{.}$$
-              
-        An undirected graph has the property that $e_{ij}$ and $e_{ji}$ are considered identical. Therefore, if a vertex $v_i$ has $k_i$ neighbours, $\frac{k_i(k_i-1)}{2}$ edges could exist among the vertices within the neighbourhood. Thus, the local clustering coefficient for undirected graphs can be defined as
-        $$C_i = \frac{2\|\{e_{jk}: v_j,v_k \in N_i, e_{jk} \in E\}\|}{k_i(k_i-1)} \mbox{.}$$
+        \begin{equation}
+          C_i = \frac{\|\{e_{jk}: v_j,v_k \in N_i, e_{jk} \in E\}\|}{k_i(k_i-1)} \mbox{.}
+        \end{equation}
     
+        An undirected graph has the property that $e_{ij}$ and $e_{ji}$ are considered identical. Therefore, if a vertex $v_i$ has $k_i$ neighbours, $\frac{k_i(k_i-1)}{2}$ edges could exist among the vertices within the neighbourhood. Thus, the local clustering coefficient for undirected graphs can be defined as
+        \begin{equation}
+          C_i = \frac{2\|\{e_{jk}: v_j,v_k \in N_i, e_{jk} \in E\}\|}{k_i(k_i-1)} \mbox{.}
+        \end{equation}
+
         Let $\lambda_G(v)$ be the number of triangles on $v \in V(G)$ for undirected graph $G$. That is, $\lambda_G(v)$ is the number of subgraphs of $G$ with 3 edges and 3 vertices, one of which is $v$. Let $\tau_G(v)$ be the number of triples on $v \in G$. That is, $\tau_G(v)$ is the number of subgraphs (not necessarily induced) with 2 edges and 3 vertices, one of which is $v$ and such that $v$ is incident to both edges. Then we can also define the clustering coefficient as
-        $$C_i = \frac{\lambda_G(v)}{\tau_G(v)} \mbox{.}$$
+        \begin{equation}
+          C_i = \frac{\lambda_G(v)}{\tau_G(v)} \mbox{.}
+        \end{equation}
 
         It is simple to show that the two preceding definitions are the same, since
-        $$\tau_G(v) = C({k_i},2) = \frac{1}{2}k_i(k_i-1) \mbox{.}$$
+        \begin{equation}
+          \tau_G(v) = C({k_i},2) = \frac{1}{2}k_i(k_i-1) \mbox{.}
+        \end{equation}
 
         These measures are 1 if every neighbour connected to $v_i$ is also connected to every other vertex within the neighbourhood, and 0 if no vertex that is connected to $v_i$ connects to any other vertex that is connected to $v_i$.
 
@@ -110,14 +122,23 @@ As an object of scientific study, citation networks have a great advantage in th
       Betweenness centrality is a measure of a node's centrality in a network. It is equal to the number of shortest paths from all vertices to all others that pass through that node. Betweenness centrality is a more useful measure (than just connectivity) of both the load and importance of a node. The former is more global to the network, whereas the latter is only a local effect. Development of betweenness centrality is generally attributed to sociologist Linton Freeman, who has also developed a number of other centrality measures\cite{Freeman1977}.
           
       The betweenness centrality of a node $v$ is given by the expression:
-      $$g(v) = \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}} \mbox{,}$$
+      \begin{equation}
+        g(v) = \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}} \mbox{,}
+      \end{equation}
       where $\sigma_{st}$ is the total number of shortest paths from node $s$ to node $t$ and $\sigma_{st}(v)$ is the number of those paths that pass through $v$.
           
       Note that the betweenness centrality of a node scales with the number of pairs of nodes as implied by the summation indices. Therefore the calculation may be rescaled by dividing through by the number of pairs of nodes not including $v$, so that $g \in [0,1]$. The division is done by $(N-1)(N-2)$ for directed graphs and $(N-1)(N-2)/2$ for undirected graphs, where $N$ is the number of nodes in the giant component. Note that this scales for the highest possible value, where one node is crossed by every single shortest path. This is often not the case, and a normalisation can be performed without a loss of precision
-      $$\mbox{normal}(g(v)) = \frac{g(v) - \min(g)}{\max(g) - \min(g)}\mbox{,}$$
+      \begin{equation}
+        \mbox{normal}(g(v)) = \frac{g(v) - \min(g)}{\max(g) - \min(g)}\mbox{,}
+      \end{equation}
       which results in:
-      $$\max(normal) = 1$$
-      $$\min(normal) = 0 \mbox{.}$$
+      \begin{equation}
+        \begin{split}
+          \max(normal) = 1 \mbox{,}\\
+          \min(normal) = 0 \mbox{.}
+        \end{split}
+      \end{equation}
+      
       Note that this will always be a scaling from a smaller range into a larger range, so no precision is lost.
       
     \subsubsection{Degree distribution}
@@ -131,13 +152,17 @@ As an object of scientific study, citation networks have a great advantage in th
       The same information is also sometimes presented in the form of a cumulative degree distribution, the fraction of nodes with degree greater than or equal to $k$.
       
       The degree distribution is very important in studying both real networks, such as the Internet and social networks, and theoretical networks. The simplest network model, for example, the (Bernoulli) random graph, in which each of $n$ nodes is connected (or not) with independent probability $p$ (or $1 − p$), has a binomial distribution of degrees:
-      $$P(k) = \binom{n-1}{k} p^k (1 - p)^{n-1-k}\mbox{,}$$
+      \begin{equation}
+        P(k) = \binom{n-1}{k} p^k (1 - p)^{n-1-k}\mbox{,}
+      \end{equation}
       (or Poisson in the limit of large $n$). Most networks in the real world, however, have degree distributions very different from this. Most are highly right-skewed, meaning that a large majority of nodes have low degree but a small number, known as \textquote{hubs}, have high degree. Some networks, notably the Internet, the world wide web, and some social networks are found to have degree distributions that approximately follow a power law: $P(k) \sim k−\gamma$, where $\gamma$ is a constant. Such networks are called scale-free networks and have attracted particular attention for their structural and dynamical properties.
       
       \paragraph{Scale-free networks}
   
         A scale-free network is a network whose degree distribution follows a power law, at least asymptotically. That is, the fraction $P(k)$ of nodes in the network having $k$ connections to other nodes goes for large values of $k$ as
-    $$P(k) \sim k^{-\gamma}$$
+    \begin{equation}
+      P(k) \sim k^{-\gamma} \mbox{,}
+    \end{equation}
     where $\gamma$ is a parameter whose value is typically in the range $2 < \gamma < 3$, although occasionally it may lie outside these bounds.\cite{OnnelaSaramakiBarabasi2007,ChoromanskiMatuszakMiekisz2013}
 
         Many networks are conjectured to be scale-free, including World Wide Web links, biological networks, and social networks, although the scientific community is still discussing these claims as more sophisticated data analysis techniques become available.\cite{ClausetShaliziNewman2007} Preferential attachment and the fitness model have been proposed as mechanisms to explain conjectured power law degree distributions in real networks.
@@ -147,19 +172,24 @@ As an object of scientific study, citation networks have a great advantage in th
         The maximum degree $k_{\mbox{max}}$ of a vertex in a network will in general depend on the size of the network. For some calculations on networks the value of this maximum degree matters. In work on scale-free networks, Aiello et al. \cite{AielloChungLu2000} assumed that the maximum degree was approximately the value above which there is less than one vertex of that degree in the graph on average, i.e., the point where $np_k = 1$. This means, for instance, that $k_{\mbox{max}} \sim n^{1/\alpha}$ for the power-law degree distribution $p_k \sim k^{−\alpha}$. This assumption however can give misleading results; in many cases there will be vertices in the network with significantly higher degree than this, as discussed by Adamic et al.\cite{AdamicLukosePuniyaniHuberman2001}
         
         Given a particular degree distribution (and assuming all degrees to be sampled independently from it, which may not be true for networks in the real world), the probability of there being exactly $m$ vertices of degree $k$ and no vertices of higher degree is $\binom{n}{m} p^m_k (1 − P_k)^{n−m}$, where $P_k$ is the cumulative probability distribution. Hence the probability $h_k$ that the highest degree on the graph is $k$ is
-        $$h_k = \sum_{m=1}^n \binom{n}{m} p^m_k (1 - P_k)^{n-m} = (p_k + 1 - P_k)^n - (1 - P_k)^n\mbox{,}$$
+        \begin{equation}
+          h_k = \sum_{m=1}^n \binom{n}{m} p^m_k (1 - P_k)^{n-m} = (p_k + 1 - P_k)^n - (1 - P_k)^n\mbox{,}
+        \end{equation}
         and the expected value of the highest degree is $k_{\mbox{max}} = \sum_k kh_k$.
         
         For both small and large values of $k$, $h_k$ tends to zero, and the sum over $k$ is dominated by the terms close to the maximum. Thus, in most cases, a good approximation to the expected value of the maximum degree is given by the modal value. Differentiating and observing that $\frac{\mbox{d}Pk}{\mbox{d}k} = p_k$, we find that the maximum of $h_k$ occurs when
-        $$\left(\frac{\mbox{d}Pk}{\mbox{d}k} - p_k\right)(p_k + 1 - P_k)^{n-1} p_k(1 - P_k)^{n-1} = 0\mbox{,}$$
+        \begin{equation}
+          \left(\frac{\mbox{d}Pk}{\mbox{d}k} - p_k\right)(p_k + 1 - P_k)^{n-1} p_k(1 - P_k)^{n-1} = 0\mbox{,}
+        \end{equation}
         or $k_{\mbox{max}}$ is a solution of
-        $$\frac{\mbox{d}Pk}{\mbox{d}k} \simeq -np^2_k\mbox{,}$$
+        \begin{equation}
+          \frac{\mbox{d}Pk}{\mbox{d}k} \simeq -np^2_k\mbox{,}
+        \end{equation}
         where we have made the (fairly safe) assumption that $p_k$ is sufficiently small for $k \gtrsim k_{\mbox{max}}$ that $np_k \ll 1$ and $P_k \ll 1$.
         
         For example, if $p_k \sim k^{−\alpha}$ in its tail, then we find that
         \begin{equation}
-          k_{\mbox{max}} \sim n^{1/(\alpha-1)}\mbox{.}
-          \label{eqn:kmaxsim}
+          k_{\mbox{max}} \sim n^{1/(\alpha-1)}\mbox{.} \label{eqn:kmaxsim}
         \end{equation}
         
         As shown by Cohen et al. \cite{CohenErezAvrahamHavlin2000}, a simple rule of thumb that leads to the same result is that the maximum degree is roughly the value of $k$ that solves $nP_k = 1$. Note however that, as shown by Dorogovtsev and Samukhin\cite{DorogovtsevSamukhin2002}, the fluctuations in the tail of the degree distribution are very large for the power-law case. Dorogovtsev et al. \cite{DorogovtsevMendesSamukhin2001} have also shown that equation \ref{eqn:kmaxsim} holds for networks generated using the \textquote{preferential attachment} procedure of Barabási and Albert\cite{BarabasiAlbert1999}, and a detailed numerical study of this case has been carried out by Moreira et al. \cite{MoreiraAndradeAmaral2002}.
@@ -183,19 +213,28 @@ As an object of scientific study, citation networks have a great advantage in th
       In social networks this kind of selective linking is called assortative mixing or homophily and has been widely studied, as it has also in epidemiology. (The term \textquote{assortative matching} is also seen in the ecology literature, particularly in reference to mate choice among animals.) 
       
       A classic example of assortative mixing in social networks is mixing by race. Among other things, the study of 1958 couples in the city of San Francisco, California, recorded the race (self-identified) of study participants in each couple. Participants appeared to draw their partners preferentially from those of their own race, and this is believed to be a common phenomenon in many social networks: we tend to associate preferentially with people who are similar to ourselves in some way.
-      
+
       Assortative mixing can be quantified by an \textquote{assortativity coefficient,} which can be defined in a couple of different ways. Let $E_{ij}$ be the number of edges in a network that connect vertices of types $i$ and $j$, with $i,j = 1 \ldots N$, and let $E$ be the matrix with elements $E_{ij}$. We define a normalized mixing matrix by
-      $$e = \frac{E}{||E||}\mbox{,}$$
+      \begin{equation}
+        e = \frac{E}{||E||}\mbox{,}
+      \end{equation}
       where $||x||$ means the sum of all the elements of the matrix $x$. The elements $e_{ij}$ measure the fraction of edges that fall between vertices of types $i$ and $j$. One can also ask about the conditional probability $P(j|i)$ that my network neighbor is of type $j$ given that I am of type $i$, which is given by $P (j|i) = e_{ij} / \sum_j e_{ij}$. These quantities satisfy the normalization conditions
-      $$\sum_{ij} e_{ij} = 1\mbox{,} \sum_j P(j|i) = 1\mbox{.}$$
+      \begin{equation}
+        \sum_{ij} e_{ij} = 1\mbox{,} \sum_j P(j|i) = 1\mbox{.}
+      \end{equation}
       
       Gupta et al. [186] have suggested that assortative mixing be quantified by the coefficient
-      $$Q = \frac{\sum_i P(i|i) - 1}{N - 1}\mbox{.}$$
-      
+      \begin{equation}
+        Q = \frac{\sum_i P(i|i) - 1}{N - 1}\mbox{.}
+      \end{equation}
+
       This quantity has the desirable properties that it is $1$ for a perfectly assortative network (every edge falls between vertices of the same type), and $0$ for randomly mixed networks, and it has been quite widely used in the literature. But it suffers from two shortcomings [318]: (1) for an asymmetric matrix, Q has two different values, depending on whether we put the men or the women along the horizontal axis, and it is unclear which of these two values is the \textquote{correct} one for the network; (2) the measure weights each vertex type equally, regardless of how many vertices there are of each type, which can give rise to misleading figures for $Q$ in cases where community size is heterogeneous, as it often is.
       
       An alternative assortativity coefficient that remedies these problems is defined by [318]
-      $$r = \frac{\mbox{Tr}e - ||e^2||}{1 - ||e^2||}\mbox{.}$$
+      \begin{equation}
+        r = \frac{\mbox{Tr}e - ||e^2||}{1 - ||e^2||}\mbox{.}
+      \end{equation}
+
       This quantity is also $0$ in a randomly mixed network and $1$ in a perfectly assortative one. But its value is not altered by transposition of the matrix and it weights vertices equally rather than communities, so that small communities make an appropriately small contribution to $r$.
       
       Another type of assortative mixing is mixing by scalar characteristics such as age or income. Again it is usually found that people prefer to associate with others of similar age and income to themselves, although of course age and income, like race, may be proxies for other driving forces, such as cultural differences. Garfinkel et al. [170] and Newman [318], for example, have analyzed data for unmarried and married couples respectively to show that there is strong correlation between the ages of partners. Mixing by scalar characteristics can be quantified by calculating a correlation coefficient for the characteristic in question.
@@ -234,6 +273,6 @@ As an object of scientific study, citation networks have a great advantage in th
       
       Milo et al. [284, 368] have presented a novel analysis that picks out recurrent motifs—small subgraphs—from complete networks. They apply their method to genetic regulatory networks, food webs, neural networks and the World Wide Web, finding different motifs in each case. They have also made suggestions about the possible function of these motifs within the networks. In regulatory networks, for instance, they identify common subgraphs with particular switching functions in the system, such as gates and other feed-forward logical operations.
 
-  \subsection{Networks growth}
+  \subsection{Network growth}
     
-  \subsection{Processes taking place on networks}
+  \subsection{Processes taking place in networks}

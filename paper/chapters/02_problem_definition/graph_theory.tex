@@ -6,9 +6,41 @@
 
       A graph $G$ is a pair of sets $(V, E)$ such that $E \subseteq [V]^2$. $V$ or $V(G)$ is a set of arbitrary objects called \emph{vertices} (singular is \emph{vertex}) or \emph{nodes}, while $E$ or $E(G)$ is a set of vertex pairs, called \emph{edges} or \emph{arcs} on occasion; elements of $E$ are two-element subsets of $V$\cite{Diestel2012}.
       
-      There are two graph types in respect to edge type: \emph{directed} and \emph{undirected}. In the former, edges are ordered pairs of vertices, i.e. $e = (u, v) = (v, u)$. In the latter they are unordered or just sets of two vertices, that is $e = (u, v) \neq (v, u) = d$.
+      There are two graph types in respect to edge type: \emph{undirected} and \emph{directed}, pictured on figure \ref{fig:graphs_orientation_undirected} and \ref{fig:graphs_orientation_directed} respectively. In the former, edges are ordered pairs of vertices, i.e. $e = (u, v) = (v, u)$. In the latter they are unordered or just sets of two vertices, that is $e = (u, v) \neq (v, u) = d$.
+      \begin{figure}[H]
+        \centering        
+          \begin{subfigure}[b]{0.25\textwidth}
+            \includegraphics[width=\textwidth]{chapters/02_problem_definition/graph_undirected}
+            \caption{An undirected graph.}
+            \label{fig:graphs_orientation_undirected}
+          \end{subfigure}
+          \qquad\qquad\qquad
+          \begin{subfigure}[b]{0.25\textwidth}
+            \includegraphics[width=\textwidth]{chapters/02_problem_definition/graph_directed}
+            \caption{A directed graph.}
+            \label{fig:graphs_orientation_directed}
+          \end{subfigure}
+        \caption{Types of graphs in respect to orientation.}
+        \label{fig:graphs_orientation}
+      \end{figure}
       
       Then we have \emph{simple graphs}, where there are no edges from a vertex to itself (called loops) and there are no more than one edge between any two distinct vertices (i.e. edges form sets). On the other side we have \emph{multigraphs} (or \emph{pseudographs}), that may both have loops (not everyone agrees with that) and multiple edges (also called parallel edges) between different vertices (thus they form a multiset).
+      \begin{figure}[H]
+        \centering        
+          \begin{subfigure}[b]{0.25\textwidth}
+            \includegraphics[width=\textwidth]{chapters/02_problem_definition/graph_simple}
+            \caption{A simple graph.}
+            \label{fig:graphs_orientation_undirected}
+          \end{subfigure}
+          \qquad\qquad\qquad
+          \begin{subfigure}[b]{0.25\textwidth}
+            \includegraphics[width=\textwidth]{chapters/02_problem_definition/graph_multi}
+            \caption{A multigraph.}
+            \label{fig:graphs_orientation_directed}
+          \end{subfigure}
+        \caption{Types of graphs in respect to edge distinctness.}
+        \label{fig:graphs_orientation}
+      \end{figure}
 
       If $(u, v)$ is an edge in an undirected graph then we call $u$ a \emph{neighbour} of $v$ and vice versa. Then we call the number of such neighbours a \emph{degree} of a vertex. In directed graphs however, if $u \rightarrow v$ is a directed edge, then we call $u$ the \emph{predecessor} of $v$, which in turn we call a \emph{successor} of $u$. The \emph{in-degree} of a vertex is the number of predecessors and the \emph{out-degree} of a node is the number of its successors. It is important to note that given $u$ and $v$ and if $u \rightarrow v$ and $v \rightarrow u$ then $u \leftrightarrow v$.
 
@@ -23,6 +55,23 @@
       \paragraph{Cycle}
 
         A \emph{cycle} is a path which starts and ends at the same vertex and has at least one edge.
+        
+      \begin{figure}[H]
+        \centering
+        \begin{minipage}[b]{0.43\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/02_problem_definition/path}
+          \captionof{figure}{A path.}
+          \label{fig:path}
+        \end{minipage}
+        \qquad\qquad
+        \begin{minipage}[b]{0.3\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/02_problem_definition/cycle}
+          \captionof{figure}{A cycle.}
+          \label{fig:cycle}
+        \end{minipage}
+      \end{figure}
 
       \paragraph{Tree}
 
@@ -33,6 +82,23 @@
       \paragraph{Spanning tree}
 
         A \emph{spanning tree} of graph $G$ is a subgraph that is a tree and contains all vertices of $G$. Obviously, no spanning trees exist for disconnected graphs.
+        
+      \begin{figure}[H]
+        \centering
+        \begin{minipage}[b]{0.35\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/02_problem_definition/tree}
+          \captionof{figure}{A tree.}
+          \label{fig:path}
+        \end{minipage}
+        \qquad
+        \begin{minipage}[b]{0.55\textwidth}
+          \centering
+          \includegraphics[width=0.7\textwidth]{chapters/02_problem_definition/tree_spanning}
+          \captionof{figure}{Spanning tree (bold edges) of grid graph.}
+          \label{fig:cycle}
+        \end{minipage}
+      \end{figure}
     
     \subsubsection{Weighted graph}
     
@@ -41,10 +107,48 @@
     \subsubsection{Graph isomorphism}
         
       An \emph{isomorphism} of a graphs $G$ and $H$ is a bijection between the vertex sets of $G$ and $H$
-      $$f: V(G) \rightarrow V(H)$$
+      \begin{equation}
+        f: V(G) \rightarrow V(H)\mbox{,}
+      \end{equation}
       such that any two vertices $u$ and $v$ of $G$ are adjacent in $G$ if and only if $f(u)$ and $f(v)$ are adjacent in $H$. This kind of bijection is commonly called \textquote{edge-preserving bijection,} in accordance with the general notion of isomorphism being a structure-preserving bijection.
         
-      In the above definition, graphs are understood to be undirected non-labeled non-weighted graphs. However, the notion of isomorphism may be applied to all other variants of the notion of graph, by adding the requirements to preserve the corresponding additional elements of structure: arc directions, edge weights, etc., with the following exception. When spoken about graph labelling with unique labels, commonly taken from the integer range 1,...,n, where n is the number of the vertices of the graph, two labeled graphs are said to be isomorphic if the corresponding underlying unlabelled graphs are isomorphic.
+      In the above definition, graphs are understood to be undirected non-labeled non-weighted graphs. However, the notion of isomorphism may be applied to all other variants of the notion of graph, by adding the requirements to preserve the corresponding additional elements of structure: arc directions, edge weights, etc., with the following exception. When spoken about graph labelling with unique labels, commonly taken from the integer range $1,\ldots,n$, where $n$ is the number of the vertices of the graph, two labeled graphs are said to be isomorphic if the corresponding underlying unlabelled graphs are isomorphic.
+      
+      \begin{table}[H]
+        \centering
+        \begin{minipage}[b]{0.3\textwidth}
+          \centering
+          \includegraphics[width=0.55\textwidth]{chapters/02_problem_definition/isomorphism_1}
+          \captionof{figure}{Graph $G$.}
+        \end{minipage}
+        \quad
+        \begin{minipage}[b]{0.3\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/02_problem_definition/isomorphism_2}
+          \captionof{figure}{Graph $H$.}
+        \end{minipage}
+        \qquad
+        \begin{minipage}[b]{0.3\textwidth}
+          \begin{tabularx}{\textwidth}{|C{1}|} \hline
+          \rowcolor[gray]{0.75} $f: V(G) \rightarrow V(H)$\\\hline
+            $f(1) = a$ \\\hline
+            $f(2) = b$ \\\hline
+            $f(3) = c$ \\\hline
+            $f(4) = d$ \\\hline
+            $f(5) = e$ \\\hline
+            $f(6) = f$ \\\hline
+            $f(7) = g$ \\\hline
+            $f(8) = h$ \\\hline
+          \end{tabularx}
+          \caption{An isomorphism between $G$ and $H$.}
+        \end{minipage}
+      \end{table}
+      
+      The notion of \emph{graph isomorphism} allows us to distinguish graph properties inherent to the structures of graphs themselves from properties associated with graph representations: graph drawings, data structures for graphs, graph labelings, etc. For example, if a graph has exactly one cycle, then all graphs in its isomorphism class also have exactly one cycle. On the other hand, in the common case when the vertices of a graph are (represented by) the integers $1, 2, \ldots, N$, then the expression
+      \begin{equation}
+        \sum_{v \in V(G)} v\cdot\mbox{deg} v\mbox{,}
+      \end{equation}
+      may be different for two isomorphic graphs.
 
     \subsubsection{Graph properties}
 
@@ -77,7 +181,9 @@
         \subparagraph{Connected}
 
           Let $G = (V, E)$ be a graph. A non-empty graph $G$ is \emph{connected} if any two of its vertices are linked by a path in $G$, i.e. 
-          $$\forall_{i,j \in \mathbb{N} \cap i,j < |G|} \forall_{v_i \in V} \exists_{v_j \in V} (v_i, v_j) \in E\mbox{.}$$
+          \begin{equation}
+            \forall_{i,j \in \mathbb{N} \cap i,j < |G|} \forall_{v_i \in V} \exists_{v_j \in V} (v_i, v_j) \in E\mbox{.}
+          \end{equation}
           In other words, we call a graph \emph{connected} if there is a path from any vertex to any other vertex.
 
           A maximal connected subgraph of $G$ is a \emph{component} of $G$. The empty graph has no components since connected graphs are non-empty. 
@@ -123,7 +229,9 @@
     Graphs can be explicitly represented by either \emph{adjacency matrices} or \emph{adjacency lists}.
         
     The adjacency matrix of a graph $G$ is a $|V| \times |V|$ matrix of indicator variables. Each entry in this matrix indicates whether a particular edge between indexes is or is not in graph $G$:
-    $$ A[i, j] = [(i, j) \in E] \mbox{.} $$
+    \begin{equation}
+      A[i, j] = [(i, j) \in E] \mbox{.}
+    \end{equation}
     For undirected graph, similar to the edges, the adjacency matrix is always symmetric: $A[i, j] = A[j, i]$. In simple graphs, diagonal entries in $A$ are all zeros since loops are not allowed. The most valuable property of adjacency matrix is that we can decide in $\Theta(1)$ time whether two arbitrary vertices are connected by an edge just by looking at the appropriate elements of the matrix. We also can scan for a list of all vertex neighbours by looking at the corresponding row (or column), which will require $\Theta(V)$ time. The main disadvantage is that this matrix will always take $\Theta(V^2)$ space regardless of how many edges the graph really have. This makes adjacency matrices efficient for \emph{dense} graphs.
 
     On the other hand, adjacency lists are good when dealing with \emph{sparse} graphs (graphs with relatively small number of edges). Adjacency list is an array of linked lists (one per vertex). For undirected graphs each edge $(u, v)$ is stored twice: once in $u\mbox{'s}$ neighbourhood and once in $v\mbox{'s}$ neighbour list. For directed graph each edge is stored only once. Either way, adjacency list will take $O(V+E)$ space; listing all the neighbours of $v$ vertex takes $O(1+deg(v))$ time (by scanning the neighbour list). We can determine whether $(u, v)$ is an edge by scanning neighbours of $u$ in $O(1+deg(u)$ time.

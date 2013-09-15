@@ -1,10 +1,10 @@
 \section{Natural language processing}
 
-  Natural language processing (NLP) is a field of computer science, artificial intelligence, and linguistics concerned with the interactions between computers and human (natural) languages. As such, NLP is related to the area of human–computer interaction. Many challenges in NLP involve natural language understanding -- that is, enabling computers to derive meaning from human or natural language input. The history of NLP generally starts in the 1950s, although work can be found from earlier periods. In 1950, Alan Turing published an article titled \emph{Computing Machinery and Intelligence} which proposed what is now called the Turing test as a criterion of intelligence\cite{Turing1950}.
+  \emph{Natural language processing} (\emph{NLP}) is a field of computer science, artificial intelligence, and linguistics concerned with the interactions between computers and human (natural) languages. As such, NLP is related to the area of human–computer interaction. Many challenges in NLP involve natural language understanding -- that is, enabling computers to derive meaning from human or natural language input. The history of NLP generally starts in the 1950s, although work can be found from earlier periods. In 1950, Alan Turing published an article titled \emph{Computing Machinery and Intelligence} which proposed what is now called the Turing test as a criterion of intelligence\cite{Turing1950}.
 
   \subsection{Text segmentation}
 
-    Text segmentation is the process of dividing written text into meaningful units, such as words, sentences, or topics. The term applies both to mental processes used by humans when reading text, and to artificial processes implemented in computers, which are the subject of natural language processing. 
+    \emph{Text segmentation} is the process of dividing written text into meaningful units, such as words, sentences, or topics. The term applies both to mental processes used by humans when reading text, and to artificial processes implemented in computers, which are the subject of natural language processing. 
       
     The problem seems trivial in English, where words usually have explicit word boundary markers, such as the word spaces it is certainly non-trivial in other written languages where such signals are sometimes ambiguous and not present. The equivalent to this character is not found in all written scripts, and without it word segmentation is a difficult problem. Languages which do not have a trivial word segmentation process include Chinese, Japanese, where sentences but not words are delimited, Thai and Lao, where phrases and sentences but not words are delimited, and Vietnamese, where syllables but not words are delimited. However---even in written English---it is not as easy as one may think, because users of the forum are neither exclusively native English speakers nor they use completely grammatically correct spelling and punctuation. Despite the fact that in English, the space is a good approximation of a word delimiter, incorrect use of punctuation makes the problem more difficult; there are many edge cases such as hyphenated words, emoticons, and larger constructs such as URIs (which for some purposes may count as single tokens). A classic example is \textquote{New York-based}, which a naive tokenizer may break at the space even though the better break is (arguably) at the hyphen. Some other examples where the space character alone may not be sufficient include contractions like \emph{can't} for \emph{can not}.
       
@@ -13,13 +13,17 @@
 
   \subsection{Word stemming}
 
-    In linguistic morphology and information retrieval, stemming is the process for reducing inflected (or sometimes derived) words to their stem, base or root form—generally a written word form. The stem need not be identical to the morphological root of the word; it is usually sufficient that related words map to the same stem, even if this stem is not in itself a valid root. Algorithms for stemming have been studied in computer science since 1968. Many search engines treat words with the same stem as synonyms as a kind of query broadening, a process called conflation.
+    In linguistic morphology and information retrieval, stemming is the process for reducing inflected (or sometimes derived) words to their \emph{stem}, \emph{base} or \emph{root form}---generally a written word form. The stem need not be identical to the morphological root of the word; it is usually sufficient that related words map to the same stem, even if this stem is not in itself a valid root. Algorithms for stemming have been studied in computer science since 1968. Many search engines treat words with the same stem as synonyms as a kind of query broadening, a process called conflation.
 
     Stemming programs are commonly referred to as stemming algorithms or stemmers.      
+    
+    \ldots
 
   \subsection{Word classification}
 
     \subsubsection{Function words}
+    
+      \ldots
       
     \subsubsection{Stop words}
 
@@ -58,24 +62,32 @@
         \item $s$ be the value of the exponent characterizing the distribution.
       \end{itemize}
       Zipf's law then predicts that out of a population of $N$ elements, the frequency of elements of rank $k\mbox{,} f(k;s,N)$, is:
-      $$f(k;s,N)=\frac{1/k^s}{\sum_{n=1}^N (1/n^s)}\mbox{.}$$
+      \begin{equation}
+        f(k;s,N)=\frac{\sfrac{1}{k^s}}{\sum\limits_{n=1}^N \frac{1}{n^s}}\mbox{.}
+      \end{equation}
 
-      Zipf's law holds if the number of occurrences of each element are independent and identically distributed random variables with power law distribution $p(f) = \alpha f^{-1-1/s}$.\cite{AdamicHuberman2002}
+      Zipf's law holds if the number of occurrences of each element are independent and identically distributed random variables with power law distribution $p(f) = \alpha f^{-1-\sfrac{1}{s}}$.\cite{AdamicHuberman2002}
 
       In the example of the frequency of words in the English language, $N$ is the number of words in the English language and, if we use the classic version of Zipf's law, the exponent $s$ is $1$. $f(k; s,N)$ will then be the fraction of the time the $k$th most common word occurs.
 
       The law may also be written:
-      $$f(k;s,N)=\frac{1}{k^s H_{N,s}}\mbox{,}$$
+      \begin{equation}
+        f(k;s,N)=\frac{1}{k^s H_{N,s}}\mbox{,}
+      \end{equation}
       where $H_{N,s}$ is the $N$th generalized harmonic number.
-The simplest case of Zipf's law is a \textquote{$\frac{1}{f}$ function}. Given a set of Zipfian distributed frequencies, sorted from most common to least common, the second most common frequency will occur $\frac{1}{2}$ as often as the first. The third most common frequency will occur $\frac{1}{3}$ as often as the first. The $n$th most common frequency will occur $\frac{1}{n}$ as often as the first. However, this cannot hold exactly, because items must occur an integer number of times; there cannot be $2.5$ occurrences of a word. Nevertheless, over fairly wide ranges, and to a fairly good approximation, many natural phenomena obey Zipf's law.
+The simplest case of Zipf's law is a \textquote{$\sfrac{1}{f}$ function}. Given a set of Zipfian distributed frequencies, sorted from most common to least common, the second most common frequency will occur $\sfrac{1}{2}$ as often as the first. The third most common frequency will occur $\sfrac{1}{3}$ as often as the first. The $n$th most common frequency will occur $\sfrac{1}{n}$ as often as the first. However, this cannot hold exactly, because items must occur an integer number of times; there cannot be $2.5$ occurrences of a word. Nevertheless, over fairly wide ranges, and to a fairly good approximation, many natural phenomena obey Zipf's law.
 
       Mathematically, the sum of all relative frequencies in a Zipf distribution is equal to the harmonic series, and
-      $$\sum_{n=1}^\infty \frac{1}{n}=\infty\mbox{.}$$
+      \begin{equation}
+        \sum_{n=1}^\infty \frac{1}{n}=\infty\mbox{.}
+      \end{equation}
       In human languages, word frequencies have a very heavy-tailed distribution, and can therefore be modeled reasonably well by a Zipf distribution with an $s$ close to $1$.
 
       As long as the exponent $s$ exceeds $1$, it is possible for such a law to hold with infinitely many words, since if $s > 1$ then
-      $$\zeta (s) = \sum_{n=1}^\infty \frac{1}{n^s}<\infty\mbox{.}$$
-where $\zeta$ is Riemann's zeta function.
+      \begin{equation}
+        \zeta (s) = \sum_{n=1}^\infty \frac{1}{n^s}<\infty\mbox{,}
+      \end{equation}
+      where $\zeta$ is Riemann's zeta function.
 
     \subsubsection{Statistical explanation}
       
@@ -86,7 +98,9 @@ where $\zeta$ is Riemann's zeta function.
   \subsection{Heaps' law}
   
     In linguistics, Heaps' law (also called Herdan's law) is an empirical law which describes the number of distinct words in a document (or set of documents) as a function of the document length (so called type-token relation). It can be formulated as
-    $$V_R(n) = Kn^\beta\mbox{,}$$
+    \begin{equation}
+      V_R(n) = Kn^\beta\mbox{,}
+    \end{equation}
     where $V_R$ is the number of distinct words in an instance text of size $n$. $K$ and $\beta$ are free parameters determined empirically. With English text corpora\footnote{A corpus (pl. corpora) or text corpus is a large and structured set of texts. They are used to do statistical analysis and hypothesis testing, checking occurrences or validating linguistic rules within a specific language territory.}, typically $K$ is between $10$ and $100$, and $\beta$ is between $0.4$ and $0.6$.
 
     The law is frequently attributed to Harold Stanley Heaps, but was originally discovered by Gustav Herdan in 1960.\cite{Egghe2007} Under mild assumptions, the Herdan–Heaps law is asymptotically equivalent to Zipf's law concerning the frequencies of individual words within a text.\cite{Kornai1999} This is a consequence of the fact that the type-token relation (in general) of a homogenous text can be derived from the distribution of its types.\cite{Milicka2009}
