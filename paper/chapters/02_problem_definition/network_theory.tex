@@ -58,12 +58,37 @@ As an object of scientific study, citation networks have a great advantage in th
       Finally we mention two examples of networks from the physical sciences, the network of free energy minima and saddle points in glasses [130] and the network of conformations of polymers and the transitions between them [361], both of which appear to have some interest- ing structural properties.
       
   \subsection{Power law}
+  
+    
     
   \subsection{Networks properties}
     
     \subsubsection{Small-world effect}
       
       The \emph{small-world experiment} comprised several experiments conducted by Stanley Milgram and other researchers examining the average path length for social networks of people in the United States. The research was groundbreaking in that it suggested that human society is a small-world-type network characterised by short path-lengths. The experiments are often associated with the phrase \textquote{six degrees of separation}, although Milgram did not use this term himself.
+  
+    \subsubsection{Average path length}
+    
+      \emph{Average path length} is a concept in network topology that is defined as the average number of steps along the shortest paths for all possible pairs of network nodes. It is a measure of the efficiency of information or mass transport on a network.
+      
+      Average path length is one of the three most robust measures of network topology, along with its clustering coefficient and its degree distribution. Some examples are: the average number of clicks which will lead you from one website to another, or the number of people you will have to communicate through, on an average, to contact a complete stranger. It should not be confused with the diameter of the network, which is defined as the longest geodesic, i.e., the longest shortest path between any two nodes in the network.
+
+
+      The average path length distinguishes an easily negotiable network from one which is complicated and inefficient, with a shorter average path length being more desirable. However, the average path length is simply what the path length will most likely be. The network itself might have some very remotely connected nodes and many nodes which are neighbours of each other.
+      
+      Considering an unweighted graph $G$ with the set of vertices $V$, let $d(v_1, v_2)$, where $v_1, v_2 \in V$ denote the shortest distance between $v_1$ and $v_2$. Assume that $d(v_1, v_2) = 0$ if $v_1 = v_2$ or $v_2$ cannot be reached from $v_1$. Then, the average path length $l_G$ is:
+      \begin{equation}
+        l_G = \frac{1}{|V| (|V| - 1)} \sum_{i, j} d(v_i, v_j) \mbox{,}
+      \end{equation}
+      where $|V|$ is the number of vertices in $G$.
+      
+      In a real network like the World Wide Web, a short average path length facilitates the quick transfer of information and reduces costs. The efficiency of mass transfer in a metabolic network can be judged by studying its average path length. A power grid network will have less losses if its average path length is minimized.
+
+      Most real networks have a very short average path length leading to the concept of a small world where everyone is connected to everyone else through a very short path.
+
+      As a result, most models of real networks are created with this condition in mind. One of the first models which tried to explain real networks was the random network model. It was later followed by the Watts and Strogatz model, and even later there were the scale-free networks starting with the BA model. All these models had one thing in common: they all predicted very short average path length\cite{BarabasiAlbert2002}
+
+      The average path length depends on the system size but does not change drastically with it. Small world network theory predicts that the average path length changes proportionally to $\mbox{log} |V|$, where $|V|$ is the number of nodes in the network.
       
     \subsubsection{Transitivity and clustering coefficient}
     
@@ -155,7 +180,7 @@ As an object of scientific study, citation networks have a great advantage in th
       \begin{equation}
         P(k) = \binom{n-1}{k} p^k (1 - p)^{n-1-k}\mbox{,}
       \end{equation}
-      (or Poisson in the limit of large $n$). Most networks in the real world, however, have degree distributions very different from this. Most are highly right-skewed, meaning that a large majority of nodes have low degree but a small number, known as \textquote{hubs}, have high degree. Some networks, notably the Internet, the world wide web, and some social networks are found to have degree distributions that approximately follow a power law: $P(k) \sim k−\gamma$, where $\gamma$ is a constant. Such networks are called scale-free networks and have attracted particular attention for their structural and dynamical properties.
+      (or Poisson in the limit of large $n$). Most networks in the real world, however, have degree distributions very different from this. Most are highly right-skewed, meaning that a large majority of nodes have low degree but a small number, known as \textquote{hubs}, have high degree. Some networks, notably the Internet, the world wide web, and some social networks are found to have degree distributions that approximately follow a power law: $P(k) \sim k^{−\gamma}$, where $\gamma$ is a constant. Such networks are called scale-free networks and have attracted particular attention for their structural and dynamical properties.
       
       \paragraph{Scale-free networks}
   

@@ -17,7 +17,23 @@
 
     Stemming programs are commonly referred to as stemming algorithms or stemmers.      
     
-    \ldots
+    A stemmer for English, for example, should identify the string \textquote{cats} (and possibly \textquote{catlike}, \textquote{catty} etc.) as based on the root \textquote{cat}, and \textquote{stemmer}, \textquote{stemming}, \textquote{stemmed} as based on \textquote{stem}. A stemming algorithm reduces the words \textquote{fishing}, \textquote{fished}, \textquote{fish}, and \textquote{fisher} to the root word, \textquote{fish}. On the other hand, \textquote{argue}, \textquote{argued}, \textquote{argues}, \textquote{arguing}, and \textquote{argus} reduce to the stem \textquote{argu} (illustrating the case where the stem is not itself a word or root) but \textquote{argument} and \textquote{arguments} reduce to the stem \textquote{argument}.
+    
+    There are several types of stemming algorithms which differ in respect to performance and accuracy and how certain stemming obstacles are overcome, with the most used being:
+    \begin{description}
+      \item[Lookup algorithms] are simple stemmers looking up the inflected form in a lookup table. The advantages of this approach is that it is simple, fast, and easily handles exceptions. The disadvantages are that all inflected forms must be explicitly listed in the table: new or unfamiliar words are not handled, even if they are perfectly regular (e.g. iPads $\sim$ iPad), and the table may be large. For languages with simple morphology, like English, table sizes are modest, but highly inflected languages like Turkish may have hundreds of potential inflected forms for each root.
+      \item[Suffix-stripping algorithms] do not rely on a lookup table that consists of inflected forms and root form relations. Instead, a typically smaller list of \textquote{rules} is stored which provides a path for the algorithm, given an input word form, to find its root form. Some examples of the rules include:
+        \begin{itemize}
+          \item if the word ends in \emph{ed}, remove the \emph{ed}
+          \item if the word ends in \emph{ing}, remove the \emph{ing}
+          \item if the word ends in \emph{ly}, remove the \emph{ly}
+        \end{itemize}
+        Suffix stripping approaches enjoy the benefit of being much simpler to maintain than brute force algorithms, assuming the maintainer is sufficiently knowledgeable in the challenges of linguistics and morphology and encoding suffix stripping rules. Suffix stripping algorithms are sometimes regarded as crude given the poor performance when dealing with exceptional relations (like 'ran' and 'run'). The solutions produced by suffix stripping algorithms are limited to those lexical categories which have well known suffixes with few exceptions. This, however, is a problem, as not all parts of speech have such a well formulated set of rules. Lemmatisation attempts to improve upon this challenge.       \item[Lemmatisation algorithms] are a more complex approach to the problem of determining a stem of a word is lemmatisation. This process involves first determining the part of speech of a word, and applying different normalization rules for each part of speech. The part of speech is first detected prior to attempting to find the root since for some languages, the stemming rules change depending on a word's part of speech.
+
+        This approach is highly conditional upon obtaining the correct lexical category (part of speech). While there is overlap between the normalization rules for certain categories, identifying the wrong category or being unable to produce the right category limits the added benefit of this approach over suffix stripping algorithms. The basic idea is that, if we are able to grasp more information about the word to be stemmed, then we are able to more accurately apply normalization rules (which are, more or less, suffix stripping rules).
+      \item[Stochastic algorithms] involve using probability to identify the root form of a word. Stochastic algorithms are trained (they "learn") on a table of root form to inflected form relations to develop a probabilistic model. This model is typically expressed in the form of complex linguistic rules, similar in nature to those in suffix stripping or lemmatisation. Stemming is performed by inputting an inflected form to the trained model and having the model produce the root form according to its internal ruleset, which again is similar to suffix stripping and lemmatisation, except that the decisions involved in applying the most appropriate rule, or whether or not to stem the word and just return the same word, or whether to apply two different rules sequentially, are applied on the grounds that the output word will have the highest probability of being correct (which is to say, the smallest probability of being incorrect, which is how it is typically measured).
+    \end{description}
+
 
   \subsection{Word classification}
 

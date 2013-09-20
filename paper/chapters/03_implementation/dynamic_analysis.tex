@@ -3,6 +3,28 @@
   \subsection{Discretisation of data}
   
     Because the messages are posted on this forum virtually every minute the information about them might be considered as being continuous in time. In order to study the evolution of the network in time, there is a need to define discrete time intervals that will split the network in parts. Networks that are dynamic are called longitudinal networks.
+    
+    dividing data into buckets; reasoning for choosing a month for a bucket period
+    
+    \ldots
+    
+  \subsection{Estimating users' opinions about products}
+  
+    \ldots
+    
+    methodology for opinion estimation; problems with negative opinions (\textquote{not}, \textquote{don't} words);
+    
+    \ldots
+  
+  \subsection{Average path length}
+
+    Figure \ref{fig:avg_path} shows changes of average path length calculated for each bucket of data. The general trend shows that the average length of paths in the network has been decreasing. This may be due to the fact that most of the users did not leave the forum and continued to write messages while retaining their connections. Nevertheless the path lengths are much higher, in a range between $3.27$ and $3.55$, than the one calculated for the whole network which was calculated at $2.68$. This is clearly because of the whole network being significantly larger (having more edges), thus having higher probability for connections to exist.
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=\textwidth]{chapters/03_implementation/avg_path}
+      \caption{Changes of average path length over time.}
+      \label{fig:avg_path}
+    \end{figure}
 
   \subsection{Collaborative Similarity}
     
@@ -51,7 +73,7 @@
         C_o = \frac{1}{M\prime} \sum_\alpha C_o(\alpha)\mbox{,}
       \end{equation}
       where $M\prime$ denotes the number of objects with degrees larger than $1$. $C_o(d)$ is the average collaborative similarity over all the $d$-degree objects.
-      
+
     \subsubsection{Results}
     
       \begin{table}[h]
@@ -77,11 +99,59 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
       \end{table}
 
       Table \ref{tab:cs_properties} summarises basic statistics of selected data buckets. $N$, $M$ and $E$ denote the number of users, messages and edges connecting them, respectively. $\langle k \rangle$ and $\langle d \rangle$ are the average user degree and average message degree. $C_u$ and $C_m$ are the average collaborative similarity for users and messages, and for comparison, $\bar s_m$ and $\bar s_u$ are the average similarities over all message pairs and over all user pairs, respectively. The user selection is considered to be poorly clustered (i.e., more diverse) because the condition for that is $C_u \gg \bar s_m$ whereas $C_u$ is the same order of magnitude as $\bar s_m$. Unfortunately, this basically means that it will not be easy to identify groups of users that may have formed in this message board and I had to abandon this somewhat interesting index. Figure \ref{fig:cs_cusm} show the way $C_u$ and $\bar s_m$ were changing over time. In no bucket, $C_u$ was much greater than $\bar s_m$ and even in bucket 84 they were pretty close to each other: $0.0746$ vs $0.0683$ respectively.
-      \begin{figure}[H]
+      \begin{figure}[h]
         \includegraphics[width=\textwidth]{chapters/03_implementation/C_us_m}
         \caption{Changes of $C_u$ and $\bar s_m$ over time.}
         \label{fig:cs_cusm}
       \end{figure}
+      
+      This does not however disqualify that method completely. The results only mean that it will not be easy to find any anomalies. There are $52605$ users in the database so I could just run over a $C_u(i)$ of every user and look for suspicious changes. However strenuous it sounds, it may be worth it. What we are looking for are users whose $C_u(i)$ is significantly different than it was before possible \textquote{marketing campaign}.
+      
+      \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.49\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/cs_dist}
+          \caption{Full scale.}
+          \label{fig:cs_dist_full}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.49\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/cs_dist_tail}
+          \caption{The tail.}
+          \label{fig:cs_dist_tail}
+        \end{subfigure}
+        \caption{Distribution of $C_u(i)$ across all users.}
+      \end{figure}
+      Figure \ref{fig:cs_dist_full} represents distribution of $C_u(i)$ across all users. Where $C_u(i)$ was in a range $[0, 1]$ it was stretched to $[0, 100]$ to create $101$ distinct buckets so that the distribution may have been calculated. Large number of nodes in \textquote{$0$} bucket constitutes with rather big amount of users with the degree less than or equal to $1$, where $C_u(i)$ is calculated as $0$ for such degree. Figure \ref{fig:cs_dist_tail} shows the tail of the distribution from figure \ref{fig:cs_dist_full} as it is not visible due to the scale used.
+      
+      Figure \ref{fig:cu_12195} shows changes of $C_u(i)$ for user $i=12195$. One can clearly tell that the collaborative similarity for that user suddenly peaks three times as it was before. The next step would involve looking at the individual messages posted by that user during the time the peak occurred (bucket number 107).
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{chapters/03_implementation/u12195}
+        \caption{Changes of $C_u(i)$ for $i=12195$.}
+        \label{fig:cu_12195}
+      \end{figure}
+      
+      After reading the posts, it looks like one of the forum users started a \textquote{headphone brand elimination game!} topic on July 27, 2009 that was active until August 25, 2009 (buckets 106-107). The rules of the game were simple:
+      \begin{enumerate}
+        \item The topic started with brand names written down along with initial 10 health points.
+        \item Users were supposed to post a message containing one brand they want to hurt or heal, adding or removing one health point respectively.
+        \item Health points did not stack above 20.
+        \item A brand would lose---thus removed from the list effectively---once it was left with 0 health points.
+        \item Once four brands were left on the battlefield, their health was restored according to some other rules and the battle followed until one winner has left standing.
+      \end{enumerate}
+      The battle struggled between brands \emph{Sennheiser} and \emph{STAX} for a longer period, with the former eventually winning 20-0. I think that the analysis of this topic alone would bring some interesting results. The only problem is that, because of this topic, I had to completely skip the results for buckets 106 and 107 due to the fact that the results would be distorted.
+      
+      \ldots
+      
+      further examples of promising $C_u(i)$ calculated for other users
+      
+      \ldots
+      
+    \subsubsection{Substructures derived from $C_u(i)$ fluctuations}
+    
+      Interesting experiment would be to analyse different type of fluctuations of observed $C_u(i)$ in order to check if similar shapes of $C_u(i)$ reflect similar behaviour of users.
 
   \subsection{Motifs}
   
@@ -92,28 +162,71 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
       Network motifs were at first defined systematically in \emph{Escherichia coli}, where they were detected as patterns that occurred in the transcription network much more often than would be expected in random networks.\cite{MiloAlon2002} The exact same motifs have been later found in other organisms, ranging from other bacteria\cite{ManganZaslaverAlon2003,Eichenberger2004} and yeast\cite{MiloAlon2002, Lee2002}, to plants\cite{Saddic2006} and animals\cite{Boyer2005}. Motif discovery have been the most successful in biological networks, most likely because they were the most studied at the time---especially the transctiption networks. I will not explain many details about the motifs, because this is a complicated matter and already has been discussed and reviewed thoroughly.\cite{Alon2007}
       
     \subsubsection{Motif discovery}
+    
+      \ldots
+      
+      data about users' opinions about products come from section 3.4.2
+      
+      \ldots
       
       Although network motifs may provide a deep insight into the network's functional abilities, their detection is computationally challenging. Because of that, I have decided to only concentrate on the most basic, triangle motifs, that I have discovered using not very sophisticated algorithm conjoining two users sharing similar opinions about particular brands, hoping that this approach will lead to some interesting opportunities. This also allowed me to map the bipartite network I was working on so far to a regular network built on a set of users exchanging opinions only. Because I have already joined users with brands they were discussing based on the opinion being positive, negative or neutral, the only step required to obtain these triangles was to link users with matching opinions. 
       
-      First, the algorithm builds a bipartite network with users and opinions about particular brands. Edges (solid lines) represent the opinion the user has about the product. It is not possible to have more than one edge between the nodes, because all opinions about the brand users may have are averaged and only this average number is taken into account during network creation. When the network is ready, algorithm finds user nodes having edges to the same brand nodes and links them together (dashed lines). The final step involves deletion of initial edges along with brand nodes resulting in non-bipartite network consisting of user nodes only. Figure \ref{fig:cs_motifs} illustrates steps taken by the algorithm.
+      First, the algorithm builds a bipartite network with users and opinions about particular brands. Edges (solid lines) represent the opinion the user has about the product. It is not possible to have more than one edge between the nodes, because all opinions about the brand users may have are averaged and only this average number is taken into account during network creation. When the network is ready, algorithm finds user nodes having edges to the same brand nodes and links them together (dashed lines). The final step involves deletion of initial edges along with brand nodes resulting in non-bipartite network consisting of user nodes only. Figure \ref{fig:motifs_alg} illustrates steps taken by the algorithm.
       \begin{figure}[h]
         \centering
         \begin{subfigure}[b]{0.3\textwidth}
           \includegraphics[width=\textwidth]{chapters/03_implementation/cs_motif_1}
+          \label{fig:motifs_alg_1}
           \caption{Step 1.}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.3\textwidth}
           \includegraphics[width=\textwidth]{chapters/03_implementation/cs_motif_2}
+          \label{fig:motifs_alg_2}
           \caption{Step 2.}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.3\textwidth}
           \includegraphics[width=\textwidth]{chapters/03_implementation/cs_motif_3}
+          \label{fig:motifs_alg_3}
           \caption{Step 3.}
         \end{subfigure}
         \caption{Algorithms steps.}
-        \label{fig:cs_motifs}
+        \label{fig:motifs_alg}
+      \end{figure}
+      Graphs in figures \ref{fig:motifs_alg_1} and \ref{fig:motifs_alg_2} are bipartite and in figure \ref{fig:motifs_alg_3} the graph is a non-bipartite graph projected from bipartite network. Circled nodes represent users and squared nodes represent words (brand names). Solid edges show which words were used by which users and dashed edges serve as an opinion shared between two users about a brand.
+      
+    \subsubsection{Substructures derived from motif analysis}
+      
+      Figure \ref{fig:motif_network} shows a fragment of network created with the above method from bucket 106 which was excluded before in section \ref{sec:cs_results}. The network is a multigraph with nodes representing the users and edges representing an opinion about a brand shared between two users.
+      \begin{figure}[t!]
+        \centering
+        \includegraphics[width=0.75\textwidth]{chapters/03_implementation/motif_network}
+        \caption{Network obtained with motif discovery.}
+        \label{fig:motif_network}
       \end{figure}
       
-      After the algorithm has finished mapping bipartite network to non-bipartite network, it is possible to check new network properties, such as the number of connected components which may be significantly different than before.
+      The network was constructed using opinions about 10 brands presented in table \ref{tab:motif_brands} ordered by the number of times they were used in that bucket. Even though \emph{Stax} won the game mentioned in section \ref{sec:cs_results} it was not discussed between the users in an essential manner. The number of opinions about that brand was so low that it did not matter in the whole network. The size of each node was determined from it's betweenness centrality to stress the importance of certain nodes in this network despite the fact that degrees are fairly equal and distributed uniformly in a range $[100:216]$.
+      
+      \begin{table}[b!]
+        \centering
+        \begin{tabularx}{0.6\textwidth}{|L{0.6}|L{1.2}|L{1.2}|} \hline
+          \rowcolor[gray]{0.8} \textbf{Position} & \textbf{Brand} & \textbf{Times used} \\\hline
+          1 & Grado & $1,948$ \\\hline
+          2 & Sennheiser & $1,408$ \\\hline
+          3 & Denon & $881$ \\\hline
+          4 & AKG & $804$ \\\hline
+          5 & Stax & $560$ \\\hline
+          6 & Beyerdynamic & $423$ \\\hline
+          7 & Sony & $411$ \\\hline
+          8 & Yamaha & $364$ \\\hline
+          9 & Bose & $212$ \\\hline
+          10 & Panasonic & $132$ \\\hline
+        \end{tabularx}
+        \caption{Brands used to create network shown in figure \ref{fig:motif_network}.}
+        \label{tab:motif_brands}
+      \end{table}
+      
+      Three brands were discussed in a particularly frequent manner between the users, thus the network consisted mostly of opinions about them. Hence, the classes of users presented in figure \ref{fig:motif_network} are made of three brands discussed the most: \emph{Grado}, \emph{Sennheiser} and \emph{Denon}. Grado was discussed the most (see table \ref{tab:motif_brands}), but only $18.93\%$ of shared opinions in the network are about this brand. This means that either 
+      
+      The average path length is $1.143$ which is extremely short and shows how efficient the network is. The average clustering coefficient for this network was calculated as $0.891$. The graph is nearly complete with a density being equal to $0.857$ meaning that almost every user in this network share a similar opinion with another one. The network was meant to be maximally dense, so I would say that the missing $0.143$ density constitute a contradictory opinions.

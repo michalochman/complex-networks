@@ -171,7 +171,7 @@
         \label{fig:word_extraction}
       \end{figure}
       
-      This is a perfect indication that the messages posted by the users of the head-fi forum I'm analysing conform to Heaps' law. Figure \ref{fig:word_extraction_log} shows the same in logarythmic scale.
+      This is a perfect indication that the messages posted by the users of the head-fi forum I am analysing conform to Heaps' law. Figure \ref{fig:word_extraction_log} shows the same in logarythmic scale.
       
       \begin{figure}[H]
         \centering
@@ -186,6 +186,10 @@
       The three main groups of words I have selected to use are \emph{products}, \emph{opinions} and \emph{prices}. Words that did not fit into one of these were not classified, i.e. left as just regular words.
     
       \paragraph{Products}
+      
+        To create a list of keywords identifying products (and brands) I had to browse a lot of music equipment related websites and create a list by parsing menus, categories and other text on these pages. I have also used price comparison services which were a great help since I could browse to \emph{headphones} category and download a list of products of which prices they compared.
+        
+        A list of brands and products was then manually checked for correctness and the entries that seemed too generic, like \emph{audio}, \emph{sound} or \emph{bass} were removed. After all that I ended having 4,500 keywords related to products.
       
       \paragraph{Opinions}
       
@@ -236,10 +240,35 @@
 
       \paragraph{Prices}
       
-        \ldots
+        Prices were very easy to classify. As the forum is used mostly by \emph{Americans}\footnote{Inhabitants of the United States of America} and \emph{Canadians} the price is usually denoted as \$$x$, USD$x$ or CAD$x$, where \$, USD and CAD are a currency marks and $x$ is the actual price (in various formats, but that does not matter).
 
     \subsubsection{Word stemming}
     
       After words have been split and classified, it turned out that there exist some discrepancies in \textquote{conventions} used by users to discuss the products.
       
-      \ldots
+      The first part of the process involved normalisation of found words. This had to be done due to problems in finding \emph{the} right word splitting pattern. Some words were prefixed or suffixed by additional characters that were not correct.
+      
+      Because the forum is using English language exclusively and the results of stemming non-keyword words are not critical I have decided to use non-aggressive suffix-stripping algorithm. I was not interested in finding correct root of a word, because a generic stem would be sufficient. Stems were then interpolated into root words that were being used the most.
+      
+      What was not covered here were typographical errors that could not easily be corrected in an automated way and the effort of manual intervention would not be justified and using automatic correction according to English dictionary could be too risky.
+      \\\\
+      Separate problem was finding stems for products. Many headphone models differ only by a prefix or suffix letter(s). Additionally, users tend to refer to many models appending a \emph{s} letter to the model name. For example, one user wrote \textquote{I ruined my grado SR80s.} while discussing \emph{Grado SR80} headphone model. The problem is that some models have this \textquote{extra} \emph{s} letter appended to the model name itself, example being \emph{Denon AH-NC732s} headphones. This meant that while stemming keywords related to products U had to be \emph{extremely} cautious and careful---any error here would skew the results later.
+      
+      Fortunately, I had a solid base of products gathered from classification step that made this process somewhat easier, as I could almost automatically remove unnecesary \emph{s} by marking the products that did not have it in their name. The product keyword number was reduced to 3,668 thanks to that process.
+      
+    \subsubsection{Results} \label{sec:cs_results}
+
+      The resulting word set I could begin to work with is displayed in table\ref{tab:words}. Keywords represent $4.38\%$ of all words.
+      \begin{table}[H]
+        \centering
+        \begin{tabularx}{\textwidth}{|L{1}|L{1}|} \hline
+          \cellcolor[gray]{0.8} \textbf{Products} & $3,668$ \\\hline
+          \cellcolor[gray]{0.8} \textbf{Positive opinions} & $2,111$ \\\hline
+          \cellcolor[gray]{0.8} \textbf{Negative opinions} & $4,360$ \\\hline
+          \cellcolor[gray]{0.8} \textbf{Prices} & $10,259$ \\\hline
+          \cellcolor[gray]{0.8} \textbf{Stop and function words} & $1,085$ \\\hline
+          \cellcolor[gray]{0.8} \textbf{Non-keyword \textquote{words}} & $468,532$ \\\hline
+        \end{tabularx}
+        \label{tab:words}
+        \caption{Breakdown of the number of words and the category they belong to.}
+      \end{table}
