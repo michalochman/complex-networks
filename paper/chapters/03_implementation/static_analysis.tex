@@ -36,7 +36,7 @@
   
   \subsection{Network simplification}
 
-    Network built using above data was made out of $72,363$ nodes, of which $51,938 (71.77\%$) being users and $20,435 (28.23\%)$ being words, connected by $5,497,840$ edges. This was a massive network in a need of a major simplification. The number of edges was especially important to reduce. I have chosen an edge pruning network simplification, introduced by Zhou \textit{et al.}\cite{ZhouMahlerToivonen2012}. They have proposed a generic framework of network simplification by sharing new methods for pruning the edget while keeping the graph maximally connected. It is important to note that this method is lossy, which means we lose some information from the graph. The method is intended to be used with weighted graphs. In our network, the weights represent the probability that the user have used the word, i.e. the number of times he used this particular word divided by the number of total words he or she wrote. Then, the connectivity would be defined as the maximum probability.
+    Network built using above data was made out of $72,363$ nodes, of which $51,938 (71.77\%$) being users and $20,435 (28.23\%)$ being words, connected by $5,497,840$ edges. This was a massive network in a need of a major simplification. The number of edges was especially important to reduce. I have chosen an edge pruning network simplification, introduced by Zhou \textit{et al.}\cite{ZhouMahlerToivonen2012}. They have proposed a generic framework of network simplification by sharing new methods for pruning the edges while keeping the graph maximally connected. It is important to note that this method is lossy, which means we lose some information from the graph. The method is intended to be used with weighted graphs. In our network, the weights represent the probability that the user have used the word, i.e. the number of times he used this particular word divided by the number of total words he or she wrote. Then, the connectivity would be defined as the maximum probability.
     
     Additional definitions are required to understand the problem. Let \emph{path} $P$ be a set of edges $P = {(u_1, u_2), (u_2, u_3), \ldots (u_{k-1}, u_k)} \in E$. I use the notation $P(u_1 \to u_k)$ to represent the path between $u_1$ and $u_k$ ($u_1$ and $u_k$ being endvertices of $P$).
   
@@ -58,7 +58,7 @@
     
     This network was connected so there is no need to calculate the connectivity for each disconnected component and we know that $C(V, E) > 0$.
     
-    The goal would to produce a graph $H(V, F)$ that is simplification of graph $G$ and $F \subset E$ such that the \emph{ratio of connectivity} is maximised. A ration of connectivity is defined as
+    The goal would to produce a graph $H(V, F)$ that is simplification of graph $G$ and $F \subset E$ such that the \emph{ratio of connectivity} is maximised. A ratio of connectivity is defined as
     \begin{equation}
      rk (V, E, E_R) = \frac{C(V, E \ E_R)}{C(V, E)} \mbox{,}
     \end{equation}
@@ -108,12 +108,12 @@
     The results of pruning of the whole network are very surprising. It was possible to remove $2,613,126$ edges, which makes a $47.53\%$ of the network! The whole process took around 5 minutes and 12 seconds on my setup: one core of Intel i7 (3740QM) processor and 16GB of RAM. What is even more surprising is the fact that the original connectivity was retained. It is very hard to say why it is the case, but with a high probability I would blame the word extraction process, especially the word splitting pattern which after even so many iterations was apparently not perfect enough.
 
   \subsection{Network properties}
-    The network was then evaluated for its basic properties. They are displayed in table \ref{tab:network_props}. $N$, $M$ and $E$ denote the number of users, words and edges connecting them, respectively. $\langle k \rangle$ and $\langle d \rangle$ are the average user degree and average word degree. The network is made up of one connected component. $\gamma_k$ and $\gamma_d$ are the exponents of the power-law degrees of user degree distribution and word degree distribution respectively. $C$ is the global clustering coefficient and $\langle  C_i \rangle$ is the average local clustering coefficient.
+    The network was then evaluated for its basic properties. They are displayed in table \ref{tab:network_props}. $N$, $M$ and $E$ denote the number of users, words and edges connecting them, respectively. $\langle k \rangle$ and $\langle d \rangle$ are the average user degree and average word degree. The network is made up of one connected component. $\gamma_k$ and $\gamma_d$ are the exponents of the power-law degrees of user degree distribution and word degree distribution respectively. $l_G$ is an average path length, $C$ is the global clustering coefficient and $\langle  C_i \rangle$ is the average local clustering coefficient.
     \begin{table}[H]
       \centering
       \begin{tabularx}{\textwidth}{|L{1}|L{1}|L{1.5}|L{1}|L{0.75}|L{1}|L{0.75}|L{1}|L{1}|L{1}|} \hline
         \rowcolor[gray]{0.8} \textbf{N} & \textbf{M} & \textbf{E} & \textbf{$\langle k \rangle$} & $\gamma_k$ & \textbf{$\langle d \rangle$} & $\gamma_d$ & \textbf{$l_G$} & $C$ & $\langle C_i \rangle$ \\\hline
-        $51,938$ & $20,435$ & $2,884,714$ & $55.54$ & $1.63$ & $141.23$ & $1.04$ & $2.68$ & $0.049$ & $0.01$ \\\hline
+        $51,938$ & $20,435$ & $2,884,714$ & $55.54$ & $1.63$ & $141.23$ & $1.04$ & $2.68$ & $0.0438$ & $0.0121$ \\\hline
       \end{tabularx}
       \caption{Network properties.}
       \label{tab:network_props}

@@ -59,17 +59,17 @@
   
   \subsection{Zipf's law}
   
-    Zipf's law, an empirical law formulated using mathematical statistics, refers to the fact that many types of data studied in the physical and social sciences can be approximated with a Zipfian distribution, one of a family of related discrete power law probability distributions. The law is named after the American linguist George Kingsley Zipf (1902–1950), who first proposed it (Zipf 1935, 1949), though the French stenographer Jean-Baptiste Estoup (1868-1950) appears to have noticed the regularity before Zipf.\cite{ManningSchutze1999} It was also noted in 1913 by German physicist Felix Auerbach.\cite{Auerbach1913}
+    Zipf's law, an empirical law formulated using mathematical statistics, refers to the fact that many types of data studied in the physical and social sciences can be approximated with a Zipfian distribution, one of a family of related discrete power law probability distributions. The law is named after the American linguist George Kingsley Zipf (1902–1950), who first proposed it (Zipf 1935, 1949), though the French stenographer Jean-Baptiste Estoup (1868-1950) appears to have noticed the regularity before Zipf\cite{ManningSchutze1999}. It was also noted in 1913 by German physicist Felix Auerbach\cite{Auerbach1913}.
     
     \subsubsection{Motivation}
     
       Zipf's law states that given some corpus of natural language utterances, the frequency of any word is inversely proportional to its rank in the frequency table. Thus the most frequent word will occur approximately twice as often as the second most frequent word, three times as often as the third most frequent word, etc. For example, in the Brown Corpus of American English text, the word "the" is the most frequently occurring word, and by itself accounts for nearly 7\% of all word occurrences (69,971 out of slightly over 1 million). True to Zipf's Law, the second-place word \textquote{of} accounts for slightly over 3.5\% of words (36,411 occurrences), followed by \textquote{and} (28,852). Only 135 vocabulary items are needed to account for half the Brown Corpus.
   
-      The same relationship occurs in many other rankings unrelated to language, such as the population ranks of cities in various countries, corporation sizes, income rankings, and so on. The appearance of the distribution in rankings of cities by population was first noticed by Felix Auerbach in 1913.\cite{Auerbach1913} Empirically, a data set can be tested to see if Zipf's law applies by running the regression $log R = a - b log n$ where $R$ is the rank of the datum, $n$ is its value and $a$ and $b$ are constants. Zipf's law applies when $b = 1$. When this regression is applied to cities, a better fit has been found with $b = 1.07$. While Zipf's law holds for the upper tail of the distribution, the entire distribution of cities is log-normal and follows Gibrat's law.\cite{Eeckhout2004} Both laws are consistent because a log-normal tail can typically not be distinguished from a Pareto (Zipf) tail.
+      The same relationship occurs in many other rankings unrelated to language, such as the population ranks of cities in various countries, corporation sizes, income rankings, and so on. The appearance of the distribution in rankings of cities by population was first noticed by Felix Auerbach in 1913\cite{Auerbach1913}. Empirically, a data set can be tested to see if Zipf's law applies by running the regression $log R = a - b log n$ where $R$ is the rank of the datum, $n$ is its value and $a$ and $b$ are constants. Zipf's law applies when $b = 1$. When this regression is applied to cities, a better fit has been found with $b = 1.07$. While Zipf's law holds for the upper tail of the distribution, the entire distribution of cities is log-normal and follows Gibrat's law\cite{Eeckhout2004}. Both laws are consistent because a log-normal tail can typically not be distinguished from a Pareto (Zipf) tail.
     
     \subsubsection{Theoretical review}
 
-      Zipf's law is most easily observed by plotting the data on a log-log graph, with the axes being log (rank order) and log (frequency). For example, the word \textquote{the} (as described above) would appear at $x = log(1)$, $y = log(69971)$. The data conform to Zipf's law to the extent that the plot is linear.
+      Zipf's law is most easily observed by plotting the data on a log-log graph, with the axes being log (rank order) and log (frequency). For example, the word \textquote{the} (as described above) would appear at $x = \mbox{log}1$, $y = \mbox{log}69971$. The data conform to Zipf's law to the extent that the plot is linear.
       
       Formally, let:
       \begin{itemize}
@@ -82,7 +82,7 @@
         f(k;s,N)=\frac{\sfrac{1}{k^s}}{\sum\limits_{n=1}^N \frac{1}{n^s}}\mbox{.}
       \end{equation}
 
-      Zipf's law holds if the number of occurrences of each element are independent and identically distributed random variables with power law distribution $p(f) = \alpha f^{-1-\sfrac{1}{s}}$.\cite{AdamicHuberman2002}
+      Zipf's law holds if the number of occurrences of each element are independent and identically distributed random variables with power law distribution $p(f) = \alpha f^{-1-\sfrac{1}{s}}$\cite{AdamicHuberman2002}.
 
       In the example of the frequency of words in the English language, $N$ is the number of words in the English language and, if we use the classic version of Zipf's law, the exponent $s$ is $1$. $f(k; s,N)$ will then be the fraction of the time the $k$th most common word occurs.
 
@@ -107,9 +107,9 @@ The simplest case of Zipf's law is a \textquote{$\sfrac{1}{f}$ function}. Given 
 
     \subsubsection{Statistical explanation}
       
-      It is not known why Zipf's law holds for most languages.\cite{Brillouin2004} However, it may be partially explained by the statistical analysis of randomly generated texts. Wentian Li has shown that in a document in which each character has been chosen randomly from a uniform distribution of all letters (plus a space character), the \textquote{words} follow the general trend of Zipf's law (appearing approximately linear on log-log plot).\cite{WentianLi1992} Vitold Belevitch in a paper, \emph{On the Statistical Laws of Linguistic Distribution} offered a mathematical derivation. He took a large class of well-behaved statistical distributions (not only the normal distribution) and expressed them in terms of rank. He then expanded each expression into a Taylor series. In every case Belevitch obtained the remarkable result that a first-order truncation of the series resulted in Zipf's law. Further, a second-order truncation of the Taylor series resulted in Mandelbrot's law.\cite{Neumann2013,Belevitch1959}
+      It is not known why Zipf's law holds for most languages\cite{Brillouin2004}. However, it may be partially explained by the statistical analysis of randomly generated texts. Wentian Li has shown that in a document in which each character has been chosen randomly from a uniform distribution of all letters (plus a space character), the \textquote{words} follow the general trend of Zipf's law (appearing approximately linear on log-log plot)\cite{Li1992}. Vitold Belevitch in a paper, \emph{On the Statistical Laws of Linguistic Distribution} offered a mathematical derivation. He took a large class of well-behaved statistical distributions (not only the normal distribution) and expressed them in terms of rank. He then expanded each expression into a Taylor series. In every case Belevitch obtained the remarkable result that a first-order truncation of the series resulted in Zipf's law. Further, a second-order truncation of the Taylor series resulted in Mandelbrot's law\cite{Neumann2013,Belevitch1959}.
 
-      Zipf himself proposed that neither speakers nor hearers using a given language want to work any harder than necessary to reach understanding, and the process that results in approximately equal distribution of effort leads to the observed Zipf distribution.\cite{Zipf1949,CanchoSole2003}
+      Zipf himself proposed that neither speakers nor hearers using a given language want to work any harder than necessary to reach understanding, and the process that results in approximately equal distribution of effort leads to the observed Zipf distribution\cite{Zipf1949,CanchoSole2003}.
   
   \subsection{Heaps' law}
   
@@ -119,7 +119,7 @@ The simplest case of Zipf's law is a \textquote{$\sfrac{1}{f}$ function}. Given 
     \end{equation}
     where $V_R$ is the number of distinct words in an instance text of size $n$. $K$ and $\beta$ are free parameters determined empirically. With English text corpora\footnote{A corpus (pl. corpora) or text corpus is a large and structured set of texts. They are used to do statistical analysis and hypothesis testing, checking occurrences or validating linguistic rules within a specific language territory.}, typically $K$ is between $10$ and $100$, and $\beta$ is between $0.4$ and $0.6$.
 
-    The law is frequently attributed to Harold Stanley Heaps, but was originally discovered by Gustav Herdan in 1960.\cite{Egghe2007} Under mild assumptions, the Herdan–Heaps law is asymptotically equivalent to Zipf's law concerning the frequencies of individual words within a text.\cite{Kornai1999} This is a consequence of the fact that the type-token relation (in general) of a homogenous text can be derived from the distribution of its types.\cite{Milicka2009}
+    The law is frequently attributed to Harold Stanley Heaps, but was originally discovered by Gustav Herdan in 1960\cite{Egghe2007}. Under mild assumptions, the Herdan–Heaps law is asymptotically equivalent to Zipf's law concerning the frequencies of individual words within a text\cite{Kornai1999}. This is a consequence of the fact that the type-token relation (in general) of a homogenous text can be derived from the distribution of its types\cite{Milicka2009}.
 
     Heaps' law means that as more instance text is gathered, there will be diminishing returns in terms of discovery of the full vocabulary from which the distinct terms are drawn.
 

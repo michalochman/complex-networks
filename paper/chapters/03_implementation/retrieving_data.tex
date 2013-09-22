@@ -16,6 +16,7 @@
       \end{tabularx}
       \caption{Forums table structure.}
     \end{table}
+    
     \begin{table}[H]
       \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
         \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
@@ -25,6 +26,7 @@
       \end{tabularx}
       \caption{Topics table structure.}
     \end{table}
+    
     \begin{table}[H]
       \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
         \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
@@ -33,6 +35,7 @@
       \end{tabularx}
       \caption{Users table structure.}
     \end{table}
+    
     \begin{table}[H]
       \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
         \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
@@ -55,13 +58,13 @@
   
     \begin{algorithm}[H]
       \begin{algorithmic}[1]
-        \Procedure{CrawlForumsList}{URL}
-          \State HTML $\gets$ fetchURL(URL)
-          \State A $\gets$ findForumTitleAnchors(HTML)
-          \ForAll{a $\in$ A}
-            \State forumId $\gets$ idFromAnchor(a)
-            \State forumTitle $\gets$ titleFromAnchor(a)
-            \State \textbf{WriteToDB}(Forums, forumId, forumTitle)
+        \Procedure{CrawlForumsList}{url}
+          \State html $\gets$ \textsc{FetchUrl}(url)
+          \State anchors $\gets$ \textsc{ForumTitleAnchors}(html)
+          \ForAll{anchor \textbf{in} anchors}
+            \State forumId $\gets$ \textsc{IdFromAnchor}(anchor)
+            \State forumTitle $\gets$ \textsc{TitleFromAnchor}(anchor)
+            \State \textsc{WriteToDB}(``Forums'', forumId, forumTitle)
           \EndFor
         \EndProcedure
       \end{algorithmic}
@@ -73,20 +76,20 @@
   
     \begin{algorithm}[H]
       \begin{algorithmic}[1]
-        \Procedure{CrawlForums}{ForumURL}
-          \State F = \textbf{ReadFromDB}(Forums) \Comment{Set of (id, forum) tuples from DB}
-          \ForAll{(forumId, forumTitle) $\in$ F}
-            \State nextURL $\gets$ prepareURL(ForumURL, forumId)
+        \Procedure{CrawlForums}{forumUrlFormat}
+          \State forums = \textsc{ReadFromDB}(``Forums'') \Comment{Set of (forumId, forumTitle) tuples from DB}
+          \ForAll{(forumId, forumTitle) \textbf{in} forums}
+            \State nextUrl $\gets$ \textsc{PrepareUrl}(forumUrlFormat, forumId)
             \Repeat
-              \State HTML $\gets$ fetchURL(nextURL)
-              \State A $\gets$ findTopicTitleAnchors(HTML)
-              \ForAll{a $\in$ A}
-                \State topicId $\gets$ idFromAnchor(a)
-                \State topicTitle $\gets$ titleFromAnchor(a)
-                \State \textbf{WriteToDB}(Topics, topicId, topicTitle, forumId)
+              \State html $\gets$ \textsc{FetchUrl}(nextUrl)
+              \State anchors $\gets$ \textsc{TopicTitleAnchors}(html)
+              \ForAll{anchor \textbf{in} anchors}
+                \State topicId $\gets$ \textsc{IdFromAnchor}(anchor)
+                \State topicTitle $\gets$ \textsc{TitleFromAnchor}(anchor)
+                \State \textsc{WriteToDB}(``Topics'', topicId, topicTitle, forumId)
               \EndFor
-              \State nextURL $\gets$ findNextURL(HTML) \Comment{Taken from \textquote{Next} hyperlink}
-            \Until nextURL \textbf{is} $\neg\varnothing$
+              \State nextUrl $\gets$ \textsc{NextUrl}(html) \Comment{Taken from \textquote{Next} hyperlink}
+            \Until nextUrl \textbf{is not} $\varnothing$
           \EndFor
         \EndProcedure
       \end{algorithmic}
@@ -100,23 +103,23 @@
   
     \begin{algorithm}[H]
       \begin{algorithmic}[1]
-        \Procedure{CrawlTopics}{ForumURL}
-          \State F = \textbf{ReadFromDB}(Topics) \Comment{Set of (id, topic) tuples from DB}
-          \ForAll{(topicId, topicTitle) $\in$ F}
-            \State nextURL $\gets$ prepareURL(TopicURL, topicId)
+        \Procedure{CrawlTopics}{topicUrlFormat}
+          \State topics = \textsc{ReadFromDB}(``Topics'') \Comment{Set of (topicId, topicTitle) tuples from DB}
+          \ForAll{(topicId, topicTitle) \textbf{in} topics}
+            \State nextUrl $\gets$ \textsc{PrepareURL}(topicUrlFormat, topicId)
             \Repeat
-              \State HTML $\gets$ fetchURL(nextURL)
-              \State P $\gets$ findPosts(HTML)
-              \ForAll{p $\in$ P}
-                \State postId $\gets$ idFromPost(p)
-                \State postBody $\gets$ bodyFromPost(p)
-                \State postDate $\gets$ dateFromPost(p)
-                \State userID $\gets$ userFromPost(p)
-                \State inResponseTo $\gets$ quotedFromPost(p)
-                \State \textbf{WriteToDB}(Posts, postId, postBody, postDate, userId, inResponseTo, topicId)
+              \State html $\gets$ \textsc{FetchUrl}(nextUrl)
+              \State posts $\gets$ \textsc{Posts}(html)
+              \ForAll{post \textbf{in} posts}
+                \State postId $\gets$ \textsc{IdFromPost}(post)
+                \State postBody $\gets$ \textsc{BodyFromPost}(post)
+                \State postDate $\gets$ \textsc{DateFromPost}(post)
+                \State userId $\gets$ \textsc{UserFromPost}(post)
+                \State quotes $\gets$ \textsc{QuotedFromPost}(post)
+                \State \textsc{WriteToDB}(``Posts'', postId, postBody, postDate, userId, quotes, topicId)
               \EndFor
-              \State nextURL $\gets$ findNextURL(HTML) \Comment{Taken from \textquote{Next} button}
-            \Until nextURL \textbf{is} $\neg\varnothing$
+              \State nextUrl $\gets$ \textsc{NextUrl}(html) \Comment{Taken from \textquote{Next} button}
+            \Until nextUrl \textbf{is not} $\varnothing$
           \EndFor
         \EndProcedure
       \end{algorithmic}
@@ -145,7 +148,7 @@
 
     Words had to be extracted from the post message, excluding any quotations from earlier posts as they would pollute the actual word usage by users. The process was divided into three parts: \emph{text segmentation}, \emph{word classification} and \emph{word stemming}.
     
-    \subsubsection{Text segmentation}
+    \subsubsection{Text segmentation} \label{sec:text_segmentation}
     
       Fortunately, the problem of hyphenation, where words are split by syllables for presentation purposes (in justified text, especially in articles and books) and then conjoined with hyphens is non-existent in Internet forums due to the fact that advanced text rendering (like hyphenation) is not yet supported in widely used web browsers.
 
@@ -162,7 +165,7 @@
         \label{tab:splitpattern}
       \end{table}
       
-      I thought it will be interesting to check whether the number of new distinct words that appeared during segmentation conform to the Heaps' law, which formulated as $V_R(n) = Kn^\beta$ has parameter $K$ typically between $10$ and $100$, and parameter $\beta$ typically between $0.4$ and $0.6$ in english texts. In figure \ref{fig:word_extraction} the red crosses represent the actual numbers (on axis $OX$) of words after the number of posts (on axis $OY$) where blue line is the function $V_R(n)$ that has been fitted to that set of numbers with the values of parameters $K = 83.3142 \pm1.094 (1.313\%)$ and $\beta = 0.598417 \pm0.000932 (0.1557\%)$ respectively. 
+      I thought it will be interesting to check whether the number of new distinct words that appeared during segmentation conform to the Heaps' law, which formulated as $V_R(n) = Kn^\beta$ has parameter $K$ typically between $10$ and $100$, and parameter $\beta$ typically between $0.4$ and $0.6$ in english texts. In figure \ref{fig:word_extraction} the red crosses represent the actual numbers (on axis $OX$) of words after the number of posts (on axis $OY$) where blue line is the function $V_R(n)$ that has been fitted to that set of numbers with the values of parameters $K = 83.3 \pm1.1 (1.313\%)$ and $\beta = 0.5984 \pm0.0009 (0.1557\%)$ respectively. 
       
       \begin{figure}[H]
         \centering
@@ -258,17 +261,27 @@
       
     \subsubsection{Results} \label{sec:cs_results}
 
-      The resulting word set I could begin to work with is displayed in table\ref{tab:words}. Keywords represent $4.38\%$ of all words.
+      The resulting word set I could begin to work with is displayed in table \ref{tab:words}. Keywords represent $4.38\%$ of all words.
       \begin{table}[H]
         \centering
-        \begin{tabularx}{\textwidth}{|L{1}|L{1}|} \hline
-          \cellcolor[gray]{0.8} \textbf{Products} & $3,668$ \\\hline
-          \cellcolor[gray]{0.8} \textbf{Positive opinions} & $2,111$ \\\hline
-          \cellcolor[gray]{0.8} \textbf{Negative opinions} & $4,360$ \\\hline
-          \cellcolor[gray]{0.8} \textbf{Prices} & $10,259$ \\\hline
-          \cellcolor[gray]{0.8} \textbf{Stop and function words} & $1,085$ \\\hline
-          \cellcolor[gray]{0.8} \textbf{Non-keyword \textquote{words}} & $468,532$ \\\hline
+        \begin{tabularx}{\textwidth}{|L{1}|L{1}|L{1}|L{1}|L{1}|L{1}|L{1}|} \hline
+          \rowcolor[gray]{0.8} \textbf{Products} & \textbf{Positive opinions} & \textbf{Negative opinions} & \textbf{Prices} & \textbf{Function words} & \textbf{Regular words} & \textbf{Total words} \\\hline
+$3,668$ & $2,111$ & $4,360$ & $10,259$ & $1,085$ & $468,532$ & $490,015$ \\\hline
         \end{tabularx}
-        \label{tab:words}
         \caption{Breakdown of the number of words and the category they belong to.}
+        \label{tab:words}
+      \end{table}
+      
+      The results were saved into separate database table for further reference and usage. Its structure is shown in table \ref{tab:db_relationships}. I have decided to call this table a \emph{relationship} table, because it indicates clear associations between the words written by users as posts.
+      \begin{table}[H]
+        \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
+          \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
+          user\_id & Unique user reference; found in users table as id. \\
+          word\_id & Unique word reference; found in words table as id. \\
+          post\_id & Unique post reference; found in posts table as id. \\
+          used & Date the word has been used; equal to post data. \\
+          meta & Metadata indicating the type of keyword if necessary. \\\hline
+        \end{tabularx}
+        \caption{Relationships table structure.}
+        \label{tab:db_relationships}
       \end{table}

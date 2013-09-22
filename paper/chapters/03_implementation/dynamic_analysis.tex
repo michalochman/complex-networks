@@ -8,14 +8,107 @@
     
     \ldots
     
-  \subsection{Estimating users' opinions about products}
+  \subsection{Estimating users' opinions about products} \label{sec:opinion_estimation}
   
-    \ldots
-    
-    methodology for opinion estimation; problems with negative opinions (\textquote{not}, \textquote{don't} words);
-    
-    \ldots
-  
+    In order to estimate the opinions different users have about different products I had to prepare a script traversing the posts saved in my database and saving a value representing opinion. I had to create a separate table in my database for that, which structure is shown in table \ref{tab:db_opinions}.
+    \begin{table}[H]
+      \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
+        \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
+        user\_id & Unique user reference; found in users table as id. \\
+        word\_id & Unique word reference; found in words table as id. \\
+        opinion & A real value representing opinion. \\
+        bucket & Bucket number from which the opinion value was calculated. \\\hline
+      \end{tabularx}
+      \caption{Opinions table structure.}
+      \label{tab:db_opinions}
+    \end{table}
+
+    The script was based on algorithm \ref{alg:estimate_user_keyword}. I have run it against every bucket, first gathering the list of users and keywords in that bucket. 
+    \begin{algorithm}[H]
+      \begin{algorithmic}[1]
+        \Procedure{EstimateOpinion}{user, keyword, bucket}
+          \State estimate $\gets 0$
+          \State posts $\gets$ \textsc{Posts}(user, bucket)
+          \ForAll{post \textbf{in} posts} 
+            \State keywordPositions $\gets$ \textsc{KeywordPositions}(keyword, post)
+            \ForAll{keywordPosition \textbf{in} keywordPositions}
+              \State opinions $\gets$ \textsc{Opinions}(post)
+              \ForAll{opinion \textbf{in} opinions}
+                \State opinionSign $\gets$ \textsc{OpinionSign}(opinion)
+                \State opinionPosition $\gets$ \textsc{OpinionPosition}(opinion, post)
+                \State distance $\gets$ |keywordPosition - opinionPosition|
+                \State estimate $\gets$ estimate + (opinionSign / distance$^2$)
+              \EndFor
+            \EndFor
+          \EndFor
+          \State \textbf{return} estimate
+        \EndProcedure
+      \end{algorithmic}
+      \caption{Estimating user's opinion about product.}
+      \label{alg:estimate_user_keyword}
+    \end{algorithm}
+    The algorithm was ran for every user and keyword. It fetched all messages written by the user in a bucket it was ran for. Then for every post it has checked whether the keyword was used within the post and returned position of each occurrence of that word. The position was established to be the $n$th \textquote{token} in the message, where \textquote{tokens} were obtained in the exact same way as words in section \ref{sec:text_segmentation}. Then the algorithm extracted all words marked as opinions from the message body and for each of these opinions it has checked their position as it did with keywords. Next, it has checked whether the opinion was \emph{positive} or \emph{negative} and applied a measure on a keyword based on squared distance between itself and the opinion biased positively or negatively.
+
+    \subsubsection{Measure}
+
+      Let $e_o$ be an opinion estimate obtained using a method described above. Its value should be found in a range of described by an infinite sum of geometric series
+      \begin{equation}
+        \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6} = 1.644934\ldots \mbox{,}
+      \end{equation}
+      and each keyword can have opinions written before and after itself, so we have two sums to take into account. Hence,
+      \begin{equation}
+        -\frac{\pi^2}{3} \leq e_o \leq \frac{\pi^2}{3} \mbox{.}
+      \end{equation}
+      
+      Application of squared distance as a base for the measure helps to favour opinions that are very close to the keywords. This was extremely important especially for long posts so that keywords mentioned at the end of the message did not get influenced by an opinion mentioned at the beginning of it. With this approach it is expected for the most opinions to be found in a range of $[\sfrac{1}{4};\sfrac{1}{4}]$---most opinions would be generally no further away than 2 words from a keyword.
+      
+      Because measuring data in such way is not perfect and may create results contradictory to the real data I have decided to introduce a \emph{neutral} opinion using the middle range of the numbers. Hence, opinions were assigned in a following way:
+      \begin{itemize}
+        \item \emph{positive:} $L \leq e_o \leq \frac{\pi^2}{3}$,
+        \item \emph{neutral:} $-L < e_o < L$,
+        \item \emph{negative:} $-\frac{\pi^2}{3} \leq e_o \leq L$,
+      \end{itemize}
+      where $L = 0.01$ is an empirically found constant allowing for fairly even division of opinion types. Table \ref{tab:opinion_number} shows the number of opinions found, divided by the type of the opinion.
+      \begin{table}[H]
+        \centering
+        \begin{tabularx}{\textwidth}{|L{1}|L{1}|L{1}|L{1}|} \hline
+          \rowcolor[gray]{0.8} \textbf{Positive} & \textbf{Neutral} & \textbf{Negative} & \textbf{Total} \\\hline
+          $4,219,548\;(42.99\%)$ & $3,398,282\;(34.62\%)$ & $2,197,055\;(22.39\%)$ & $9,814,885\;(100\%)$ \\\hline
+        \end{tabularx}
+        \caption{Number of opinions about products found, by the opinion type.}
+        \label{tab:opinion_number}
+      \end{table}
+      
+      The maximum and minimum value of the estimated opinion were found to be approximately $2.924$ and $-2.825$ respectively. Figure \ref{fig:opinion_distribution_reg} shows distribution of estimated opinion values. As expected, most of the opinions fall in the $[\sfrac{1}{4};\sfrac{1}{4}]$ range.
+      \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\textwidth]{chapters/03_implementation/opidist}
+        \caption{Distribution of opinions.}
+        \label{fig:opinion_distribution_reg}
+      \end{figure}
+      There are also visibly more opinions on the positive side of the scale than on its negative counterpart. The most dense is the neutral region but it is the consequence of having so much opinions in only $0.02$ wide scale. \textquote{Harmonic}-like peaks are conspicuous at $-1$, $-\sfrac{1}{4}$, $\sfrac{1}{4}$ and $1$, which one can see closer on figure \ref{fig:opinion_distribution_log} using a logarithmic scale. Additionally we can see peaks at $-2$ and $2$ which were not distinguishable on a linear scale.
+      \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\textwidth]{chapters/03_implementation/opidist_log}
+        \caption{Distribution of opinions in logarithmic scale.}
+        \label{fig:opinion_distribution_log}
+      \end{figure}
+      The peaks are most notably visible at $\sfrac{2}{n^2}$ values. This is a clear evidence that the majority of messages with opinions are short enough for only several opinions influencing a keyword. Otherwise, the distribution would have had a more smooth, cone-like shape. Also, the advantage of positive opinions is more evident using this scale.
+
+    \subsubsection{Problems}
+
+      Checking \emph{opinion sign} is not as easy as determining whether the opinion is positive or negative. The problem is that there exist modifier words that completely change the meaning of word. Examples of words like that include \emph{not} or \emph{don't}.
+      
+      In order to mitigate this problem and to bias the opinions correctly it was necessary to check for existence of such modifier words in a proximity of opinion words.
+      
+      Example expressions illustrating the problem:
+      \begin{itemize}
+        \item \emph{not} \textbf{good},
+        \item \emph{not} necessarily \textbf{good},
+        \item \emph{not} at all \textbf{good}.
+      \end{itemize}
+      One can clearly see that it is not necessary to check just one word before an opinion. I have decided to cover all three cases mentioned above even though there may be more edge cases. Hence, modifier words were only checked as far as two words from an opinion and were not taken into consideration if there were another opinion or keyword in between them, for example in messages like \textquote{\emph{not} \textbf{bad}, \textbf{good} even,} where not stopping after one opinion have been found would cause the modifier to act on both opinions instead.
+
   \subsection{Average path length}
 
     Figure \ref{fig:avg_path} shows changes of average path length calculated for each bucket of data. The general trend shows that the average length of paths in the network has been decreasing. This may be due to the fact that most of the users did not leave the forum and continued to write messages while retaining their connections. Nevertheless the path lengths are much higher, in a range between $3.27$ and $3.55$, than the one calculated for the whole network which was calculated at $2.68$. This is clearly because of the whole network being significantly larger (having more edges), thus having higher probability for connections to exist.
@@ -28,7 +121,7 @@
 
   \subsection{Collaborative Similarity}
     
-    My supervisor, dr Jarosław Kwapień, suggested that it may be a good idea to explore and look at the \emph{user-message network} from the other angle. Ming-Sheng Shang \textit{et al.} have proposed a new index called \emph{collaborative similarity}, to quantify the diversity of tastes based on the collaborative selection.\cite{Shang2010} This newly proposed index sounds promising for the data under analysis in this thesis. If I can find that the user selection is highly clustered---i.e. not that much diverse---then I will be able to easily identify main groups of users.
+    Ming-Sheng Shang \textit{et al.} have proposed a new index called \emph{collaborative similarity}, to quantify the diversity of tastes based on the collaborative selection\cite{Shang2010}. This newly proposed index sounds promising for the data under analysis in this thesis. It may be a good idea to explore and look at the \emph{user-message network} from the other angle and if we can find that the user selection is highly clustered---i.e. not that much diverse---then we will be able to easily identify main groups of users.
     
     \subsubsection{The concept}
     
@@ -52,7 +145,7 @@
 
       Corresponding definitions for objects, say $p(d)$, $P(d)$, $k_{nn}(\alpha)$ and $k_{nn}(d)$, are similar and thus omitted here.
       
-      The traditional clustering coefficient\cite{WattsStrogatz1998} cannot be used to quantify the clustering pattern of a bipartite network since it always give a zero value. Lind et al.\cite{LindGonzalezHerrmann2005} proposed a variant counting the rectangular relations instead of triadic clustering, which can be applied to general bipartite networks. However, this letter aims at a special class of bipartite networks, and thus we propose a new index to characterise the clustering selections\footnote{Here the term \textquote{clustering} describes the fact that a user's selections are usually very similar to each other, and may belong to a few clusters or communities according to the standard clustering analysis or community detection.} resulted from the collaborative interests of users. A standard measure of object similarity according to the collaborative selection is the \emph{Jaccard similarity}.\cite{Jaccard1901}
+      The traditional clustering coefficient\cite{WattsStrogatz1998} cannot be used to quantify the clustering pattern of a bipartite network since it always give a zero value. Lind \textit{et al.}\cite{LindGonzalezHerrmann2005} proposed a variant counting the rectangular relations instead of triadic clustering, which can be applied to general bipartite networks. However, this letter aims at a special class of bipartite networks, and thus we propose a new index to characterise the clustering selections\footnote{Here the term \textquote{clustering} describes the fact that a user's selections are usually very similar to each other, and may belong to a few clusters or communities according to the standard clustering analysis or community detection.} resulted from the collaborative interests of users. A standard measure of object similarity according to the collaborative selection is the \emph{Jaccard similarity}\cite{Jaccard1901}.
       \begin{equation}
         s_{\alpha\beta} = \frac{\Gamma_\alpha \cap \Gamma_\beta}{\Gamma_\alpha \cup \Gamma_\beta}\mbox{,}
       \end{equation}
@@ -143,12 +236,6 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
       \end{enumerate}
       The battle struggled between brands \emph{Sennheiser} and \emph{STAX} for a longer period, with the former eventually winning 20-0. I think that the analysis of this topic alone would bring some interesting results. The only problem is that, because of this topic, I had to completely skip the results for buckets 106 and 107 due to the fact that the results would be distorted.
       
-      \ldots
-      
-      further examples of promising $C_u(i)$ calculated for other users
-      
-      \ldots
-      
     \subsubsection{Substructures derived from $C_u(i)$ fluctuations}
     
       Interesting experiment would be to analyse different type of fluctuations of observed $C_u(i)$ in order to check if similar shapes of $C_u(i)$ reflect similar behaviour of users.
@@ -157,39 +244,33 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
   
     \subsubsection{Introduction}
       
-      One of the methods that I was sure will bring up some groups of users was the motif discovery within the network. It was found that real world network often feature recurrent sub-graphs or patterns. \emph{Motifs} are sub-graphs that repeat themselves in the network or even in networks of the same type. Indeed, motifs are of notable importance largely because they may reflect functional properties. They have recently gathered much attention as a useful concept to uncover structural design principles of complex networks.\cite{MasoudiSchreiberKashani2012}
+      One of the methods that I was sure will bring up some groups of users was the motif discovery within the network. It was found that real world network often feature recurrent sub-graphs or patterns. \emph{Motifs} are sub-graphs that repeat themselves in the network or even in networks of the same type. Indeed, motifs are of notable importance largely because they may reflect functional properties. They have recently gathered much attention as a useful concept to uncover structural design principles of complex networks\cite{MasoudiSchreiberKashani2012}.
       
-      Network motifs were at first defined systematically in \emph{Escherichia coli}, where they were detected as patterns that occurred in the transcription network much more often than would be expected in random networks.\cite{MiloAlon2002} The exact same motifs have been later found in other organisms, ranging from other bacteria\cite{ManganZaslaverAlon2003,Eichenberger2004} and yeast\cite{MiloAlon2002, Lee2002}, to plants\cite{Saddic2006} and animals\cite{Boyer2005}. Motif discovery have been the most successful in biological networks, most likely because they were the most studied at the time---especially the transctiption networks. I will not explain many details about the motifs, because this is a complicated matter and already has been discussed and reviewed thoroughly.\cite{Alon2007}
+      Network motifs were at first defined systematically in \emph{Escherichia coli}, where they were detected as patterns that occurred in the transcription network much more often than would be expected in random networks\cite{MiloAlon2002}. The exact same motifs have been later found in other organisms, ranging from other bacteria\cite{ManganZaslaverAlon2003,Eichenberger2004} and yeast\cite{MiloAlon2002, Lee2002}, to plants\cite{Saddic2006} and animals\cite{Boyer2005}. Motif discovery have been the most successful in biological networks, most likely because they were the most studied at the time---especially the transctiption networks. I will not explain many details about the motifs, because this is a complicated matter and already has been discussed and reviewed thoroughly\cite{Alon2007}.
       
     \subsubsection{Motif discovery}
     
-      \ldots
+      Although network motifs may provide a deep insight into the network's functional abilities, their detection is computationally challenging. Because of that, I have decided to only concentrate on the most basic, triangle motifs, that I have discovered using not very sophisticated algorithm conjoining two users sharing similar opinions about particular brands, hoping that this approach will lead to some interesting opportunities. This also allowed me to map the bipartite network I was working on so far to a regular network built on a set of users exchanging opinions only. Because I have already joined users with brands they were discussing based on the opinion being positive, negative or neutral, the only step required to obtain these triangles was to link users with matching opinions. Data required for motif discovery has been obtained in section \ref{sec:opinion_estimation}.
       
-      data about users' opinions about products come from section 3.4.2
-      
-      \ldots
-      
-      Although network motifs may provide a deep insight into the network's functional abilities, their detection is computationally challenging. Because of that, I have decided to only concentrate on the most basic, triangle motifs, that I have discovered using not very sophisticated algorithm conjoining two users sharing similar opinions about particular brands, hoping that this approach will lead to some interesting opportunities. This also allowed me to map the bipartite network I was working on so far to a regular network built on a set of users exchanging opinions only. Because I have already joined users with brands they were discussing based on the opinion being positive, negative or neutral, the only step required to obtain these triangles was to link users with matching opinions. 
-      
-      First, the algorithm builds a bipartite network with users and opinions about particular brands. Edges (solid lines) represent the opinion the user has about the product. It is not possible to have more than one edge between the nodes, because all opinions about the brand users may have are averaged and only this average number is taken into account during network creation. When the network is ready, algorithm finds user nodes having edges to the same brand nodes and links them together (dashed lines). The final step involves deletion of initial edges along with brand nodes resulting in non-bipartite network consisting of user nodes only. Figure \ref{fig:motifs_alg} illustrates steps taken by the algorithm.
+      First, the algorithm builds a bipartite network with users and opinions about the brands. Edges (solid lines) represent the opinion the user has about the product. It is not possible to have more than one edge between the nodes, because all opinions about the brand users may have are averaged and only this average number is taken into account during network creation. When the network is ready, algorithm finds user nodes having edges to the same brand nodes and links them together (dashed lines). The final step involves deletion of initial edges along with brand nodes resulting in non-bipartite network consisting of user nodes only. Figure \ref{fig:motifs_alg} illustrates steps taken by the algorithm.
       \begin{figure}[h]
         \centering
         \begin{subfigure}[b]{0.3\textwidth}
           \includegraphics[width=\textwidth]{chapters/03_implementation/cs_motif_1}
-          \label{fig:motifs_alg_1}
           \caption{Step 1.}
+          \label{fig:motifs_alg_1}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.3\textwidth}
           \includegraphics[width=\textwidth]{chapters/03_implementation/cs_motif_2}
-          \label{fig:motifs_alg_2}
           \caption{Step 2.}
+          \label{fig:motifs_alg_2}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.3\textwidth}
           \includegraphics[width=\textwidth]{chapters/03_implementation/cs_motif_3}
-          \label{fig:motifs_alg_3}
           \caption{Step 3.}
+          \label{fig:motifs_alg_3}
         \end{subfigure}
         \caption{Algorithms steps.}
         \label{fig:motifs_alg}
@@ -199,7 +280,7 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
     \subsubsection{Substructures derived from motif analysis}
       
       Figure \ref{fig:motif_network} shows a fragment of network created with the above method from bucket 106 which was excluded before in section \ref{sec:cs_results}. The network is a multigraph with nodes representing the users and edges representing an opinion about a brand shared between two users.
-      \begin{figure}[t!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.75\textwidth]{chapters/03_implementation/motif_network}
         \caption{Network obtained with motif discovery.}
@@ -208,7 +289,9 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
       
       The network was constructed using opinions about 10 brands presented in table \ref{tab:motif_brands} ordered by the number of times they were used in that bucket. Even though \emph{Stax} won the game mentioned in section \ref{sec:cs_results} it was not discussed between the users in an essential manner. The number of opinions about that brand was so low that it did not matter in the whole network. The size of each node was determined from it's betweenness centrality to stress the importance of certain nodes in this network despite the fact that degrees are fairly equal and distributed uniformly in a range $[100:216]$.
       
-      \begin{table}[b!]
+      Three brands were discussed in a particularly frequent manner between the users, thus the network consisted mostly of opinions about them. Hence, the classes of users presented in figure \ref{fig:motif_network} are made of three brands discussed the most: \emph{Grado}, \emph{Sennheiser} and \emph{Denon}. Grado was discussed the most (see table \ref{tab:motif_brands}), but only $18.93\%$ of shared opinions in the network are about this brand. This means that the opinions about Grado (green edges) are inconsistent, so users sharing opinion about Sennheiser or Denon does not share opinion about Grado in general. While Denon was the least discussed from \textquote{the great three} it certainly indicates that users' opinions are reciprocal with over half ($53.56\%$) of the network edges (red coloured) joining users. Opinions about Sennheiser (blue links) form the other $27.51\%$ of the network. Vertices were coloured with the colour of edges that were linked to that vertex the most.
+      
+      \begin{table}[h!]
         \centering
         \begin{tabularx}{0.6\textwidth}{|L{0.6}|L{1.2}|L{1.2}|} \hline
           \rowcolor[gray]{0.8} \textbf{Position} & \textbf{Brand} & \textbf{Times used} \\\hline
@@ -227,6 +310,6 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
         \label{tab:motif_brands}
       \end{table}
       
-      Three brands were discussed in a particularly frequent manner between the users, thus the network consisted mostly of opinions about them. Hence, the classes of users presented in figure \ref{fig:motif_network} are made of three brands discussed the most: \emph{Grado}, \emph{Sennheiser} and \emph{Denon}. Grado was discussed the most (see table \ref{tab:motif_brands}), but only $18.93\%$ of shared opinions in the network are about this brand. This means that either 
+      Particularly interesting is the case of users that either do not discuss some brands (more likely) or have no common opinions about that brand (much less likely) with other users. This means that a substructure may exist where users are focused on several brands only and do not discuss others at all. The conclusions here might be too far-reaching, but this idea might be interesting to tackle.
       
       The average path length is $1.143$ which is extremely short and shows how efficient the network is. The average clustering coefficient for this network was calculated as $0.891$. The graph is nearly complete with a density being equal to $0.857$ meaning that almost every user in this network share a similar opinion with another one. The network was meant to be maximally dense, so I would say that the missing $0.143$ density constitute a contradictory opinions.

@@ -30,16 +30,16 @@
           \begin{subfigure}[b]{0.25\textwidth}
             \includegraphics[width=\textwidth]{chapters/02_problem_definition/graph_simple}
             \caption{A simple graph.}
-            \label{fig:graphs_orientation_undirected}
+            \label{fig:graphs_simple}
           \end{subfigure}
           \qquad\qquad\qquad
           \begin{subfigure}[b]{0.25\textwidth}
             \includegraphics[width=\textwidth]{chapters/02_problem_definition/graph_multi}
             \caption{A multigraph.}
-            \label{fig:graphs_orientation_directed}
+            \label{fig:graphs_multi}
           \end{subfigure}
         \caption{Types of graphs in respect to edge distinctness.}
-        \label{fig:graphs_orientation}
+        \label{fig:graphs_types}
       \end{figure}
 
       If $(u, v)$ is an edge in an undirected graph then we call $u$ a \emph{neighbour} of $v$ and vice versa. Then we call the number of such neighbours a \emph{degree} of a vertex. In directed graphs however, if $u \rightarrow v$ is a directed edge, then we call $u$ the \emph{predecessor} of $v$, which in turn we call a \emph{successor} of $u$. The \emph{in-degree} of a vertex is the number of predecessors and the \emph{out-degree} of a node is the number of its successors. It is important to note that given $u$ and $v$ and if $u \rightarrow v$ and $v \rightarrow u$ then $u \leftrightarrow v$.
@@ -89,14 +89,14 @@
           \centering
           \includegraphics[width=\textwidth]{chapters/02_problem_definition/tree}
           \captionof{figure}{A tree.}
-          \label{fig:path}
+          \label{fig:tree}
         \end{minipage}
         \qquad
         \begin{minipage}[b]{0.55\textwidth}
           \centering
           \includegraphics[width=0.7\textwidth]{chapters/02_problem_definition/tree_spanning}
           \captionof{figure}{Spanning tree (bold edges) of grid graph.}
-          \label{fig:cycle}
+          \label{fig:tree_spanning}
         \end{minipage}
       \end{figure}
     
@@ -202,19 +202,19 @@
 
         \subparagraph{Bipartite}
         
-          In the mathematical field of graph theory, a \emph{bipartite graph} (or \emph{bigraph}) is a graph whose vertices can be divided into two disjoint sets $U$ and $V$ such that every edge connects a vertex in $U$ to one in $V$; that is, $U$ and $V$ are each independent sets. Equivalently, a bipartite graph is a graph that does not contain any odd-length cycles.\cite{Diestel2012,AsratianDenleyHaggkvist}
+          In the mathematical field of graph theory, a \emph{bipartite graph} (or \emph{bigraph}) is a graph whose vertices can be divided into two disjoint sets $U$ and $V$ such that every edge connects a vertex in $U$ to one in $V$; that is, $U$ and $V$ are each independent sets. Equivalently, a bipartite graph is a graph that does not contain any odd-length cycles\cite{Diestel2012,AsratianDenleyHaggkvist}.
 
-          The two sets $U$ and $V$ may be thought of as a colouring of the graph with two colours: if one colours all nodes in U blue, and all nodes in V green, each edge has endpoints of differing colours, as is required in the graph colouring problem.\cite{AsratianDenleyHaggkvist,Scheinerman2012} In contrast, such a colouring is impossible in the case of a non-bipartite graph, such as a triangle: after one node is coloured blue and another green, the third vertex of the triangle is connected to vertices of both colours, preventing it from being assigned either colour.
+          The two sets $U$ and $V$ may be thought of as a colouring of the graph with two colours: if one colours all nodes in U blue, and all nodes in V green, each edge has endpoints of differing colours, as is required in the graph colouring problem\cite{AsratianDenleyHaggkvist,Scheinerman2012}. In contrast, such a colouring is impossible in the case of a non-bipartite graph, such as a triangle: after one node is coloured blue and another green, the third vertex of the triangle is connected to vertices of both colours, preventing it from being assigned either colour.
           
-          One often writes $G=(U,V,E)$ to denote a bipartite graph whose partition has the parts $U$ and $V$, with $E$ denoting the edges of the graph. If a bipartite graph is not connected, it may have more than one bipartition;\cite{ChartrandZhang2008} in this case, the $(U,V,E)$ notation is helpful in specifying one particular bipartition that may be of importance in an application. If $|U|=|V|$, that is, if the two subsets have equal cardinality, then G is called a balanced bipartite graph.\cite{AsratianDenleyHaggkvist} If vertices on the same side of the bipartition have the same degree, then $G$ is called biregular.
+          One often writes $G=(U,V,E)$ to denote a bipartite graph whose partition has the parts $U$ and $V$, with $E$ denoting the edges of the graph. If a bipartite graph is not connected, it may have more than one bipartition;\cite{ChartrandZhang2008} in this case, the $(U,V,E)$ notation is helpful in specifying one particular bipartition that may be of importance in an application. If $|U|=|V|$, that is, if the two subsets have equal cardinality, then G is called a balanced bipartite graph\cite{AsratianDenleyHaggkvist}. If vertices on the same side of the bipartition have the same degree, then $G$ is called biregular.
           
-          When modelling relations between two different classes of objects, bipartite graphs very often arise naturally. For instance, a graph of football players and clubs, with an edge between a player and a club if the player has played for that club, is a natural example of an affiliation network, a type of bipartite graph used in social network analysis.\cite{WassermanFaust1994}
+          When modelling relations between two different classes of objects, bipartite graphs very often arise naturally. For instance, a graph of football players and clubs, with an edge between a player and a club if the player has played for that club, is a natural example of an affiliation network, a type of bipartite graph used in social network analysis\cite{WassermanFaust1994}.
 
-          Another example where bipartite graphs appear naturally is in the (NP-complete) railway optimisation problem, in which the input is a schedule of trains and their stops, and the goal is to find as small a set of train stations as possible such that every train visits at least one of the chosen stations. This problem can be modelled as a dominating set problem in a bipartite graph that has a vertex for each train and each station and an edge for each pair of a station and a train that stops at that station.\cite{Niedermeier2006}
+          Another example where bipartite graphs appear naturally is in the (NP-complete) railway optimisation problem, in which the input is a schedule of trains and their stops, and the goal is to find as small a set of train stations as possible such that every train visits at least one of the chosen stations. This problem can be modelled as a dominating set problem in a bipartite graph that has a vertex for each train and each station and an edge for each pair of a station and a train that stops at that station\cite{Niedermeier2006}.
 
         \subparagraph{Planar}
         
-          In graph theory, a planar graph is a graph that can be embedded in the plane, i.e., it can be drawn on the plane in such a way that its edges intersect only at their endpoints. In other words, it can be drawn in such a way that no edges cross each other.\cite{Trudeau1993,Diestel2012} Such a drawing is called a plane graph or planar embedding of the graph. A plane graph can be defined as a planar graph with a mapping from every node to a point on a plane, and from every edge to a plane curve on that plane, such that the extreme points of each curve are the points mapped from its end nodes, and all curves are disjoint except on their extreme points.
+          In graph theory, a planar graph is a graph that can be embedded in the plane, i.e., it can be drawn on the plane in such a way that its edges intersect only at their endpoints. In other words, it can be drawn in such a way that no edges cross each other\cite{Trudeau1993,Diestel2012}. Such a drawing is called a plane graph or planar embedding of the graph. A plane graph can be defined as a planar graph with a mapping from every node to a point on a plane, and from every edge to a plane curve on that plane, such that the extreme points of each curve are the points mapped from its end nodes, and all curves are disjoint except on their extreme points.
 
           Every graph that can be drawn on a plane can be drawn on the sphere as well, and vice versa.
 
