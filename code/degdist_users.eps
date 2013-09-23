@@ -1,0 +1,2289 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%Title: degdist_users.eps
+%%Creator: gnuplot 4.6 patchlevel 3
+%%CreationDate: Fri Sep 20 12:18:10 2013
+%%DocumentFonts: (atend)
+%%BoundingBox: 50 50 410 302
+%%EndComments
+%%BeginProlog
+/gnudict 256 dict def
+gnudict begin
+%
+% The following true/false flags may be edited by hand if desired.
+% The unit line width and grayscale image gamma correction may also be changed.
+%
+/Color true def
+/Blacktext false def
+/Solid true def
+/Dashlength 1 def
+/Landscape false def
+/Level1 false def
+/Rounded false def
+/ClipToBoundingBox false def
+/SuppressPDFMark false def
+/TransparentPatterns false def
+/gnulinewidth 5.000 def
+/userlinewidth gnulinewidth def
+/Gamma 1.0 def
+/BackgroundColor {-1.000 -1.000 -1.000} def
+%
+/vshift -46 def
+/dl1 {
+  10.0 Dashlength mul mul
+  Rounded { currentlinewidth 0.75 mul sub dup 0 le { pop 0.01 } if } if
+} def
+/dl2 {
+  10.0 Dashlength mul mul
+  Rounded { currentlinewidth 0.75 mul add } if
+} def
+/hpt_ 31.5 def
+/vpt_ 31.5 def
+/hpt hpt_ def
+/vpt vpt_ def
+/doclip {
+  ClipToBoundingBox {
+    newpath 50 50 moveto 410 50 lineto 410 302 lineto 50 302 lineto closepath
+    clip
+  } if
+} def
+%
+% Gnuplot Prolog Version 4.6 (September 2012)
+%
+%/SuppressPDFMark true def
+%
+/M {moveto} bind def
+/L {lineto} bind def
+/R {rmoveto} bind def
+/V {rlineto} bind def
+/N {newpath moveto} bind def
+/Z {closepath} bind def
+/C {setrgbcolor} bind def
+/f {rlineto fill} bind def
+/g {setgray} bind def
+/Gshow {show} def   % May be redefined later in the file to support UTF-8
+/vpt2 vpt 2 mul def
+/hpt2 hpt 2 mul def
+/Lshow {currentpoint stroke M 0 vshift R 
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
+/Rshow {currentpoint stroke M dup stringwidth pop neg vshift R
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
+/Cshow {currentpoint stroke M dup stringwidth pop -2 div vshift R 
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
+/UP {dup vpt_ mul /vpt exch def hpt_ mul /hpt exch def
+  /hpt2 hpt 2 mul def /vpt2 vpt 2 mul def} def
+/DL {Color {setrgbcolor Solid {pop []} if 0 setdash}
+ {pop pop pop 0 setgray Solid {pop []} if 0 setdash} ifelse} def
+/BL {stroke userlinewidth 2 mul setlinewidth
+	Rounded {1 setlinejoin 1 setlinecap} if} def
+/AL {stroke userlinewidth 2 div setlinewidth
+	Rounded {1 setlinejoin 1 setlinecap} if} def
+/UL {dup gnulinewidth mul /userlinewidth exch def
+	dup 1 lt {pop 1} if 10 mul /udl exch def} def
+/PL {stroke userlinewidth setlinewidth
+	Rounded {1 setlinejoin 1 setlinecap} if} def
+3.8 setmiterlimit
+% Default Line colors
+/LCw {1 1 1} def
+/LCb {0 0 0} def
+/LCa {0 0 0} def
+/LC0 {1 0 0} def
+/LC1 {0 1 0} def
+/LC2 {0 0 1} def
+/LC3 {1 0 1} def
+/LC4 {0 1 1} def
+/LC5 {1 1 0} def
+/LC6 {0 0 0} def
+/LC7 {1 0.3 0} def
+/LC8 {0.5 0.5 0.5} def
+% Default Line Types
+/LTw {PL [] 1 setgray} def
+/LTb {BL [] LCb DL} def
+/LTa {AL [1 udl mul 2 udl mul] 0 setdash LCa setrgbcolor} def
+/LT0 {PL [] LC0 DL} def
+/LT1 {PL [4 dl1 2 dl2] LC1 DL} def
+/LT2 {PL [2 dl1 3 dl2] LC2 DL} def
+/LT3 {PL [1 dl1 1.5 dl2] LC3 DL} def
+/LT4 {PL [6 dl1 2 dl2 1 dl1 2 dl2] LC4 DL} def
+/LT5 {PL [3 dl1 3 dl2 1 dl1 3 dl2] LC5 DL} def
+/LT6 {PL [2 dl1 2 dl2 2 dl1 6 dl2] LC6 DL} def
+/LT7 {PL [1 dl1 2 dl2 6 dl1 2 dl2 1 dl1 2 dl2] LC7 DL} def
+/LT8 {PL [2 dl1 2 dl2 2 dl1 2 dl2 2 dl1 2 dl2 2 dl1 4 dl2] LC8 DL} def
+/Pnt {stroke [] 0 setdash gsave 1 setlinecap M 0 0 V stroke grestore} def
+/Dia {stroke [] 0 setdash 2 copy vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V closepath stroke
+  Pnt} def
+/Pls {stroke [] 0 setdash vpt sub M 0 vpt2 V
+  currentpoint stroke M
+  hpt neg vpt neg R hpt2 0 V stroke
+ } def
+/Box {stroke [] 0 setdash 2 copy exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V closepath stroke
+  Pnt} def
+/Crs {stroke [] 0 setdash exch hpt sub exch vpt add M
+  hpt2 vpt2 neg V currentpoint stroke M
+  hpt2 neg 0 R hpt2 vpt2 V stroke} def
+/TriU {stroke [] 0 setdash 2 copy vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V closepath stroke
+  Pnt} def
+/Star {2 copy Pls Crs} def
+/BoxF {stroke [] 0 setdash exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V closepath fill} def
+/TriUF {stroke [] 0 setdash vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V closepath fill} def
+/TriD {stroke [] 0 setdash 2 copy vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V closepath stroke
+  Pnt} def
+/TriDF {stroke [] 0 setdash vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V closepath fill} def
+/DiaF {stroke [] 0 setdash vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V closepath fill} def
+/Pent {stroke [] 0 setdash 2 copy gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  closepath stroke grestore Pnt} def
+/PentF {stroke [] 0 setdash gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  closepath fill grestore} def
+/Circle {stroke [] 0 setdash 2 copy
+  hpt 0 360 arc stroke Pnt} def
+/CircleF {stroke [] 0 setdash hpt 0 360 arc fill} def
+/C0 {BL [] 0 setdash 2 copy moveto vpt 90 450 arc} bind def
+/C1 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 90 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C2 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 90 180 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C3 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 180 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C4 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 180 270 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C5 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 90 arc
+	2 copy moveto
+	2 copy vpt 180 270 arc closepath fill
+	vpt 0 360 arc} bind def
+/C6 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 90 270 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C7 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 270 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C8 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 270 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C9 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 270 450 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C10 {BL [] 0 setdash 2 copy 2 copy moveto vpt 270 360 arc closepath fill
+	2 copy moveto
+	2 copy vpt 90 180 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C11 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 180 arc closepath fill
+	2 copy moveto
+	2 copy vpt 270 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C12 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 180 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C13 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 90 arc closepath fill
+	2 copy moveto
+	2 copy vpt 180 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C14 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 90 360 arc closepath fill
+	vpt 0 360 arc} bind def
+/C15 {BL [] 0 setdash 2 copy vpt 0 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/Rec {newpath 4 2 roll moveto 1 index 0 rlineto 0 exch rlineto
+	neg 0 rlineto closepath} bind def
+/Square {dup Rec} bind def
+/Bsquare {vpt sub exch vpt sub exch vpt2 Square} bind def
+/S0 {BL [] 0 setdash 2 copy moveto 0 vpt rlineto BL Bsquare} bind def
+/S1 {BL [] 0 setdash 2 copy vpt Square fill Bsquare} bind def
+/S2 {BL [] 0 setdash 2 copy exch vpt sub exch vpt Square fill Bsquare} bind def
+/S3 {BL [] 0 setdash 2 copy exch vpt sub exch vpt2 vpt Rec fill Bsquare} bind def
+/S4 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt Square fill Bsquare} bind def
+/S5 {BL [] 0 setdash 2 copy 2 copy vpt Square fill
+	exch vpt sub exch vpt sub vpt Square fill Bsquare} bind def
+/S6 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt vpt2 Rec fill Bsquare} bind def
+/S7 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt vpt2 Rec fill
+	2 copy vpt Square fill Bsquare} bind def
+/S8 {BL [] 0 setdash 2 copy vpt sub vpt Square fill Bsquare} bind def
+/S9 {BL [] 0 setdash 2 copy vpt sub vpt vpt2 Rec fill Bsquare} bind def
+/S10 {BL [] 0 setdash 2 copy vpt sub vpt Square fill 2 copy exch vpt sub exch vpt Square fill
+	Bsquare} bind def
+/S11 {BL [] 0 setdash 2 copy vpt sub vpt Square fill 2 copy exch vpt sub exch vpt2 vpt Rec fill
+	Bsquare} bind def
+/S12 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt2 vpt Rec fill Bsquare} bind def
+/S13 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt2 vpt Rec fill
+	2 copy vpt Square fill Bsquare} bind def
+/S14 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt2 vpt Rec fill
+	2 copy exch vpt sub exch vpt Square fill Bsquare} bind def
+/S15 {BL [] 0 setdash 2 copy Bsquare fill Bsquare} bind def
+/D0 {gsave translate 45 rotate 0 0 S0 stroke grestore} bind def
+/D1 {gsave translate 45 rotate 0 0 S1 stroke grestore} bind def
+/D2 {gsave translate 45 rotate 0 0 S2 stroke grestore} bind def
+/D3 {gsave translate 45 rotate 0 0 S3 stroke grestore} bind def
+/D4 {gsave translate 45 rotate 0 0 S4 stroke grestore} bind def
+/D5 {gsave translate 45 rotate 0 0 S5 stroke grestore} bind def
+/D6 {gsave translate 45 rotate 0 0 S6 stroke grestore} bind def
+/D7 {gsave translate 45 rotate 0 0 S7 stroke grestore} bind def
+/D8 {gsave translate 45 rotate 0 0 S8 stroke grestore} bind def
+/D9 {gsave translate 45 rotate 0 0 S9 stroke grestore} bind def
+/D10 {gsave translate 45 rotate 0 0 S10 stroke grestore} bind def
+/D11 {gsave translate 45 rotate 0 0 S11 stroke grestore} bind def
+/D12 {gsave translate 45 rotate 0 0 S12 stroke grestore} bind def
+/D13 {gsave translate 45 rotate 0 0 S13 stroke grestore} bind def
+/D14 {gsave translate 45 rotate 0 0 S14 stroke grestore} bind def
+/D15 {gsave translate 45 rotate 0 0 S15 stroke grestore} bind def
+/DiaE {stroke [] 0 setdash vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V closepath stroke} def
+/BoxE {stroke [] 0 setdash exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V closepath stroke} def
+/TriUE {stroke [] 0 setdash vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V closepath stroke} def
+/TriDE {stroke [] 0 setdash vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V closepath stroke} def
+/PentE {stroke [] 0 setdash gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  closepath stroke grestore} def
+/CircE {stroke [] 0 setdash 
+  hpt 0 360 arc stroke} def
+/Opaque {gsave closepath 1 setgray fill grestore 0 setgray closepath} def
+/DiaW {stroke [] 0 setdash vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V Opaque stroke} def
+/BoxW {stroke [] 0 setdash exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V Opaque stroke} def
+/TriUW {stroke [] 0 setdash vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V Opaque stroke} def
+/TriDW {stroke [] 0 setdash vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V Opaque stroke} def
+/PentW {stroke [] 0 setdash gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  Opaque stroke grestore} def
+/CircW {stroke [] 0 setdash 
+  hpt 0 360 arc Opaque stroke} def
+/BoxFill {gsave Rec 1 setgray fill grestore} def
+/Density {
+  /Fillden exch def
+  currentrgbcolor
+  /ColB exch def /ColG exch def /ColR exch def
+  /ColR ColR Fillden mul Fillden sub 1 add def
+  /ColG ColG Fillden mul Fillden sub 1 add def
+  /ColB ColB Fillden mul Fillden sub 1 add def
+  ColR ColG ColB setrgbcolor} def
+/BoxColFill {gsave Rec PolyFill} def
+/PolyFill {gsave Density fill grestore grestore} def
+/h {rlineto rlineto rlineto gsave closepath fill grestore} bind def
+%
+% PostScript Level 1 Pattern Fill routine for rectangles
+% Usage: x y w h s a XX PatternFill
+%	x,y = lower left corner of box to be filled
+%	w,h = width and height of box
+%	  a = angle in degrees between lines and x-axis
+%	 XX = 0/1 for no/yes cross-hatch
+%
+/PatternFill {gsave /PFa [ 9 2 roll ] def
+  PFa 0 get PFa 2 get 2 div add PFa 1 get PFa 3 get 2 div add translate
+  PFa 2 get -2 div PFa 3 get -2 div PFa 2 get PFa 3 get Rec
+  TransparentPatterns {} {gsave 1 setgray fill grestore} ifelse
+  clip
+  currentlinewidth 0.5 mul setlinewidth
+  /PFs PFa 2 get dup mul PFa 3 get dup mul add sqrt def
+  0 0 M PFa 5 get rotate PFs -2 div dup translate
+  0 1 PFs PFa 4 get div 1 add floor cvi
+	{PFa 4 get mul 0 M 0 PFs V} for
+  0 PFa 6 get ne {
+	0 1 PFs PFa 4 get div 1 add floor cvi
+	{PFa 4 get mul 0 2 1 roll M PFs 0 V} for
+ } if
+  stroke grestore} def
+%
+/languagelevel where
+ {pop languagelevel} {1} ifelse
+ 2 lt
+	{/InterpretLevel1 true def}
+	{/InterpretLevel1 Level1 def}
+ ifelse
+%
+% PostScript level 2 pattern fill definitions
+%
+/Level2PatternFill {
+/Tile8x8 {/PaintType 2 /PatternType 1 /TilingType 1 /BBox [0 0 8 8] /XStep 8 /YStep 8}
+	bind def
+/KeepColor {currentrgbcolor [/Pattern /DeviceRGB] setcolorspace} bind def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 0 M 8 8 L 0 8 M 8 0 L stroke} 
+>> matrix makepattern
+/Pat1 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 0 M 8 8 L 0 8 M 8 0 L stroke
+	0 4 M 4 8 L 8 4 L 4 0 L 0 4 L stroke}
+>> matrix makepattern
+/Pat2 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 0 M 0 8 L
+	8 8 L 8 0 L 0 0 L fill}
+>> matrix makepattern
+/Pat3 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -4 8 M 8 -4 L
+	0 12 M 12 0 L stroke}
+>> matrix makepattern
+/Pat4 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -4 0 M 8 12 L
+	0 -4 M 12 8 L stroke}
+>> matrix makepattern
+/Pat5 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -2 8 M 4 -4 L
+	0 12 M 8 -4 L 4 12 M 10 0 L stroke}
+>> matrix makepattern
+/Pat6 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -2 0 M 4 12 L
+	0 -4 M 8 12 L 4 -4 M 10 8 L stroke}
+>> matrix makepattern
+/Pat7 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 8 -2 M -4 4 L
+	12 0 M -4 8 L 12 4 M 0 10 L stroke}
+>> matrix makepattern
+/Pat8 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 -2 M 12 4 L
+	-4 0 M 12 8 L -4 4 M 8 10 L stroke}
+>> matrix makepattern
+/Pat9 exch def
+/Pattern1 {PatternBgnd KeepColor Pat1 setpattern} bind def
+/Pattern2 {PatternBgnd KeepColor Pat2 setpattern} bind def
+/Pattern3 {PatternBgnd KeepColor Pat3 setpattern} bind def
+/Pattern4 {PatternBgnd KeepColor Landscape {Pat5} {Pat4} ifelse setpattern} bind def
+/Pattern5 {PatternBgnd KeepColor Landscape {Pat4} {Pat5} ifelse setpattern} bind def
+/Pattern6 {PatternBgnd KeepColor Landscape {Pat9} {Pat6} ifelse setpattern} bind def
+/Pattern7 {PatternBgnd KeepColor Landscape {Pat8} {Pat7} ifelse setpattern} bind def
+} def
+%
+%
+%End of PostScript Level 2 code
+%
+/PatternBgnd {
+  TransparentPatterns {} {gsave 1 setgray fill grestore} ifelse
+} def
+%
+% Substitute for Level 2 pattern fill codes with
+% grayscale if Level 2 support is not selected.
+%
+/Level1PatternFill {
+/Pattern1 {0.250 Density} bind def
+/Pattern2 {0.500 Density} bind def
+/Pattern3 {0.750 Density} bind def
+/Pattern4 {0.125 Density} bind def
+/Pattern5 {0.375 Density} bind def
+/Pattern6 {0.625 Density} bind def
+/Pattern7 {0.875 Density} bind def
+} def
+%
+% Now test for support of Level 2 code
+%
+Level1 {Level1PatternFill} {Level2PatternFill} ifelse
+%
+/Symbol-Oblique /Symbol findfont [1 0 .167 1 0 0] makefont
+dup length dict begin {1 index /FID eq {pop pop} {def} ifelse} forall
+currentdict end definefont pop
+/MFshow {
+   { dup 5 get 3 ge
+     { 5 get 3 eq {gsave} {grestore} ifelse }
+     {dup dup 0 get findfont exch 1 get scalefont setfont
+     [ currentpoint ] exch dup 2 get 0 exch R dup 5 get 2 ne {dup dup 6
+     get exch 4 get {Gshow} {stringwidth pop 0 R} ifelse }if dup 5 get 0 eq
+     {dup 3 get {2 get neg 0 exch R pop} {pop aload pop M} ifelse} {dup 5
+     get 1 eq {dup 2 get exch dup 3 get exch 6 get stringwidth pop -2 div
+     dup 0 R} {dup 6 get stringwidth pop -2 div 0 R 6 get
+     show 2 index {aload pop M neg 3 -1 roll neg R pop pop} {pop pop pop
+     pop aload pop M} ifelse }ifelse }ifelse }
+     ifelse }
+   forall} def
+/Gswidth {dup type /stringtype eq {stringwidth} {pop (n) stringwidth} ifelse} def
+/MFwidth {0 exch { dup 5 get 3 ge { 5 get 3 eq { 0 } { pop } ifelse }
+ {dup 3 get{dup dup 0 get findfont exch 1 get scalefont setfont
+     6 get Gswidth pop add} {pop} ifelse} ifelse} forall} def
+/MLshow { currentpoint stroke M
+  0 exch R
+  Blacktext {gsave 0 setgray MFshow grestore} {MFshow} ifelse } bind def
+/MRshow { currentpoint stroke M
+  exch dup MFwidth neg 3 -1 roll R
+  Blacktext {gsave 0 setgray MFshow grestore} {MFshow} ifelse } bind def
+/MCshow { currentpoint stroke M
+  exch dup MFwidth -2 div 3 -1 roll R
+  Blacktext {gsave 0 setgray MFshow grestore} {MFshow} ifelse } bind def
+/XYsave    { [( ) 1 2 true false 3 ()] } bind def
+/XYrestore { [( ) 1 2 true false 4 ()] } bind def
+Level1 SuppressPDFMark or 
+{} {
+/SDict 10 dict def
+systemdict /pdfmark known not {
+  userdict /pdfmark systemdict /cleartomark get put
+} if
+SDict begin [
+  /Title (degdist_users.eps)
+  /Subject (gnuplot plot)
+  /Creator (gnuplot 4.6 patchlevel 3)
+  /Author (michal)
+%  /Producer (gnuplot)
+%  /Keywords ()
+  /CreationDate (Fri Sep 20 12:18:10 2013)
+  /DOCINFO pdfmark
+end
+} ifelse
+end
+%%EndProlog
+%%Page: 1 1
+gnudict begin
+gsave
+doclip
+50 50 translate
+0.050 0.050 scale
+0 setgray
+newpath
+(Helvetica) findfont 140 scalefont setfont
+BackgroundColor 0 lt 3 1 roll 0 lt exch 0 lt or or not {BackgroundColor C 1.000 0 0 7200.00 5040.00 BoxColFill} if
+1.000 UL
+LTb
+LCb setrgbcolor
+938 605 M
+31 0 V
+5978 0 R
+-31 0 V
+938 826 M
+31 0 V
+5978 0 R
+-31 0 V
+938 983 M
+31 0 V
+5978 0 R
+-31 0 V
+938 1104 M
+31 0 V
+5978 0 R
+-31 0 V
+938 1204 M
+31 0 V
+5978 0 R
+-31 0 V
+938 1288 M
+31 0 V
+5978 0 R
+-31 0 V
+938 1361 M
+31 0 V
+5978 0 R
+-31 0 V
+938 1425 M
+31 0 V
+5978 0 R
+-31 0 V
+938 1482 M
+63 0 V
+5946 0 R
+-63 0 V
+stroke
+854 1482 M
+[ [(Helvetica) 140.0 0.0 true true 0 ( 0.0001)]
+] -46.7 MRshow
+1.000 UL
+LTb
+LCb setrgbcolor
+938 1860 M
+31 0 V
+5978 0 R
+-31 0 V
+938 2081 M
+31 0 V
+5978 0 R
+-31 0 V
+938 2238 M
+31 0 V
+5978 0 R
+-31 0 V
+938 2360 M
+31 0 V
+5978 0 R
+-31 0 V
+938 2459 M
+31 0 V
+5978 0 R
+-31 0 V
+938 2543 M
+31 0 V
+5978 0 R
+-31 0 V
+938 2616 M
+31 0 V
+5978 0 R
+-31 0 V
+938 2680 M
+31 0 V
+5978 0 R
+-31 0 V
+938 2738 M
+63 0 V
+5946 0 R
+-63 0 V
+stroke
+854 2738 M
+[ [(Helvetica) 140.0 0.0 true true 0 ( 0.001)]
+] -46.7 MRshow
+1.000 UL
+LTb
+LCb setrgbcolor
+938 3116 M
+31 0 V
+5978 0 R
+-31 0 V
+938 3337 M
+31 0 V
+5978 0 R
+-31 0 V
+938 3494 M
+31 0 V
+5978 0 R
+-31 0 V
+938 3615 M
+31 0 V
+5978 0 R
+-31 0 V
+938 3715 M
+31 0 V
+5978 0 R
+-31 0 V
+938 3799 M
+31 0 V
+5978 0 R
+-31 0 V
+938 3872 M
+31 0 V
+5978 0 R
+-31 0 V
+938 3936 M
+31 0 V
+5978 0 R
+-31 0 V
+938 3993 M
+63 0 V
+5946 0 R
+-63 0 V
+stroke
+854 3993 M
+[ [(Helvetica) 140.0 0.0 true true 0 ( 0.01)]
+] -46.7 MRshow
+1.000 UL
+LTb
+LCb setrgbcolor
+938 4371 M
+31 0 V
+5978 0 R
+-31 0 V
+938 4592 M
+31 0 V
+5978 0 R
+-31 0 V
+938 4749 M
+31 0 V
+5978 0 R
+-31 0 V
+938 4871 M
+31 0 V
+5978 0 R
+-31 0 V
+938 448 M
+0 31 V
+0 4392 R
+0 -31 V
+1091 448 M
+0 63 V
+0 4360 R
+0 -63 V
+stroke
+1091 308 M
+[ [(Helvetica) 140.0 0.0 true true 0 ( 1)]
+] -46.7 MCshow
+1.000 UL
+LTb
+LCb setrgbcolor
+1568 448 M
+0 31 V
+0 4392 R
+0 -31 V
+2198 448 M
+0 31 V
+0 4392 R
+0 -31 V
+2521 448 M
+0 31 V
+0 4392 R
+0 -31 V
+2674 448 M
+0 63 V
+0 4360 R
+0 -63 V
+stroke
+2674 308 M
+[ [(Helvetica) 140.0 0.0 true true 0 ( 10)]
+] -46.7 MCshow
+1.000 UL
+LTb
+LCb setrgbcolor
+3151 448 M
+0 31 V
+0 4392 R
+0 -31 V
+3781 448 M
+0 31 V
+0 4392 R
+0 -31 V
+4104 448 M
+0 31 V
+0 4392 R
+0 -31 V
+4257 448 M
+0 63 V
+0 4360 R
+0 -63 V
+stroke
+4257 308 M
+[ [(Helvetica) 140.0 0.0 true true 0 ( 100)]
+] -46.7 MCshow
+1.000 UL
+LTb
+LCb setrgbcolor
+4734 448 M
+0 31 V
+0 4392 R
+0 -31 V
+5364 448 M
+0 31 V
+0 4392 R
+0 -31 V
+5687 448 M
+0 31 V
+0 4392 R
+0 -31 V
+5841 448 M
+0 63 V
+0 4360 R
+0 -63 V
+stroke
+5841 308 M
+[ [(Helvetica) 140.0 0.0 true true 0 ( 1000)]
+] -46.7 MCshow
+1.000 UL
+LTb
+LCb setrgbcolor
+6317 448 M
+0 31 V
+0 4392 R
+0 -31 V
+6947 448 M
+0 31 V
+0 4392 R
+0 -31 V
+stroke
+LTb
+LCb setrgbcolor
+938 4871 N
+938 448 L
+6009 0 V
+0 4423 V
+-6009 0 V
+Z stroke
+LCb setrgbcolor
+112 2659 M
+currentpoint gsave translate -270 rotate 0 0 moveto
+[ [(Helvetica) 140.0 0.0 true true 0 (P\(k\))]
+] -46.7 MCshow
+grestore
+LTb
+LCb setrgbcolor
+3942 98 M
+[ [(Helvetica) 140.0 0.0 true true 0 (k)]
+] -46.7 MCshow
+LTb
+1.000 UP
+1.000 UL
+LTb
+LCb setrgbcolor
+% Begin plot #1
+0.330 UP
+1.000 UL
+LT0
+LC0 setrgbcolor
+LCb setrgbcolor
+6296 4730 M
+[ [(Helvetica) 140.0 0.0 true true 0 (k distribution)]
+] -46.7 MRshow
+LT0
+1091 4175 BoxF
+1568 4251 BoxF
+1847 4240 BoxF
+2044 4258 BoxF
+2198 4233 BoxF
+2323 4216 BoxF
+2429 4243 BoxF
+2521 4246 BoxF
+2602 4204 BoxF
+2674 4256 BoxF
+2740 4256 BoxF
+2800 4234 BoxF
+2855 4222 BoxF
+2906 4248 BoxF
+2953 4223 BoxF
+2998 4200 BoxF
+3039 4161 BoxF
+3079 4157 BoxF
+3116 4156 BoxF
+3151 4169 BoxF
+3185 4153 BoxF
+3217 4114 BoxF
+3247 4058 BoxF
+3276 4120 BoxF
+3304 4105 BoxF
+3331 4097 BoxF
+3357 4036 BoxF
+3382 4025 BoxF
+3406 4014 BoxF
+3430 3973 BoxF
+3452 3949 BoxF
+3474 3977 BoxF
+3495 3990 BoxF
+3516 3952 BoxF
+3536 3901 BoxF
+3555 3897 BoxF
+3574 3910 BoxF
+3592 3892 BoxF
+3610 3880 BoxF
+3628 3872 BoxF
+3645 3833 BoxF
+3661 3777 BoxF
+3677 3806 BoxF
+3693 3781 BoxF
+3709 3807 BoxF
+3724 3712 BoxF
+3738 3719 BoxF
+3753 3756 BoxF
+3767 3731 BoxF
+3781 3670 BoxF
+3795 3668 BoxF
+3808 3662 BoxF
+3821 3687 BoxF
+3834 3653 BoxF
+3846 3624 BoxF
+3859 3635 BoxF
+3871 3655 BoxF
+3883 3590 BoxF
+3895 3595 BoxF
+3906 3603 BoxF
+3918 3575 BoxF
+3929 3502 BoxF
+3940 3523 BoxF
+3951 3513 BoxF
+3961 3566 BoxF
+3972 3484 BoxF
+3982 3502 BoxF
+3992 3500 BoxF
+4002 3465 BoxF
+4012 3528 BoxF
+4022 3500 BoxF
+4032 3425 BoxF
+4041 3439 BoxF
+4050 3470 BoxF
+4060 3403 BoxF
+4069 3331 BoxF
+4078 3394 BoxF
+4087 3246 BoxF
+4095 3309 BoxF
+4104 3316 BoxF
+4113 3351 BoxF
+4121 3271 BoxF
+4129 3320 BoxF
+4138 3305 BoxF
+4146 3279 BoxF
+4154 3238 BoxF
+4162 3255 BoxF
+4170 3259 BoxF
+4177 3176 BoxF
+4185 3259 BoxF
+4193 3190 BoxF
+4200 3301 BoxF
+4208 3204 BoxF
+4215 3162 BoxF
+4222 3162 BoxF
+4229 3204 BoxF
+4237 3185 BoxF
+4244 3152 BoxF
+4251 3225 BoxF
+4257 3073 BoxF
+4264 3101 BoxF
+4271 3246 BoxF
+4278 3044 BoxF
+4284 3106 BoxF
+4291 3127 BoxF
+4298 3079 BoxF
+4304 3084 BoxF
+4310 3122 BoxF
+4317 3032 BoxF
+4323 3019 BoxF
+4329 3025 BoxF
+4335 3038 BoxF
+4342 3007 BoxF
+4348 3067 BoxF
+4354 2987 BoxF
+4360 3007 BoxF
+4365 3038 BoxF
+4371 2987 BoxF
+4377 2980 BoxF
+4383 3038 BoxF
+4389 2825 BoxF
+4394 3007 BoxF
+4400 2980 BoxF
+4405 2893 BoxF
+4411 2893 BoxF
+4416 2973 BoxF
+4422 2885 BoxF
+4427 2931 BoxF
+4433 2852 BoxF
+4438 3000 BoxF
+4443 2908 BoxF
+4448 2825 BoxF
+4454 3007 BoxF
+4459 2807 BoxF
+4464 2916 BoxF
+4469 2869 BoxF
+4474 2938 BoxF
+4479 2788 BoxF
+4484 2728 BoxF
+4489 2728 BoxF
+4494 2728 BoxF
+4499 2788 BoxF
+4503 2779 BoxF
+4508 2759 BoxF
+4513 2717 BoxF
+4518 2852 BoxF
+4522 2769 BoxF
+4527 2759 BoxF
+4532 2901 BoxF
+4536 2860 BoxF
+4541 2798 BoxF
+4545 2568 BoxF
+4550 2582 BoxF
+4554 2659 BoxF
+4559 2728 BoxF
+4563 2684 BoxF
+4568 2695 BoxF
+4572 2779 BoxF
+4576 2659 BoxF
+4581 2582 BoxF
+4585 2706 BoxF
+4589 2728 BoxF
+4593 2609 BoxF
+4598 2717 BoxF
+4602 2717 BoxF
+4606 2635 BoxF
+4610 2523 BoxF
+4614 2609 BoxF
+4618 2759 BoxF
+4622 2659 BoxF
+4626 2635 BoxF
+4630 2568 BoxF
+4634 2595 BoxF
+4638 2553 BoxF
+4642 2595 BoxF
+4646 2523 BoxF
+4650 2457 BoxF
+4654 2538 BoxF
+4658 2684 BoxF
+4662 2717 BoxF
+4665 2659 BoxF
+4669 2538 BoxF
+4673 2490 BoxF
+4677 2538 BoxF
+4680 2507 BoxF
+4684 2474 BoxF
+4688 2635 BoxF
+4691 2568 BoxF
+4695 2538 BoxF
+4699 2507 BoxF
+4702 2381 BoxF
+4706 2647 BoxF
+4710 2420 BoxF
+4713 2420 BoxF
+4717 2457 BoxF
+4720 2401 BoxF
+4724 2568 BoxF
+4727 2401 BoxF
+4731 2538 BoxF
+4734 2317 BoxF
+4737 2474 BoxF
+4741 2507 BoxF
+4744 2420 BoxF
+4748 2490 BoxF
+4751 2490 BoxF
+4754 2317 BoxF
+4758 2457 BoxF
+4761 2401 BoxF
+4764 2609 BoxF
+4768 2401 BoxF
+4771 2672 BoxF
+4774 2457 BoxF
+4777 2381 BoxF
+4781 2457 BoxF
+4784 2507 BoxF
+4787 2420 BoxF
+4790 2381 BoxF
+4793 2401 BoxF
+4796 2538 BoxF
+4800 2244 BoxF
+4803 2523 BoxF
+4806 2439 BoxF
+4809 2339 BoxF
+4812 2457 BoxF
+4815 2381 BoxF
+4818 2317 BoxF
+4821 2381 BoxF
+4824 2523 BoxF
+4827 2439 BoxF
+4830 2490 BoxF
+4833 2317 BoxF
+4836 2439 BoxF
+4839 2439 BoxF
+4842 2339 BoxF
+4845 2317 BoxF
+4848 2339 BoxF
+4851 1781 BoxF
+4854 2244 BoxF
+4856 2244 BoxF
+4859 2294 BoxF
+4862 2217 BoxF
+4865 2381 BoxF
+4868 2457 BoxF
+4871 2270 BoxF
+4874 2361 BoxF
+4876 2244 BoxF
+4879 2401 BoxF
+4882 2381 BoxF
+4885 2439 BoxF
+4887 2294 BoxF
+4890 2294 BoxF
+4893 2401 BoxF
+4896 2024 BoxF
+4898 2061 BoxF
+4901 2270 BoxF
+4904 2294 BoxF
+4906 1841 BoxF
+4909 2061 BoxF
+4912 1892 BoxF
+4914 2217 BoxF
+4917 2270 BoxF
+4920 2361 BoxF
+4922 2361 BoxF
+4925 2217 BoxF
+4927 2217 BoxF
+4930 2401 BoxF
+4933 2294 BoxF
+4935 2317 BoxF
+4938 2161 BoxF
+4940 2361 BoxF
+4943 1892 BoxF
+4945 2190 BoxF
+4948 2244 BoxF
+4950 2217 BoxF
+4953 2361 BoxF
+4955 2161 BoxF
+4958 2128 BoxF
+4960 2024 BoxF
+4963 2161 BoxF
+4965 2190 BoxF
+4968 2361 BoxF
+4970 1982 BoxF
+4973 2128 BoxF
+4975 2061 BoxF
+4978 1841 BoxF
+4980 2244 BoxF
+4982 2339 BoxF
+4985 2190 BoxF
+4987 2217 BoxF
+4989 2217 BoxF
+4992 1982 BoxF
+4994 2161 BoxF
+4997 2270 BoxF
+4999 2061 BoxF
+5001 2128 BoxF
+5004 1982 BoxF
+5006 1982 BoxF
+5008 2161 BoxF
+5010 2361 BoxF
+5013 2270 BoxF
+5015 2420 BoxF
+5017 2024 BoxF
+5020 2270 BoxF
+5022 1939 BoxF
+5024 2061 BoxF
+5026 2128 BoxF
+5029 1781 BoxF
+5031 1718 BoxF
+5033 2096 BoxF
+5035 1982 BoxF
+5038 2024 BoxF
+5040 1982 BoxF
+5042 1781 BoxF
+5044 1939 BoxF
+5046 2061 BoxF
+5048 2190 BoxF
+5051 2128 BoxF
+5053 2128 BoxF
+5055 2128 BoxF
+5057 1982 BoxF
+5059 2024 BoxF
+5061 2317 BoxF
+5064 2061 BoxF
+5066 1781 BoxF
+5068 2024 BoxF
+5070 2190 BoxF
+5072 2190 BoxF
+5074 1982 BoxF
+5076 1781 BoxF
+5078 1892 BoxF
+5080 1841 BoxF
+5082 2128 BoxF
+5085 1892 BoxF
+5087 2024 BoxF
+5089 1718 BoxF
+5091 1841 BoxF
+5093 2061 BoxF
+5095 2161 BoxF
+5097 1939 BoxF
+5099 1841 BoxF
+5101 1781 BoxF
+5103 1892 BoxF
+5105 1939 BoxF
+5107 1841 BoxF
+5109 1841 BoxF
+5111 1892 BoxF
+5113 2161 BoxF
+5115 2024 BoxF
+5117 1781 BoxF
+5119 1781 BoxF
+5121 1982 BoxF
+5123 1982 BoxF
+5125 2061 BoxF
+5127 2061 BoxF
+5129 1939 BoxF
+5130 1982 BoxF
+5132 1841 BoxF
+5134 1892 BoxF
+5136 2024 BoxF
+5138 2024 BoxF
+5140 2024 BoxF
+5142 1841 BoxF
+5144 1781 BoxF
+5146 1892 BoxF
+5148 2061 BoxF
+5149 2061 BoxF
+5151 1781 BoxF
+5153 1563 BoxF
+5155 1939 BoxF
+5157 1892 BoxF
+5159 1718 BoxF
+5161 1939 BoxF
+5163 1939 BoxF
+5164 1841 BoxF
+5166 1939 BoxF
+5168 1939 BoxF
+5170 1892 BoxF
+5172 2061 BoxF
+5173 1781 BoxF
+5175 1939 BoxF
+5177 2096 BoxF
+5179 1563 BoxF
+5181 2096 BoxF
+5182 2096 BoxF
+5184 1718 BoxF
+5186 1781 BoxF
+5188 2061 BoxF
+5190 1718 BoxF
+5191 1781 BoxF
+5193 1841 BoxF
+5195 1460 BoxF
+5197 1460 BoxF
+5198 1340 BoxF
+5200 1892 BoxF
+5202 1460 BoxF
+5204 1563 BoxF
+5205 1646 BoxF
+5207 1718 BoxF
+5209 1718 BoxF
+5211 1718 BoxF
+5212 1781 BoxF
+5214 1892 BoxF
+5216 1841 BoxF
+5217 1841 BoxF
+5219 1460 BoxF
+5221 1892 BoxF
+5222 1841 BoxF
+5224 1781 BoxF
+5226 1982 BoxF
+5228 1841 BoxF
+5229 1460 BoxF
+5231 1646 BoxF
+5233 1841 BoxF
+5234 1781 BoxF
+5236 1340 BoxF
+5238 1718 BoxF
+5239 1781 BoxF
+5241 1646 BoxF
+5242 1781 BoxF
+5244 1563 BoxF
+5246 1460 BoxF
+5247 1340 BoxF
+5249 1718 BoxF
+5251 1939 BoxF
+5252 1185 BoxF
+5254 1340 BoxF
+5255 1892 BoxF
+5257 1781 BoxF
+5259 1781 BoxF
+5260 1718 BoxF
+5262 1646 BoxF
+5263 1563 BoxF
+5265 1718 BoxF
+5267 1939 BoxF
+5268 1781 BoxF
+5270 1646 BoxF
+5271 1781 BoxF
+5273 1646 BoxF
+5275 1646 BoxF
+5276 2024 BoxF
+5278 1563 BoxF
+5279 1718 BoxF
+5281 1841 BoxF
+5282 1460 BoxF
+5284 1718 BoxF
+5285 1781 BoxF
+5287 1563 BoxF
+5288 1781 BoxF
+5290 1892 BoxF
+5292 1563 BoxF
+5293 1781 BoxF
+5295 1718 BoxF
+5296 1939 BoxF
+5298 1718 BoxF
+5299 1185 BoxF
+5301 1185 BoxF
+5302 1460 BoxF
+5305 2061 BoxF
+5307 1718 BoxF
+5308 1718 BoxF
+5310 1563 BoxF
+5311 1563 BoxF
+5313 1563 BoxF
+5314 1841 BoxF
+5316 1646 BoxF
+5317 1340 BoxF
+5318 1718 BoxF
+5320 1892 BoxF
+5321 1892 BoxF
+5323 1646 BoxF
+5324 1892 BoxF
+5326 1892 BoxF
+5327 1563 BoxF
+5329 1340 BoxF
+5330 1340 BoxF
+5332 1892 BoxF
+5333 1718 BoxF
+5334 1340 BoxF
+5336 1563 BoxF
+5337 1340 BoxF
+5339 1340 BoxF
+5340 1340 BoxF
+5342 1939 BoxF
+5343 1939 BoxF
+5344 1563 BoxF
+5346 1892 BoxF
+5347 1460 BoxF
+5349 1841 BoxF
+5350 1563 BoxF
+5351 1718 BoxF
+5353 1460 BoxF
+5354 1563 BoxF
+5357 1340 BoxF
+5358 1781 BoxF
+5360 1646 BoxF
+5361 1460 BoxF
+5363 1563 BoxF
+5364 1718 BoxF
+5365 1185 BoxF
+5367 1460 BoxF
+5368 1460 BoxF
+5369 1185 BoxF
+5371 1460 BoxF
+5372 1340 BoxF
+5374 1340 BoxF
+5375 1460 BoxF
+5376 1460 BoxF
+5378 1340 BoxF
+5379 1563 BoxF
+5380 1646 BoxF
+5382 1460 BoxF
+5383 1892 BoxF
+5384 1185 BoxF
+5386 1646 BoxF
+5387 1646 BoxF
+5388 1460 BoxF
+5390 1185 BoxF
+5391 1718 BoxF
+5394 1185 BoxF
+5395 1781 BoxF
+5396 1460 BoxF
+5398 1718 BoxF
+5399 1646 BoxF
+5400 1563 BoxF
+5401 1563 BoxF
+5403 1646 BoxF
+5404 1646 BoxF
+5405 1460 BoxF
+5407 1340 BoxF
+5408 1185 BoxF
+5409 1185 BoxF
+5410 1646 BoxF
+5412 1185 BoxF
+5413 1718 BoxF
+5414 1646 BoxF
+5416 1185 BoxF
+5417 1340 BoxF
+5418 1563 BoxF
+5419 1340 BoxF
+5421 1718 BoxF
+5422 1646 BoxF
+5423 1460 BoxF
+5424 1563 BoxF
+5426 1340 BoxF
+5427 1185 BoxF
+5428 1340 BoxF
+5429 1340 BoxF
+5431 1646 BoxF
+5432 577 BoxF
+5433 1841 BoxF
+5434 1185 BoxF
+5436 1718 BoxF
+5437 1460 BoxF
+5438 1340 BoxF
+5439 1718 BoxF
+5441 1781 BoxF
+5442 1892 BoxF
+5443 1340 BoxF
+5444 1340 BoxF
+5446 577 BoxF
+5447 1460 BoxF
+5448 1646 BoxF
+5449 1460 BoxF
+5450 1718 BoxF
+5452 1718 BoxF
+5453 1185 BoxF
+5454 1340 BoxF
+5455 1185 BoxF
+5456 969 BoxF
+5458 969 BoxF
+5459 1340 BoxF
+5460 1185 BoxF
+5461 1718 BoxF
+5462 577 BoxF
+5464 1340 BoxF
+5465 1185 BoxF
+5466 1718 BoxF
+5467 1185 BoxF
+5468 1460 BoxF
+5470 1185 BoxF
+5471 969 BoxF
+5472 1340 BoxF
+5473 1718 BoxF
+5474 577 BoxF
+5475 1460 BoxF
+5477 1460 BoxF
+5478 577 BoxF
+5479 1340 BoxF
+5480 1646 BoxF
+5481 1340 BoxF
+5482 1563 BoxF
+5484 969 BoxF
+5485 1185 BoxF
+5486 1563 BoxF
+5487 1185 BoxF
+5488 969 BoxF
+5489 1185 BoxF
+5490 1460 BoxF
+5492 1340 BoxF
+5493 1460 BoxF
+5494 1185 BoxF
+5495 969 BoxF
+5496 1340 BoxF
+5497 1185 BoxF
+5498 1340 BoxF
+5500 969 BoxF
+5501 1841 BoxF
+5502 1563 BoxF
+5503 1185 BoxF
+5504 1460 BoxF
+5505 1460 BoxF
+5506 577 BoxF
+5507 1646 BoxF
+5509 969 BoxF
+5510 1340 BoxF
+5511 1185 BoxF
+5512 1340 BoxF
+5513 969 BoxF
+5514 969 BoxF
+5515 577 BoxF
+5516 1781 BoxF
+5517 1646 BoxF
+5518 1340 BoxF
+5520 969 BoxF
+5521 969 BoxF
+5522 1563 BoxF
+5523 1646 BoxF
+5524 1563 BoxF
+5525 969 BoxF
+5526 1340 BoxF
+5527 1185 BoxF
+5528 1185 BoxF
+5529 1460 BoxF
+5530 969 BoxF
+5532 969 BoxF
+5533 1185 BoxF
+5534 1563 BoxF
+5535 1340 BoxF
+5536 1563 BoxF
+5537 1340 BoxF
+5538 577 BoxF
+5539 1185 BoxF
+5540 969 BoxF
+5541 1563 BoxF
+5542 969 BoxF
+5543 1185 BoxF
+5544 1460 BoxF
+5545 1460 BoxF
+5546 1185 BoxF
+5548 1460 BoxF
+5549 1460 BoxF
+5550 1646 BoxF
+5551 1718 BoxF
+5552 1340 BoxF
+5553 1646 BoxF
+5555 1185 BoxF
+5556 1185 BoxF
+5557 969 BoxF
+5558 1340 BoxF
+5559 1185 BoxF
+5560 1185 BoxF
+5561 1563 BoxF
+5562 1646 BoxF
+5563 1185 BoxF
+5564 1563 BoxF
+5565 969 BoxF
+5566 1340 BoxF
+5567 1340 BoxF
+5568 969 BoxF
+5569 1563 BoxF
+5570 1185 BoxF
+5571 969 BoxF
+5572 1563 BoxF
+5573 1460 BoxF
+5574 1340 BoxF
+5575 1185 BoxF
+5576 1340 BoxF
+5577 969 BoxF
+5578 1340 BoxF
+5579 969 BoxF
+5580 969 BoxF
+5581 1460 BoxF
+5582 969 BoxF
+5583 1185 BoxF
+5584 969 BoxF
+5585 1185 BoxF
+5586 1340 BoxF
+5587 577 BoxF
+5588 1563 BoxF
+5590 969 BoxF
+5591 1563 BoxF
+5592 577 BoxF
+5593 969 BoxF
+5594 1460 BoxF
+5595 1460 BoxF
+5596 1563 BoxF
+5597 1185 BoxF
+5598 1340 BoxF
+5599 1185 BoxF
+5600 969 BoxF
+5601 1185 BoxF
+5602 969 BoxF
+5603 1460 BoxF
+5604 577 BoxF
+5605 577 BoxF
+5607 1185 BoxF
+5608 577 BoxF
+5609 1185 BoxF
+5610 1563 BoxF
+5611 577 BoxF
+5612 1340 BoxF
+5613 969 BoxF
+5614 969 BoxF
+5615 1460 BoxF
+5616 969 BoxF
+5617 1185 BoxF
+5618 1460 BoxF
+5618 969 BoxF
+5619 1718 BoxF
+5621 577 BoxF
+5622 1563 BoxF
+5623 1646 BoxF
+5624 577 BoxF
+5625 1460 BoxF
+5626 1340 BoxF
+5627 969 BoxF
+5628 969 BoxF
+5629 577 BoxF
+5630 577 BoxF
+5632 577 BoxF
+5633 577 BoxF
+5633 1340 BoxF
+5634 969 BoxF
+5636 1185 BoxF
+5638 1340 BoxF
+5639 1340 BoxF
+5640 1460 BoxF
+5641 1185 BoxF
+5642 577 BoxF
+5643 577 BoxF
+5644 969 BoxF
+5645 577 BoxF
+5645 1340 BoxF
+5646 1340 BoxF
+5647 969 BoxF
+5648 1340 BoxF
+5649 1563 BoxF
+5650 1460 BoxF
+5651 1340 BoxF
+5652 577 BoxF
+5653 1460 BoxF
+5654 969 BoxF
+5655 1340 BoxF
+5655 969 BoxF
+5656 577 BoxF
+5657 969 BoxF
+5658 1340 BoxF
+5659 1185 BoxF
+5660 577 BoxF
+5661 1460 BoxF
+5662 969 BoxF
+5663 1185 BoxF
+5663 969 BoxF
+5664 577 BoxF
+5666 1185 BoxF
+5667 969 BoxF
+5668 1185 BoxF
+5669 969 BoxF
+5670 577 BoxF
+5671 1340 BoxF
+5671 969 BoxF
+5672 1185 BoxF
+5673 969 BoxF
+5674 969 BoxF
+5675 969 BoxF
+5676 577 BoxF
+5677 969 BoxF
+5678 1185 BoxF
+5678 969 BoxF
+5679 1340 BoxF
+5680 1185 BoxF
+5681 1340 BoxF
+5682 1185 BoxF
+5684 577 BoxF
+5685 577 BoxF
+5685 969 BoxF
+5686 969 BoxF
+5687 577 BoxF
+5688 1340 BoxF
+5689 1185 BoxF
+5690 1185 BoxF
+5691 1185 BoxF
+5691 1340 BoxF
+5692 577 BoxF
+5693 969 BoxF
+5694 1340 BoxF
+5695 1185 BoxF
+5696 1460 BoxF
+5696 1185 BoxF
+5697 969 BoxF
+5698 1185 BoxF
+5699 969 BoxF
+5700 1563 BoxF
+5701 1460 BoxF
+5702 1185 BoxF
+5704 1340 BoxF
+5705 577 BoxF
+5706 1460 BoxF
+5707 1340 BoxF
+5707 577 BoxF
+5708 969 BoxF
+5709 1646 BoxF
+5710 969 BoxF
+5711 969 BoxF
+5712 1185 BoxF
+5712 1185 BoxF
+5713 969 BoxF
+5714 1340 BoxF
+5715 577 BoxF
+5716 969 BoxF
+5717 969 BoxF
+5718 577 BoxF
+5719 1185 BoxF
+5720 1185 BoxF
+5721 1185 BoxF
+5721 1185 BoxF
+5722 1185 BoxF
+5723 1340 BoxF
+5724 1340 BoxF
+5726 969 BoxF
+5726 969 BoxF
+5727 969 BoxF
+5728 1185 BoxF
+5729 1185 BoxF
+5730 577 BoxF
+5730 577 BoxF
+5731 577 BoxF
+5732 1340 BoxF
+5734 1460 BoxF
+5734 1185 BoxF
+5735 1185 BoxF
+5736 1185 BoxF
+5737 1185 BoxF
+5738 969 BoxF
+5738 1460 BoxF
+5739 1340 BoxF
+5740 1340 BoxF
+5742 1185 BoxF
+5742 969 BoxF
+5743 577 BoxF
+5744 1185 BoxF
+5745 577 BoxF
+5746 1185 BoxF
+5747 577 BoxF
+5748 577 BoxF
+5749 1185 BoxF
+5749 1185 BoxF
+5750 1460 BoxF
+5751 969 BoxF
+5752 577 BoxF
+5753 577 BoxF
+5754 1460 BoxF
+5755 1185 BoxF
+5756 577 BoxF
+5757 577 BoxF
+5758 1340 BoxF
+5759 1340 BoxF
+5760 969 BoxF
+5760 1185 BoxF
+5761 577 BoxF
+5763 1340 BoxF
+5763 1185 BoxF
+5764 1185 BoxF
+5765 1185 BoxF
+5766 1185 BoxF
+5767 1340 BoxF
+5767 969 BoxF
+5768 969 BoxF
+5769 577 BoxF
+5770 1185 BoxF
+5771 969 BoxF
+5772 577 BoxF
+5773 577 BoxF
+5773 577 BoxF
+5774 577 BoxF
+5776 969 BoxF
+5776 969 BoxF
+5777 969 BoxF
+5779 1460 BoxF
+5780 577 BoxF
+5781 1185 BoxF
+5782 969 BoxF
+5783 969 BoxF
+5784 577 BoxF
+5785 577 BoxF
+5785 1563 BoxF
+5787 969 BoxF
+5788 577 BoxF
+5788 969 BoxF
+5790 1185 BoxF
+5791 577 BoxF
+5792 577 BoxF
+5793 1185 BoxF
+5794 1185 BoxF
+5794 969 BoxF
+5795 1340 BoxF
+5796 969 BoxF
+5797 969 BoxF
+5797 577 BoxF
+5798 577 BoxF
+5799 577 BoxF
+5799 969 BoxF
+5800 969 BoxF
+5801 969 BoxF
+5802 1185 BoxF
+5803 577 BoxF
+5804 1340 BoxF
+5805 969 BoxF
+5806 577 BoxF
+5807 969 BoxF
+5807 969 BoxF
+5808 577 BoxF
+5810 577 BoxF
+5811 577 BoxF
+5812 577 BoxF
+5812 577 BoxF
+5815 969 BoxF
+5816 969 BoxF
+5817 1185 BoxF
+5818 1185 BoxF
+5819 1185 BoxF
+5820 577 BoxF
+5820 577 BoxF
+5821 577 BoxF
+5822 1340 BoxF
+5823 969 BoxF
+5824 969 BoxF
+5825 1340 BoxF
+5826 1646 BoxF
+5827 969 BoxF
+5827 577 BoxF
+5829 1340 BoxF
+5829 577 BoxF
+5830 969 BoxF
+5831 1185 BoxF
+5832 577 BoxF
+5833 577 BoxF
+5834 577 BoxF
+5835 577 BoxF
+5836 969 BoxF
+5836 577 BoxF
+5838 577 BoxF
+5838 1185 BoxF
+5839 969 BoxF
+5840 577 BoxF
+5841 577 BoxF
+5841 969 BoxF
+5842 969 BoxF
+5843 969 BoxF
+5843 577 BoxF
+5844 577 BoxF
+5845 577 BoxF
+5846 577 BoxF
+5847 969 BoxF
+5848 577 BoxF
+5849 969 BoxF
+5849 577 BoxF
+5850 969 BoxF
+5851 969 BoxF
+5851 969 BoxF
+5852 577 BoxF
+5853 969 BoxF
+5853 969 BoxF
+5854 969 BoxF
+5855 577 BoxF
+5855 577 BoxF
+5856 969 BoxF
+5857 577 BoxF
+5858 969 BoxF
+5859 969 BoxF
+5860 1340 BoxF
+5861 577 BoxF
+5861 969 BoxF
+5862 969 BoxF
+5863 1340 BoxF
+5865 969 BoxF
+5866 969 BoxF
+5867 577 BoxF
+5867 969 BoxF
+5868 577 BoxF
+5869 1460 BoxF
+5870 1185 BoxF
+5871 577 BoxF
+5873 577 BoxF
+5873 969 BoxF
+5874 969 BoxF
+5875 577 BoxF
+5875 969 BoxF
+5878 577 BoxF
+5879 577 BoxF
+5881 577 BoxF
+5881 577 BoxF
+5884 969 BoxF
+5885 1185 BoxF
+5886 577 BoxF
+5886 577 BoxF
+5887 577 BoxF
+5888 577 BoxF
+5888 1185 BoxF
+5889 577 BoxF
+5890 577 BoxF
+5890 577 BoxF
+5892 969 BoxF
+5893 969 BoxF
+5895 1185 BoxF
+5895 969 BoxF
+5896 1185 BoxF
+5897 577 BoxF
+5897 577 BoxF
+5898 969 BoxF
+5898 577 BoxF
+5899 577 BoxF
+5900 577 BoxF
+5902 577 BoxF
+5903 577 BoxF
+5904 577 BoxF
+5905 577 BoxF
+5905 577 BoxF
+5906 1340 BoxF
+5907 969 BoxF
+5908 577 BoxF
+5909 577 BoxF
+5910 969 BoxF
+5911 577 BoxF
+5912 1185 BoxF
+5913 577 BoxF
+5913 577 BoxF
+5914 969 BoxF
+5915 577 BoxF
+5916 577 BoxF
+5917 577 BoxF
+5918 969 BoxF
+5918 969 BoxF
+5919 577 BoxF
+5920 577 BoxF
+5921 1185 BoxF
+5921 577 BoxF
+5923 577 BoxF
+5923 577 BoxF
+5924 577 BoxF
+5925 969 BoxF
+5926 577 BoxF
+5927 577 BoxF
+5928 969 BoxF
+5928 969 BoxF
+5930 969 BoxF
+5931 969 BoxF
+5932 969 BoxF
+5933 1340 BoxF
+5934 577 BoxF
+5935 577 BoxF
+5935 577 BoxF
+5936 577 BoxF
+5937 577 BoxF
+5938 577 BoxF
+5939 577 BoxF
+5940 577 BoxF
+5941 577 BoxF
+5941 577 BoxF
+5942 969 BoxF
+5943 969 BoxF
+5950 577 BoxF
+5950 969 BoxF
+5951 577 BoxF
+5952 969 BoxF
+5953 1185 BoxF
+5955 577 BoxF
+5955 969 BoxF
+5956 577 BoxF
+5958 969 BoxF
+5958 969 BoxF
+5959 1563 BoxF
+5961 577 BoxF
+5961 969 BoxF
+5962 969 BoxF
+5964 969 BoxF
+5964 969 BoxF
+5965 577 BoxF
+5965 577 BoxF
+5966 577 BoxF
+5966 969 BoxF
+5967 969 BoxF
+5968 577 BoxF
+5969 577 BoxF
+5969 577 BoxF
+5970 577 BoxF
+5970 577 BoxF
+5972 577 BoxF
+5972 577 BoxF
+5974 577 BoxF
+5976 577 BoxF
+5977 577 BoxF
+5977 969 BoxF
+5979 577 BoxF
+5980 1185 BoxF
+5981 577 BoxF
+5982 577 BoxF
+5982 1340 BoxF
+5983 577 BoxF
+5983 577 BoxF
+5984 577 BoxF
+5985 1185 BoxF
+5986 577 BoxF
+5986 577 BoxF
+5987 577 BoxF
+5988 577 BoxF
+5989 969 BoxF
+5990 577 BoxF
+5991 577 BoxF
+5991 577 BoxF
+5992 577 BoxF
+5992 969 BoxF
+5995 969 BoxF
+5996 577 BoxF
+5998 577 BoxF
+6000 577 BoxF
+6000 577 BoxF
+6001 969 BoxF
+6002 577 BoxF
+6004 577 BoxF
+6005 969 BoxF
+6006 577 BoxF
+6008 577 BoxF
+6009 969 BoxF
+6010 969 BoxF
+6010 969 BoxF
+6011 577 BoxF
+6012 577 BoxF
+6013 577 BoxF
+6013 969 BoxF
+6014 577 BoxF
+6015 969 BoxF
+6016 1340 BoxF
+6016 577 BoxF
+6017 577 BoxF
+6018 577 BoxF
+6019 577 BoxF
+6021 969 BoxF
+6021 577 BoxF
+6022 969 BoxF
+6024 969 BoxF
+6025 577 BoxF
+6025 969 BoxF
+6026 969 BoxF
+6026 577 BoxF
+6027 577 BoxF
+6028 577 BoxF
+6031 969 BoxF
+6032 1185 BoxF
+6032 577 BoxF
+6033 577 BoxF
+6034 969 BoxF
+6037 577 BoxF
+6038 577 BoxF
+6041 577 BoxF
+6042 577 BoxF
+6042 577 BoxF
+6043 969 BoxF
+6044 969 BoxF
+6045 577 BoxF
+6045 577 BoxF
+6046 577 BoxF
+6046 577 BoxF
+6050 577 BoxF
+6051 969 BoxF
+6052 577 BoxF
+6053 969 BoxF
+6053 577 BoxF
+6054 577 BoxF
+6054 969 BoxF
+6057 577 BoxF
+6060 577 BoxF
+6061 577 BoxF
+6064 577 BoxF
+6064 577 BoxF
+6066 577 BoxF
+6066 577 BoxF
+6067 577 BoxF
+6068 577 BoxF
+6068 577 BoxF
+6071 577 BoxF
+6071 577 BoxF
+6072 577 BoxF
+6074 577 BoxF
+6075 577 BoxF
+6076 577 BoxF
+6077 1185 BoxF
+6077 577 BoxF
+6078 969 BoxF
+6079 969 BoxF
+6080 577 BoxF
+6081 1185 BoxF
+6082 577 BoxF
+6083 969 BoxF
+6084 577 BoxF
+6084 577 BoxF
+6085 577 BoxF
+6085 969 BoxF
+6087 969 BoxF
+6088 577 BoxF
+6091 577 BoxF
+6092 577 BoxF
+6094 577 BoxF
+6095 577 BoxF
+6096 577 BoxF
+6097 577 BoxF
+6097 969 BoxF
+6100 577 BoxF
+6101 577 BoxF
+6103 577 BoxF
+6103 577 BoxF
+6104 577 BoxF
+6104 577 BoxF
+6105 577 BoxF
+6106 577 BoxF
+6106 577 BoxF
+6107 577 BoxF
+6108 577 BoxF
+6109 969 BoxF
+6111 577 BoxF
+6111 577 BoxF
+6112 577 BoxF
+6114 577 BoxF
+6115 577 BoxF
+6116 577 BoxF
+6116 577 BoxF
+6117 577 BoxF
+6117 969 BoxF
+6118 969 BoxF
+6118 577 BoxF
+6120 577 BoxF
+6122 577 BoxF
+6122 969 BoxF
+6122 577 BoxF
+6126 577 BoxF
+6127 577 BoxF
+6128 577 BoxF
+6130 577 BoxF
+6131 577 BoxF
+6136 577 BoxF
+6136 577 BoxF
+6137 969 BoxF
+6138 577 BoxF
+6140 577 BoxF
+6141 577 BoxF
+6144 577 BoxF
+6145 577 BoxF
+6146 969 BoxF
+6148 577 BoxF
+6150 577 BoxF
+6152 577 BoxF
+6153 577 BoxF
+6154 577 BoxF
+6155 969 BoxF
+6157 577 BoxF
+6158 1185 BoxF
+6158 577 BoxF
+6160 577 BoxF
+6160 969 BoxF
+6161 577 BoxF
+6163 577 BoxF
+6164 577 BoxF
+6166 577 BoxF
+6167 577 BoxF
+6167 577 BoxF
+6168 577 BoxF
+6169 577 BoxF
+6170 969 BoxF
+6170 577 BoxF
+6171 577 BoxF
+6172 577 BoxF
+6173 577 BoxF
+6175 969 BoxF
+6179 969 BoxF
+6180 577 BoxF
+6181 577 BoxF
+6185 577 BoxF
+6187 577 BoxF
+6189 969 BoxF
+6190 577 BoxF
+6196 577 BoxF
+6196 577 BoxF
+6198 577 BoxF
+6200 1185 BoxF
+6202 577 BoxF
+6202 577 BoxF
+6203 1185 BoxF
+6204 969 BoxF
+6205 577 BoxF
+6207 577 BoxF
+6209 577 BoxF
+6211 577 BoxF
+6212 577 BoxF
+6213 577 BoxF
+6215 577 BoxF
+6220 577 BoxF
+6221 577 BoxF
+6221 577 BoxF
+6227 577 BoxF
+6230 577 BoxF
+6231 577 BoxF
+6232 577 BoxF
+6233 577 BoxF
+6234 577 BoxF
+6237 577 BoxF
+6237 577 BoxF
+6238 577 BoxF
+6242 577 BoxF
+6244 969 BoxF
+6247 577 BoxF
+6248 577 BoxF
+6249 969 BoxF
+6252 969 BoxF
+6258 577 BoxF
+6259 577 BoxF
+6259 577 BoxF
+6260 577 BoxF
+6260 577 BoxF
+6261 577 BoxF
+6264 577 BoxF
+6266 577 BoxF
+6270 577 BoxF
+6271 577 BoxF
+6272 577 BoxF
+6274 577 BoxF
+6276 577 BoxF
+6276 577 BoxF
+6276 577 BoxF
+6279 577 BoxF
+6284 577 BoxF
+6285 969 BoxF
+6292 577 BoxF
+6294 969 BoxF
+6295 577 BoxF
+6296 577 BoxF
+6296 577 BoxF
+6297 577 BoxF
+6297 577 BoxF
+6298 577 BoxF
+6299 577 BoxF
+6300 577 BoxF
+6302 577 BoxF
+6304 577 BoxF
+6305 577 BoxF
+6305 577 BoxF
+6306 577 BoxF
+6307 577 BoxF
+6308 577 BoxF
+6309 577 BoxF
+6310 577 BoxF
+6314 577 BoxF
+6315 577 BoxF
+6317 969 BoxF
+6318 577 BoxF
+6319 577 BoxF
+6319 577 BoxF
+6324 577 BoxF
+6329 577 BoxF
+6333 577 BoxF
+6333 969 BoxF
+6335 577 BoxF
+6335 577 BoxF
+6342 577 BoxF
+6346 577 BoxF
+6347 577 BoxF
+6347 577 BoxF
+6349 577 BoxF
+6350 577 BoxF
+6352 577 BoxF
+6357 577 BoxF
+6360 577 BoxF
+6361 577 BoxF
+6363 577 BoxF
+6365 577 BoxF
+6365 577 BoxF
+6366 577 BoxF
+6369 577 BoxF
+6372 577 BoxF
+6382 969 BoxF
+6385 577 BoxF
+6389 577 BoxF
+6398 577 BoxF
+6401 577 BoxF
+6402 577 BoxF
+6407 577 BoxF
+6415 577 BoxF
+6418 577 BoxF
+6422 577 BoxF
+6427 577 BoxF
+6431 577 BoxF
+6436 577 BoxF
+6438 577 BoxF
+6440 577 BoxF
+6443 577 BoxF
+6445 577 BoxF
+6447 577 BoxF
+6448 577 BoxF
+6450 577 BoxF
+6457 577 BoxF
+6462 577 BoxF
+6463 577 BoxF
+6468 577 BoxF
+6470 577 BoxF
+6472 577 BoxF
+6478 577 BoxF
+6482 577 BoxF
+6491 577 BoxF
+6493 577 BoxF
+6495 577 BoxF
+6501 577 BoxF
+6509 577 BoxF
+6513 577 BoxF
+6516 577 BoxF
+6520 577 BoxF
+6540 577 BoxF
+6541 577 BoxF
+6541 577 BoxF
+6543 577 BoxF
+6555 577 BoxF
+6563 577 BoxF
+6565 577 BoxF
+6576 577 BoxF
+6586 577 BoxF
+6619 577 BoxF
+6627 577 BoxF
+6645 577 BoxF
+6650 577 BoxF
+6664 577 BoxF
+6683 577 BoxF
+6688 577 BoxF
+6785 577 BoxF
+6579 4730 BoxF
+% End plot #1
+% Begin plot #2
+1.000 UL
+LT2
+LC2 setrgbcolor
+LCb setrgbcolor
+6296 4573 M
+[ [(Helvetica) 140.0 0.0 true true 0 (3.72 x)]
+[(Helvetica) 112.0 70.0 true true 0 (-1.63)]
+] -60.7 MRshow
+LT2
+6380 4573 M
+399 0 V
+2906 4871 M
+35 -45 V
+61 -79 V
+60 -79 V
+61 -78 V
+61 -79 V
+60 -78 V
+61 -79 V
+61 -79 V
+61 -78 V
+60 -79 V
+61 -78 V
+61 -79 V
+60 -78 V
+61 -79 V
+61 -79 V
+60 -78 V
+61 -79 V
+61 -78 V
+61 -79 V
+60 -79 V
+61 -78 V
+61 -79 V
+60 -78 V
+61 -79 V
+61 -78 V
+60 -79 V
+61 -79 V
+61 -78 V
+61 -79 V
+60 -78 V
+61 -79 V
+61 -79 V
+60 -78 V
+61 -79 V
+61 -78 V
+60 -79 V
+61 -79 V
+61 -78 V
+60 -79 V
+61 -78 V
+61 -79 V
+61 -78 V
+60 -79 V
+61 -79 V
+61 -78 V
+60 -79 V
+61 -78 V
+61 -79 V
+60 -79 V
+61 -78 V
+61 -79 V
+61 -78 V
+60 -79 V
+61 -79 V
+61 -78 V
+60 -79 V
+43 -55 V
+% End plot #2
+stroke
+LTb
+LCb setrgbcolor
+938 4871 N
+938 448 L
+6009 0 V
+0 4423 V
+-6009 0 V
+Z stroke
+1.000 UP
+1.000 UL
+LTb
+LCb setrgbcolor
+stroke
+grestore
+end
+showpage
+%%Trailer
+%%DocumentFonts: Helvetica
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 %%Trailer
+%%DocumentFonts: Helvetica
