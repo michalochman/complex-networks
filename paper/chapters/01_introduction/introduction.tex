@@ -1,17 +1,53 @@
 \chapter{Introduction}
 
-	\section{Introduction}
+  \section{Introduction}
 
-		In this work I will consider the problem of identifying different types of structures and substructures in opinion networks. The formal definition for the term \emph{opinion network} is provided in Chapter \ref{chap:definitions}, but informally we can describe it as a complex network representing opinions amongst a set of particular agents, e.g. individual users of message boards.
-		
-	
-	\section{Motivation}
+    In this work we will consider the problem of identifying different types of structures and substructures in opinion networks. The formal definition for the term \emph{opinion network} was not proposed yet, but informally it can be described as a \emph{collaboration network} representing opinions amongst a set of particular agents, e.g. individual users of message boards. A collaborative network is a network that consists of agents that are mostly autonomous and heterogenous, but that cooperate to achieve some kind of a common goal. The interactions of such network are generally supported by computer networks.
 
-		Due to the hypothesis that some agents may be dishonest and may, for example, create multiple accounts on message boards to either advertise and/or malign certain brands of products it is desirable, if not necessary, to filter out quasi-opinions posted by such agents. For many message boards, like the one examined during writing of this thesis, honest and unpolluted opinions are key factor in retaining its reputability. Without the possibility to identify and remove unwanted opinions it is easy to decline and lose the user base. However, one has to note that there is no sure and reliable way of doing it automatically or applying it in a generic way across different opinion networks.
-		\\\\
-		Because of the character of the thesis the assumption was to download messages from one of the message boards and create a complex network using obtained data. Then it was proposed to analyse newly established complex network using several already known methods and/or develop new methods if necessary.
+  \section{Motivation}
+
+    Due to the hypothesis that some agents may be dishonest and may, for example, create multiple accounts on message boards to either advertise and/or malign certain brands of products it is desirable, if not necessary, to filter out quasi-opinions posted by such agents. For many message boards, like the one examined during writing of this thesis, honest and unpolluted opinions are key factor in retaining its reputability. Without the possibility to identify and remove unwanted opinions it is easy to decline and lose the user base. However, one has to note that there is no sure and reliable way of doing it automatically or applying it in a generic way across different opinion networks.
+    \\\\
+    Because of the character of the thesis the assumption was to download messages from one of the message boards and create a complex network using obtained data. Then it was proposed to analyse newly established complex network using several already known methods and/or develop new methods if necessary.
+
+  \section{Related work}
+
+    B. Kujawski, \emph{et al.}\cite{Kujawski2007} have presented us with an empirical study of opinion networks created by users of message boards and news groups. They showed that they organise themselves in groups of scale-free trees which structures depend on the topics discussed.
+    \\\\
+    R. V. Solé, \emph{et al.}\cite{Sole2010} have reviewed the state of the art on language networks and their possible relevance to cognitive science. They discuss the syntax of the language and its emergence through the process of learning the language. They present a study to illustrate how this way of research can try to answer questions about language organisation and evolution.
+    \\\\
+    M.-S. Shang, \emph{et al.}\cite{Shang2010} were trying to prove that it is important to understand the structure and evolution of web-based user-object networks as they play significant role in e-commerce nowadays. They have studied two large-scale and popular web sites, audioscrobbler.com and del.icio.us, where users are connected with music groups and bookmarks, respectively. They propose a new index, named collaborative similarity, to quantify the diversity of tastes based on the collaborative selection, which I use later in this paper.
+
+  \section{Software used}
+  
+    \subsection{Data mining}
+
+      Data was downloaded using custom written web crawler. PHP language was used along with sfWebBrowser plugin from Symfony framework for crawling and PHP Simple HTML DOM Parser for HTML manipulation. Text processing was performed with a help of regular expressions found in both PHP and Python languages. MySQL was used as a storage for relational data.
+
+    \subsection{Calculations}
+    
+      The most data processing was performed employing proprietary scripts in PHP and Python. Python was especially used wherever multi-threaded operations were possible, thanks to its outstanding multiprocessing package. In most cases, 4-8 processing cores were used to process the data, with up to 20 (using 3 machines) in extremely time consuming calculations.
+
+      For some of the network computations, NetworkX package for Python was used. NetworkX is a great tool for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks. One of its best features is the use of Python's data structures for graphs, so there is no extra overhead. It allows for arbitrary data to be set on both nodes and edges. It is very easy to write additional procedures to use with this package and many algorithms has already been implemented.
+      
+      For other computations, Gephi was used, which is an interactive visualisation and exploration platform for all kinds of networks. It allows for easy manipulation of the network and makes it simple to instantly perform operations on it. The tool is very intuitive and makes it possible to analyse very big networks. It contains various metrics that are ready to use as soon as you import your network.
+      
+    \subsection{Figures}
+
+      Figures with networks were created using Gephi. Figures with graphs were created using Adobe Illustrator\textregistered. This software was also utilised to convert SVG files from Gephi to EPS files to be used with this paper. All other figures were plotted with gnuplot.
 		
-	\section{Structure of this paper}
-		
-	\section{Related Work}
-		
+  \section{Structure of this paper}
+
+    This paper is divided into 6 distinct chapters related to a single group of problems.
+    \\\\
+    First chapter makes an introduction to the problem. It presents the motivation behind the thesis and discusses related work.
+    \\\\
+    Second chapter introduces the reader to the very general concepts of \emph{graph theory}. It provides the most important terms and definitions that will be used throughout this work.
+    \\\\
+    The attention of the third chapter focuses on issues related to \emph{network theory} which is a part of graph theory, but in an area of computer and network science. It has applications in many disciplines like social sciences which are of particular interest to those working with social networks.
+    \\\\
+    Fourth chapter is dedicated to a field of computer science called \emph{natural language processing}. It concerns the interactions between human languages and computers and approaches the problems of parsing and understanding written messages.
+    \\\\
+    Fifth chapter presents the reader with the methodology proposed in attempt to understand the processes taking place in the network. Several implementations are examined thoroughly with the results presented and interpreted.
+    \\\\
+    Last but not least, the sixth chapter concludes the ideas presented in the paper. It discusses what was and was not achieved during the assignment. It also provides an idea for further research than can be conducted later using the data obtained. Finally, it gives some interesting ideas that are worth considering but were not approached for various reasons.

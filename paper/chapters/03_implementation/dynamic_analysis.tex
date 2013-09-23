@@ -1,12 +1,13 @@
+\newpage
 \section{Dynamic network analysis}
 
   \subsection{Discretisation of data}
   
     Because the messages are posted on this forum virtually every minute the information about them might be considered as being continuous in time. In order to study the evolution of the network in time, there is a need to define discrete time intervals that will split the network in parts. Networks that are dynamic are called longitudinal networks.
+    \\\\
+    The time interval using which the data had to be split had to be determined empirically with a network to be kept in a size that would be representational. The choice was between a \emph{week-long}, \emph{two weeks}-long and a \emph{month}-long interval. Eventually, a \emph{$30$ day}-long time interval was selected, main reason being the fact that the date span of downloaded messages was almost 12 years long which created 141 data buckets. Additionally, message threads are often more than a week long, so we did want to avoid the situation where most threads are split into several buckets. It also allowed different kind of distributions stand out more because they were created with more data.
     
-    dividing data into buckets; reasoning for choosing a month for a bucket period
-    
-    \ldots
+    The biggest downside was that the network sizes were still very big, thus all computations that had to be performed on a whole network took more time.
     
   \subsection{Estimating users' opinions about products} \label{sec:opinion_estimation}
   
@@ -23,7 +24,8 @@
       \label{tab:db_opinions}
     \end{table}
 
-    The script was based on algorithm \ref{alg:estimate_user_keyword}. I have run it against every bucket, first gathering the list of users and keywords in that bucket. 
+    The script was based on algorithm \ref{alg:estimate_user_keyword}. I have run it against every bucket, first gathering the list of users and keywords in that bucket.
+    The algorithm was ran for every user and keyword. It fetched all messages written by the user in a bucket it was ran for. Then for every post it has checked whether the keyword was used within the post and returned position of each occurrence of that word. The position was established to be the $n$th \textquote{token} in the message, where \textquote{tokens} were obtained in the exact same way as words in section \ref{sec:text_segmentation}. Then the algorithm extracted all words marked as opinions from the message body and for each of these opinions it has checked their position as it did with keywords. Next, it has checked whether the opinion was \emph{positive} or \emph{negative} and applied a measure on a keyword based on squared distance between itself and the opinion biased positively or negatively.
     \begin{algorithm}[H]
       \begin{algorithmic}[1]
         \Procedure{EstimateOpinion}{user, keyword, bucket}
@@ -47,26 +49,25 @@
       \caption{Estimating user's opinion about product.}
       \label{alg:estimate_user_keyword}
     \end{algorithm}
-    The algorithm was ran for every user and keyword. It fetched all messages written by the user in a bucket it was ran for. Then for every post it has checked whether the keyword was used within the post and returned position of each occurrence of that word. The position was established to be the $n$th \textquote{token} in the message, where \textquote{tokens} were obtained in the exact same way as words in section \ref{sec:text_segmentation}. Then the algorithm extracted all words marked as opinions from the message body and for each of these opinions it has checked their position as it did with keywords. Next, it has checked whether the opinion was \emph{positive} or \emph{negative} and applied a measure on a keyword based on squared distance between itself and the opinion biased positively or negatively.
 
     \subsubsection{Measure}
 
-      Let $e_o$ be an opinion estimate obtained using a method described above. Its value should be found in a range of described by an infinite sum of geometric series
+      Let $e_o$ be an opinion estimate obtained using a method described above. Its value should be found in a range of described by an infinite sum of geometric series plus one
       \begin{equation}
-        \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6} = 1.644934\ldots \mbox{,}
+        1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \ldots = 1 + \sum_{n=1}^{\infty} 2^{-n} = \sum_{n=0}^{\infty} 2^{-n} = 2 \mbox{,}
       \end{equation}
-      and each keyword can have opinions written before and after itself, so we have two sums to take into account. Hence,
+      and as each keyword can have opinions written before and after itself, we have two sums to take into account. Hence,
       \begin{equation}
-        -\frac{\pi^2}{3} \leq e_o \leq \frac{\pi^2}{3} \mbox{.}
+        -4 \leq e_o \leq 4 \mbox{.}
       \end{equation}
       
-      Application of squared distance as a base for the measure helps to favour opinions that are very close to the keywords. This was extremely important especially for long posts so that keywords mentioned at the end of the message did not get influenced by an opinion mentioned at the beginning of it. With this approach it is expected for the most opinions to be found in a range of $[\sfrac{1}{4};\sfrac{1}{4}]$---most opinions would be generally no further away than 2 words from a keyword.
+      Application of squared distance as a base for the measure favours opinions that are very close to keywords. This was extremely important especially for long posts so that keywords mentioned at the end of the message did not get influenced by an opinion mentioned at the beginning of it. With this approach it is expected for the most opinions to be found in a range of $[\sfrac{1}{4};\sfrac{1}{4}]$---most opinions would be generally no further away than 2 words from a keyword.
       
       Because measuring data in such way is not perfect and may create results contradictory to the real data I have decided to introduce a \emph{neutral} opinion using the middle range of the numbers. Hence, opinions were assigned in a following way:
       \begin{itemize}
-        \item \emph{positive:} $L \leq e_o \leq \frac{\pi^2}{3}$,
+        \item \emph{positive:} $L \leq e_o \leq 4$,
         \item \emph{neutral:} $-L < e_o < L$,
-        \item \emph{negative:} $-\frac{\pi^2}{3} \leq e_o \leq L$,
+        \item \emph{negative:} $4 \leq e_o \leq L$,
       \end{itemize}
       where $L = 0.01$ is an empirically found constant allowing for fairly even division of opinion types. Table \ref{tab:opinion_number} shows the number of opinions found, divided by the type of the opinion.
       \begin{table}[H]
@@ -86,14 +87,14 @@
         \caption{Distribution of opinions.}
         \label{fig:opinion_distribution_reg}
       \end{figure}
-      There are also visibly more opinions on the positive side of the scale than on its negative counterpart. The most dense is the neutral region but it is the consequence of having so much opinions in only $0.02$ wide scale. \textquote{Harmonic}-like peaks are conspicuous at $-1$, $-\sfrac{1}{4}$, $\sfrac{1}{4}$ and $1$, which one can see closer on figure \ref{fig:opinion_distribution_log} using a logarithmic scale. Additionally we can see peaks at $-2$ and $2$ which were not distinguishable on a linear scale.
+      There are also visibly more opinions on the positive side of the scale than on its negative counterpart. The most dense is the neutral region but it is the consequence of having so much opinions in only $0.02$ wide scale. \textquote{Harmonic}-like peaks are conspicuous at $-1$, $-\sfrac{1}{4}$, $\sfrac{1}{4}$ and $1$, which one can see closer on figure \ref{fig:opinion_distribution_log} using a logarithmic scale for $Y$ axis. Additionally we can see peaks at $-2$ and $2$ which were not distinguishable on a linear scale.
       \begin{figure}[H]
         \centering
         \includegraphics[width=0.75\textwidth]{chapters/03_implementation/opidist_log}
-        \caption{Distribution of opinions in logarithmic scale.}
+        \caption{Distribution of opinions with $Y$ axis in logarithmic scale.}
         \label{fig:opinion_distribution_log}
       \end{figure}
-      The peaks are most notably visible at $\sfrac{2}{n^2}$ values. This is a clear evidence that the majority of messages with opinions are short enough for only several opinions influencing a keyword. Otherwise, the distribution would have had a more smooth, cone-like shape. Also, the advantage of positive opinions is more evident using this scale.
+      The visible peaks are a clear evidence that the majority of messages with opinions are short enough for only several opinions influencing a keyword. Otherwise, the distribution would have had a more smooth, cone-like shape. The perfect cone-like shape would be achieved if posts were consisting of one keyword only with a lot of opinions written on both sides of it. Also, the advantage of positive opinions is more evident using this scale.
 
     \subsubsection{Problems}
 
@@ -101,7 +102,7 @@
       
       In order to mitigate this problem and to bias the opinions correctly it was necessary to check for existence of such modifier words in a proximity of opinion words.
       
-      Example expressions illustrating the problem:
+      Following expressions illustrate the problem:
       \begin{itemize}
         \item \emph{not} \textbf{good},
         \item \emph{not} necessarily \textbf{good},
@@ -119,7 +120,7 @@
       \label{fig:avg_path}
     \end{figure}
 
-  \subsection{Collaborative Similarity}
+  \subsection{Collaborative Similarity} \label{sec:cs}
     
     Ming-Sheng Shang \textit{et al.} have proposed a new index called \emph{collaborative similarity}, to quantify the diversity of tastes based on the collaborative selection\cite{Shang2010}. This newly proposed index sounds promising for the data under analysis in this thesis. It may be a good idea to explore and look at the \emph{user-message network} from the other angle and if we can find that the user selection is highly clustered---i.e. not that much diverse---then we will be able to easily identify main groups of users.
     
@@ -192,14 +193,14 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
       \end{table}
 
       Table \ref{tab:cs_properties} summarises basic statistics of selected data buckets. $N$, $M$ and $E$ denote the number of users, messages and edges connecting them, respectively. $\langle k \rangle$ and $\langle d \rangle$ are the average user degree and average message degree. $C_u$ and $C_m$ are the average collaborative similarity for users and messages, and for comparison, $\bar s_m$ and $\bar s_u$ are the average similarities over all message pairs and over all user pairs, respectively. The user selection is considered to be poorly clustered (i.e., more diverse) because the condition for that is $C_u \gg \bar s_m$ whereas $C_u$ is the same order of magnitude as $\bar s_m$. Unfortunately, this basically means that it will not be easy to identify groups of users that may have formed in this message board and I had to abandon this somewhat interesting index. Figure \ref{fig:cs_cusm} show the way $C_u$ and $\bar s_m$ were changing over time. In no bucket, $C_u$ was much greater than $\bar s_m$ and even in bucket 84 they were pretty close to each other: $0.0746$ vs $0.0683$ respectively.
-      \begin{figure}[h]
+      This does not however disqualify that method completely. The results only mean that it will not be easy to find any anomalies. There are $52605$ users in the database so I could just run over a $C_u(i)$ of every user and look for suspicious changes. However strenuous it sounds, it may be worth it. What we are looking for are users whose $C_u(i)$ is significantly different than it was before possible \textquote{marketing campaign}.
+      \begin{figure}[H]
         \includegraphics[width=\textwidth]{chapters/03_implementation/C_us_m}
         \caption{Changes of $C_u$ and $\bar s_m$ over time.}
         \label{fig:cs_cusm}
       \end{figure}
-      
-      This does not however disqualify that method completely. The results only mean that it will not be easy to find any anomalies. There are $52605$ users in the database so I could just run over a $C_u(i)$ of every user and look for suspicious changes. However strenuous it sounds, it may be worth it. What we are looking for are users whose $C_u(i)$ is significantly different than it was before possible \textquote{marketing campaign}.
-      
+
+      Figure \ref{fig:cs_dist_full} represents distribution of $C_u(i)$ across all users. Where $C_u(i)$ was in a range $[0, 1]$ it was stretched to $[0, 100]$ to create $101$ distinct buckets so that the distribution may have been calculated. Large number of nodes in \textquote{$0$} bucket constitutes with rather big amount of users with the degree less than or equal to $1$, where $C_u(i)$ is calculated as $0$ for such degree. Figure \ref{fig:cs_dist_tail} shows the tail of the distribution from figure \ref{fig:cs_dist_full} as it is not visible due to the scale used.
       \begin{figure}[H]
         \centering
         \begin{subfigure}[b]{0.49\textwidth}
@@ -216,7 +217,6 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
         \end{subfigure}
         \caption{Distribution of $C_u(i)$ across all users.}
       \end{figure}
-      Figure \ref{fig:cs_dist_full} represents distribution of $C_u(i)$ across all users. Where $C_u(i)$ was in a range $[0, 1]$ it was stretched to $[0, 100]$ to create $101$ distinct buckets so that the distribution may have been calculated. Large number of nodes in \textquote{$0$} bucket constitutes with rather big amount of users with the degree less than or equal to $1$, where $C_u(i)$ is calculated as $0$ for such degree. Figure \ref{fig:cs_dist_tail} shows the tail of the distribution from figure \ref{fig:cs_dist_full} as it is not visible due to the scale used.
       
       Figure \ref{fig:cu_12195} shows changes of $C_u(i)$ for user $i=12195$. One can clearly tell that the collaborative similarity for that user suddenly peaks three times as it was before. The next step would involve looking at the individual messages posted by that user during the time the peak occurred (bucket number 107).
       \begin{figure}[h!]
@@ -282,16 +282,15 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
       Figure \ref{fig:motif_network} shows a fragment of network created with the above method from bucket 106 which was excluded before in section \ref{sec:cs_results}. The network is a multigraph with nodes representing the users and edges representing an opinion about a brand shared between two users.
       \begin{figure}[b!]
         \centering
-        \includegraphics[width=0.75\textwidth]{chapters/03_implementation/motif_network}
+        \includegraphics[width=0.66\textwidth]{chapters/03_implementation/motif_network}
         \caption{Network obtained with motif discovery.}
         \label{fig:motif_network}
       \end{figure}
       
       The network was constructed using opinions about 10 brands presented in table \ref{tab:motif_brands} ordered by the number of times they were used in that bucket. Even though \emph{Stax} won the game mentioned in section \ref{sec:cs_results} it was not discussed between the users in an essential manner. The number of opinions about that brand was so low that it did not matter in the whole network. The size of each node was determined from it's betweenness centrality to stress the importance of certain nodes in this network despite the fact that degrees are fairly equal and distributed uniformly in a range $[100:216]$.
       
-      Three brands were discussed in a particularly frequent manner between the users, thus the network consisted mostly of opinions about them. Hence, the classes of users presented in figure \ref{fig:motif_network} are made of three brands discussed the most: \emph{Grado}, \emph{Sennheiser} and \emph{Denon}. Grado was discussed the most (see table \ref{tab:motif_brands}), but only $18.93\%$ of shared opinions in the network are about this brand. This means that the opinions about Grado (green edges) are inconsistent, so users sharing opinion about Sennheiser or Denon does not share opinion about Grado in general. While Denon was the least discussed from \textquote{the great three} it certainly indicates that users' opinions are reciprocal with over half ($53.56\%$) of the network edges (red coloured) joining users. Opinions about Sennheiser (blue links) form the other $27.51\%$ of the network. Vertices were coloured with the colour of edges that were linked to that vertex the most.
-      
-      \begin{table}[h!]
+      Three brands were discussed in a particularly frequent manner between the users, thus the network consisted mostly of opinions about them. Hence, the classes of users presented in figure \ref{fig:motif_network} are made of three brands discussed the most: \emph{Grado}, \emph{Sennheiser} and \emph{Denon}. Grado was discussed the most (see table \ref{tab:motif_brands}), but only $18.93\%$ of shared opinions in the network are about this brand. This means that the opinions about Grado (green edges) are inconsistent, so users sharing opinion about Sennheiser or Denon does not share opinion about Grado in general. 
+      \begin{table}[H]
         \centering
         \begin{tabularx}{0.6\textwidth}{|L{0.6}|L{1.2}|L{1.2}|} \hline
           \rowcolor[gray]{0.8} \textbf{Position} & \textbf{Brand} & \textbf{Times used} \\\hline
@@ -309,6 +308,7 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
         \caption{Brands used to create network shown in figure \ref{fig:motif_network}.}
         \label{tab:motif_brands}
       \end{table}
+      While Denon was the least discussed from \textquote{the great three} it certainly indicates that users' opinions are reciprocal with over half ($53.56\%$) of the network edges (red coloured) joining users. Opinions about Sennheiser (blue links) form the other $27.51\%$ of the network. Vertices were coloured with the colour of edges that were linked to that vertex the most.
       
       Particularly interesting is the case of users that either do not discuss some brands (more likely) or have no common opinions about that brand (much less likely) with other users. This means that a substructure may exist where users are focused on several brands only and do not discuss others at all. The conclusions here might be too far-reaching, but this idea might be interesting to tackle.
       

@@ -1,3 +1,4 @@
+\newpage
 \section{Static network analysis}
 
   The bipartite network was created using the users and the words filtered out of stop words and function words. Word list was then additionally limited with Zipf's law in mind: nodes representing $100$ of the most occurring words (not being keywords) and $10\%$ of the words occurring the least were removed from the network (these were with $11$ or less occurrences). Table \ref{tab:filtered_words} shows examples of words that were removed. It is understandable that they would only noise the results.  
@@ -64,7 +65,6 @@
     \end{equation}
     where $E_R \subset R$ is a set of edges to be removed from the graph and $C(V, E \ E_R)$ is the connectivity of the graph after edges $E_R$ has been removed. The connectivity of the graph obviously cannot be increased while removing edges, thus $rk = 1$ means that the connectivity was left unchanged, $0 < rk < 1$ means that the removal resulted in some loss of connectivity, while $rk = -\infty$ means that the graph has been disconnected.
     
-    I did not have enough time to conduct \emph{optimal} edge pruning so I have decided to conduct pruning randomly using \emph{naive approach} and see its effects, keeping in mind that $rk$ should be between $0$ and $1$. Algorithm \ref{alg:pruning_na} shows the approach I have selected. It sorts edges by their weights in ascending order first and then iteratively removes edges from the top of the lists when this operation would not cause the graph to be cut. The most important reason why I favoured this approach over the \emph{brute force} (that is not described here) algorithm is that it consists of less steps and is much less time consuming (in fact, it is the quickest)\cite{ZhouMahlerToivonen2012}. I could not use \emph{path simplification} or \emph{combinational approach} because it would remove too much information important in my opinion.
     \begin{algorithm}[H]
       \begin{algorithmic}[1]
         \Procedure{PruneNaively}{$G(V, E)$}
@@ -86,6 +86,7 @@
       \caption{Naive approach.}
       \label{alg:pruning_na}
     \end{algorithm}
+    I did not have enough time to conduct \emph{optimal} edge pruning so I have decided to conduct pruning randomly using \emph{naive approach} and see its effects, keeping in mind that $rk$ should be between $0$ and $1$. Algorithm \ref{alg:pruning_na} shows the approach I have selected. It sorts edges by their weights in ascending order first and then iteratively removes edges from the top of the lists when this operation would not cause the graph to be cut. The most important reason why I favoured this approach over the \emph{brute force} (that is not described here) algorithm is that it consists of less steps and is much less time consuming (in fact, it is the quickest)\cite{ZhouMahlerToivonen2012}. I could not use \emph{path simplification} or \emph{combinational approach} because it would remove too much information important in my opinion.
     
     Figure \ref{fig:pruning_effect} shows the effect of the naive approach of pruning. The network has $115$ nodes and $134$ edges. A total of $20$ edges were removed, $19$ of which with a weight of $1$ and $1$ of weight $2$. For that kind of network the results are very good: removal of $\approx 15\%$ edges resulted in only $\approx 4\%$ loss of connectivity. Unfortunately, the average path length has increased from $3.35$ to $5.53$ which is illustrated by the node neighbourhood heat map that was calculated using distance from the node with the greatest degree (the biggest one), with edge weights in mind---the less intense the colour, the more distant the node is.
     \begin{figure}[H]
@@ -129,18 +130,18 @@
     with the values of the exponents $\gamma_k$ and $\gamma_d$ shown in table \ref{tab:network_props}.
     
     Figure \ref{fig:degdist_users} shows degree distribution of user nodes. One of the first things that is noticeable while looking at this figure is that the degree distribution for degrees in a range $[1:30]$ is approximately linear and flat. The reason is that there are a lot of users that sign up to this forum with a particular purpose in mind, such as to ask a question or get a recommendation. They create a single topic for their needs and never discuss outside of it and then never return to the forum after they posted their last message. In fact, users having degree $k \leq 30$ and posting only within a single topic represent $69.35\%$ of all the users having such degree. This \emph{in my opinion} explains why the degree distribution $p(k)$ is skewed as much in the degree range $[1:30]$. If we take the other part of the range, i.e. $[31:3950]$, we see that users like that represent only $17.78\%$ of the users from that degree range.
+    What is also interesting is rather large number of \emph{hubs}, i.e. users with degree significantly higher than average. Total number of nodes with degree $k \geq 1000$ is $1.24\%$, which makes one user of 80 an important node.
     \begin{figure}[H]
       \centering
-      \includegraphics[width=\textwidth]{chapters/03_implementation/degdist_users}
+      \includegraphics[width=0.76\textwidth]{chapters/03_implementation/degdist_users}
       \caption{Degree distribution of users.}
       \label{fig:degdist_users}
     \end{figure}
-    What is also interesting is rather large number of \emph{hubs}, i.e. users with degree significantly higher than average. Total number of nodes with degree $k \geq 1000$ is $1.24\%$, which makes one user of 80 an important node.
     
     The degree distribution of word nodes is shown on figure \ref{fig:degdist_words}. There are no surprises here other than the value of the power-law exponent $\gamma_d$ which is very low, especially where we find the value of this exponent in most real-world scale-free networks to be between $2$ and $3$. I think it is quite safe to assume that if we had no typographical errors in the network and we didn't have to conduct the stemming process, the value would be higher.
     \begin{figure}[H]
       \centering
-      \includegraphics[width=\textwidth]{chapters/03_implementation/degdist_words}
+      \includegraphics[width=0.76\textwidth]{chapters/03_implementation/degdist_words}
       \caption{Degree distribution of words.}
       \label{fig:degdist_words}
     \end{figure}

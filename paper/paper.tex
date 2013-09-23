@@ -12,11 +12,34 @@
 \tableofcontents
 \newpage
 
+%\cleardoublepage
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+%\begingroup
+%\let\clearpage\relax
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+%\endgroup
+\begingroup
+\let\clearpage\relax
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listalgorithmname}
+\listofalgorithms
+\endgroup
+
+\newpage
+~
+\thispagestyle{empty}
+\newpage
+
 % paper
 \pagenumbering{arabic}
-\input{chapters/00_abstract}
+%\input{chapters/00_abstract}
 \input{chapters/01_introduction/introduction}
-\input{chapters/02_problem_definition/problem_definition}
+\input{chapters/02_problem_definition/graph_theory}
+\input{chapters/02_problem_definition/network_theory}
+\input{chapters/02_problem_definition/language_processing}
 \input{chapters/03_implementation/implementation}
 \input{chapters/95_summary}
 \input{chapters/98_appendices}
