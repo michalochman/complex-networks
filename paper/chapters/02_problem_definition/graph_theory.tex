@@ -1,4 +1,4 @@
-\chapter{Graph theory}
+\chapter{Network theory}
 
   \section{Definitions}
         
@@ -9,13 +9,13 @@
       There are two graph types in respect to edge type: \emph{undirected} and \emph{directed}, pictured on figure \ref{fig:graphs_orientation_undirected} and \ref{fig:graphs_orientation_directed} respectively. In the former, edges are ordered pairs of vertices, i.e. $e = (u, v) = (v, u)$. In the latter they are unordered or just sets of two vertices, that is $e = (u, v) \neq (v, u) = d$.
       \begin{figure}[H]
         \centering        
-          \begin{subfigure}[b]{0.25\textwidth}
+          \begin{subfigure}[b]{0.27\textwidth}
             \includegraphics[width=\textwidth]{chapters/02_problem_definition/graph_undirected}
             \caption{An undirected graph.}
             \label{fig:graphs_orientation_undirected}
           \end{subfigure}
           \qquad\qquad\qquad
-          \begin{subfigure}[b]{0.25\textwidth}
+          \begin{subfigure}[b]{0.27\textwidth}
             \includegraphics[width=\textwidth]{chapters/02_problem_definition/graph_directed}
             \caption{A directed graph.}
             \label{fig:graphs_orientation_directed}
@@ -113,19 +113,17 @@
       The above definition assumes that graphs are undirected and unweighted. However, a different definitions of isomorphism may be applied to other types of graphs, by adding the requirements to preserve the corresponding additional elements of structure like link directions, weights, \emph{etc.}, with the following exception in respect to graph labelling. If labels in graph are uniquely taken from the integer range $1,\ldots,n$, where $n$ is the number of the vertices of the graph, two labeled graphs will be isomorphic if the corresponding underlying unlabelled graphs are isomorphic.
       \begin{table}[H]
         \centering
-        \begin{minipage}[b]{0.3\textwidth}
+        \begin{minipage}[h]{0.3\textwidth}
           \centering
           \includegraphics[width=0.55\textwidth]{chapters/02_problem_definition/isomorphism_1}
-          \captionof{figure}{Graph $G$.}
         \end{minipage}
         \quad
-        \begin{minipage}[b]{0.3\textwidth}
+        \begin{minipage}[h]{0.3\textwidth}
           \centering
           \includegraphics[width=\textwidth]{chapters/02_problem_definition/isomorphism_2}
-          \captionof{figure}{Graph $H$.}
         \end{minipage}
         \qquad
-        \begin{minipage}[b]{0.3\textwidth}
+        \begin{minipage}[h]{0.3\textwidth}
           \begin{tabularx}{\textwidth}{|C{1}|} \hline
           \rowcolor[gray]{0.75} $f: V(G) \rightarrow V(H)$\\\hline
             $f(1) = a$ \\\hline
@@ -137,11 +135,11 @@
             $f(7) = g$ \\\hline
             $f(8) = h$ \\\hline
           \end{tabularx}
-          \caption{An isomorphism between $G$ and $H$.}
         \end{minipage}
+        \captionof{figure}{Graphs $G$ (left), $H$ (middle) and an isomorphism between them (right).}
       \end{table}
       
-      The concept of \emph{graph isomorphism} makes it possible to characterise graph properties essential to the structure of the graphs themselves from properties associated with graph representations like graph drawings or data structures for graphs and labelings, \emph{etc}. For example, if a graph has exactly one cycle, then all graphs in its isomorphism class\footnote{A collection of graphs isomorphic to each other.} also have exactly one cycle. On the other hand, in the common case when the vertices of a graph are (represented by) the integers $1, 2, \ldots, N$, then the expression
+      The concept of \emph{graph isomorphism} makes it possible to characterise graph properties essential to the structure of the graphs themselves from properties associated with graph representations like graph drawings or data structures for graphs and labelings, \emph{etc.} For example, if a graph has exactly one cycle, then all graphs in its isomorphism class\footnote{A collection of graphs isomorphic to each other.} also have exactly one cycle. On the other hand, in the common case when the vertices of a graph are (represented by) the integers $1, 2, \ldots, N$, then the expression
       \begin{equation}
         \sum_{v \in V(G)} v\cdot\mbox{deg} v\mbox{,}
       \end{equation}
@@ -185,9 +183,9 @@
 
           A maximal connected subgraph of $G$ is a \emph{component} of $G$. The empty graph has no components since connected graphs are non-empty. 
 
-          A graph that is \emph{disconnected} consists of several \emph{connected components}. Two vertices are considered to be in the same conencted component if there is a path between them.
+          A graph that is \emph{disconnected} consists of several \emph{connected components}. Two vertices are considered to be in the same connected component if there is a path between them.
 
-          $G$ is called $k$\emph{-connected} (for $k \in \mathbb{N}$) if $k < |G|$ and $G - X$ is connected for every $X \subseteq V$ with $k > |X|$. Every non-empty graph is 0-connected and 1-connected graphs are precisely non-trivial connected graphs. The greatest integer $k$ such that $G$ is $k$-connected is the \emph{connectivity} $\kappa(G)$ of $G$. Hence graph is disconnected if and only if $\kappa(G) = 0$. The simplest 2-connected graphs are the cycles; all the others can be inductively constructed by adding paths to cycles.
+          $G$ is called $k$\emph{-connected} (for $k \in \mathbb{N}$) if $k < |G|$ and $G - X$ is connected for every $X \subseteq V$ with $k > |X|$. Every non-empty graph is $0$-connected and $1$-connected graphs are precisely non-trivial connected graphs. The greatest integer $k$ such that $G$ is $k$-connected is the \emph{connectivity} $\kappa(G)$ of $G$. Hence graph is disconnected if and only if $\kappa(G) = 0$. The simplest 2-connected graphs are the cycles; all the others can be inductively constructed by adding paths to cycles.
 
         \paragraph{Cyclic}
         
@@ -199,9 +197,9 @@
 
         \paragraph{Bipartite}
         
-          We call a graph a \emph{bipartite} or a \emph{bigraph} if a graph has vertices can be divided into two disjoint sets $U$ and $V$ such that the edges only exists between independent vertices in $U$ and $V$ and never between vertices of the same set\cite{Diestel2012}. Equivalent defeinition is that a bipartite graph is a graph that does not contain any cycles with odd lengths\cite{AsratianDenleyHaggkvist}. An example of bipartite graph is presented on figure \ref{fig:cs_network} in section \ref{sec:cs}.
+          We call a graph a \emph{bipartite} or a \emph{bigraph} if a graph has vertices that can be divided into two disjoint sets $U$ and $V$ such that the edges only exist between independent vertices in $U$ and $V$ and never between vertices of the same set\cite{Diestel2012}. Equivalent definition is that a bipartite graph is a graph that does not contain any cycles with odd lengths\cite{AsratianDenleyHaggkvist1998}. An example of bipartite graph is presented on figure \ref{fig:cs_network} in section \ref{sec:cs}.
 
-          The two sets $U$ and $V$ may be thought of as a colouring of the graph with two colours: if one colours all nodes in U blue, and all nodes in V green, each edge has endpoints of differing colours, as is required in the graph colouring problem\cite{AsratianDenleyHaggkvist,Scheinerman2012}. In contrast, such a colouring is impossible in the case of a non-bipartite graph, such as a triangle: after one node is coloured blue and another green, the third vertex of the triangle is connected to vertices of both colours, preventing it from being assigned either colour.
+          The two sets $U$ and $V$ may be thought of as a colouring of the graph with two colours: if one colours all nodes in $U$ blue, and all nodes in $V$ green, each edge has endpoints of differing colours, as is required in the graph colouring problem\cite{AsratianDenleyHaggkvist1998,Scheinerman2012}. In contrast, such a colouring is impossible in the case of a non-bipartite graph, such as a triangle: after one node is coloured blue and another green, the third vertex of the triangle is connected to vertices of both colours, preventing it from being assigned either colour.
           
           A bigraph with partition sets $U$ and $V$ with $E$ denoting edges of the graph is often written as $G=(U,V,E)$. If such graph is disconnected, it may have more than one bipartition;\cite{ChartrandZhang2008}. In this case, the $(U,V,E)$ notation is helpful in specifying one particular bipartition that may be of importance in an application.
           
@@ -241,15 +239,15 @@
         \qquad
         \begin{minipage}[b]{0.27\textwidth}
           \begin{tabularx}{\textwidth}{L{1}}
-            $1 \to 2,\,5$ \\
-            $2 \to 1,\,3$ \\
-            $3 \to 2,\,4,\,5$ \\
+            $1 \to 2 \to 5$ \\
+            $2 \to 1 \to 3$ \\
+            $3 \to 2 \to 4 \to 5$ \\
             $4 \to 3$ \\
-            $5 \to 1,\,3$
+            $5 \to 1 \to 3$
           \end{tabularx}
           \caption{Adjacency list.}
         \end{minipage}
       \end{table}
 
-    On the other hand, adjacency lists are good when dealing with \emph{sparse} graphs (graphs with relatively small number of edges). Adjacency list is an array of linked lists (one per vertex). For undirected graphs each edge $(u, v)$ is stored twice: once in $u\mbox{'s}$ neighbourhood and once in $v\mbox{'s}$ neighbour list. For directed graph each edge is stored only once. Either way, adjacency list will take $O(V+E)$ space; listing all the neighbours of $v$ vertex takes $O(1+deg(v))$ time (by scanning the neighbour list). We can determine whether $(u, v)$ is an edge by scanning neighbours of $u$ in $O(1+deg(u)$ time.
+    On the other hand, adjacency lists are good when dealing with \emph{sparse} graphs (graphs with relatively small number of edges). Adjacency list is an array of linked lists (one per vertex). For undirected graphs each edge $(u, v)$ is stored twice: once in $u\mbox{'s}$ neighbourhood and once in $v\mbox{'s}$ neighbour list. For directed graph each edge is stored only once. Either way, adjacency list will take $O(V+E)$ space; listing all the neighbours of $v$ vertex takes $O(1+\mbox{deg}\,v)$ time (by scanning the neighbour list). We can determine whether $(u, v)$ is an edge by scanning neighbours of $u$ in $O(1+\mbox{deg}\,u)$ time.
 

@@ -39,7 +39,7 @@
 
     Network built using above data was made out of $72,363$ nodes, of which $51,938 (71.77\%$) being users and $20,435 (28.23\%)$ being words, connected by $5,497,840$ edges. This was a massive network in a need of a major simplification. The number of edges was especially important to reduce. I have chosen an edge pruning network simplification, introduced by Zhou \textit{et al.}\cite{ZhouMahlerToivonen2012}. They have proposed a generic framework of network simplification by sharing new methods for pruning the edges while keeping the graph maximally connected. It is important to note that this method is lossy, which means we lose some information from the graph. The method is intended to be used with weighted graphs. In our network, the weights represent the probability that the user have used the word, i.e. the number of times he used this particular word divided by the number of total words he or she wrote. Then, the connectivity would be defined as the maximum probability.
     
-    Additional definitions are required to understand the problem. Let \emph{path} $P$ be a set of edges $P = {(u_1, u_2), (u_2, u_3), \ldots (u_{k-1}, u_k)} \in E$. I use the notation $P(u_1 \to u_k)$ to represent the path between $u_1$ and $u_k$ ($u_1$ and $u_k$ being endvertices of $P$).
+    Additional definitions are required to understand the problem. Let path $P$ be a set of edges $P = {(u_1, u_2), (u_2, u_3), \ldots (u_{k-1}, u_k)} \in E$. I use the notation $P(u_1 \to u_k)$ to represent the path between $u_1$ and $u_k$ ($u_1$ and $u_k$ being endvertices of $P$).
   
     The problem is parameterised with a \emph{path quality function} $q(P) \to \mathbb{R}^+$. The form of this function is dependent on the type of the graph. In our graph it is the probability that a path exists. We can then assume that the value of any path quality function in this graph is positive, and that a larger value of $q$ indicates better quality.
     
@@ -47,7 +47,7 @@
     \begin{equation}
       C(u, v; E) = \left\{
       \begin{array}{l l}
-        \mbox{max}_{P \subset E: P(u \to v)} q(P) & \quad \text{if such $P$ exists}\\
+        \mbox{max}_{P \subset E: P(u \to v)} q(P) & \quad \text{if such $P$ exists,}\\
         -\infty & \quad \text{otherwise.}
       \end{array}
       \right.

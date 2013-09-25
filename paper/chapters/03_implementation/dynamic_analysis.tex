@@ -52,22 +52,22 @@
 
     \subsubsection{Measure}
 
-      Let $e_o$ be an opinion estimate obtained using a method described above. Its value should be found in a range of described by an infinite sum of geometric series plus one
+      Let $e_o$ be an opinion estimate obtained using a method described above. Its value should be found in a range described by the following sum
       \begin{equation}
-        1 + \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \ldots = 1 + \sum_{n=1}^{\infty} 2^{-n} = \sum_{n=0}^{\infty} 2^{-n} = 2 \mbox{,}
+        \frac{1}{1^2} + \frac{1}{2^2} + \frac{1}{3^2} + \frac{1}{4^2} + \ldots = \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6} \mbox{,} \label{eqn:estimate}
       \end{equation}
-      and as each keyword can have opinions written before and after itself, we have two sums to take into account. Hence,
+      and as each keyword can have opinions written before and after itself, we have two multiply the sum in equation \ref{eqn:estimate} by a factor of $2$. Hence,
       \begin{equation}
-        -4 \leq e_o \leq 4 \mbox{.}
+        -\frac{\pi^2}{3} \leq e_o \leq \frac{\pi^2}{3} \mbox{.} \label{eqn:estimate_limits}
       \end{equation}
       
       Application of squared distance as a base for the measure favours opinions that are very close to keywords. This was extremely important especially for long posts so that keywords mentioned at the end of the message did not get influenced by an opinion mentioned at the beginning of it. With this approach it is expected for the most opinions to be found in a range of $[\sfrac{1}{4};\sfrac{1}{4}]$---most opinions would be generally no further away than 2 words from a keyword.
       
       Because measuring data in such way is not perfect and may create results contradictory to the real data I have decided to introduce a \emph{neutral} opinion using the middle range of the numbers. Hence, opinions were assigned in a following way:
       \begin{itemize}
-        \item \emph{positive:} $L \leq e_o \leq 4$,
+        \item \emph{positive:} $L \leq e_o \leq \frac{\pi^2}{3}$,
         \item \emph{neutral:} $-L < e_o < L$,
-        \item \emph{negative:} $4 \leq e_o \leq L$,
+        \item \emph{negative:} $-\frac{\pi^2}{3} \leq e_o \leq L$,
       \end{itemize}
       where $L = 0.01$ is an empirically found constant allowing for fairly even division of opinion types. Table \ref{tab:opinion_number} shows the number of opinions found, divided by the type of the opinion.
       \begin{table}[H]
@@ -79,14 +79,15 @@
         \caption{Number of opinions about products found, by the opinion type.}
         \label{tab:opinion_number}
       \end{table}
-      
-      The maximum and minimum value of the estimated opinion were found to be approximately $2.924$ and $-2.825$ respectively. Figure \ref{fig:opinion_distribution_reg} shows distribution of estimated opinion values. As expected, most of the opinions fall in the $[\sfrac{1}{4};\sfrac{1}{4}]$ range.
+
       \begin{figure}[H]
         \centering
         \includegraphics[width=0.75\textwidth]{chapters/03_implementation/opidist}
         \caption{Distribution of opinions.}
         \label{fig:opinion_distribution_reg}
       \end{figure}
+      The maximum and minimum value of the estimated opinion were found to be approximately $2.924$ and $-2.825$ respectively, so they lay within the limits shown in equation \ref{eqn:estimate_limits}. Figure \ref{fig:opinion_distribution_reg} shows distribution of estimated opinion values. As expected, most of the opinions fall in the $[\sfrac{1}{4};\sfrac{1}{4}]$ range.
+      
       There are also visibly more opinions on the positive side of the scale than on its negative counterpart. The most dense is the neutral region but it is the consequence of having so much opinions in only $0.02$ wide scale. \textquote{Harmonic}-like peaks are conspicuous at $-1$, $-\sfrac{1}{4}$, $\sfrac{1}{4}$ and $1$, which one can see closer on figure \ref{fig:opinion_distribution_log} using a logarithmic scale for $Y$ axis. Additionally we can see peaks at $-2$ and $2$ which were not distinguishable on a linear scale.
       \begin{figure}[H]
         \centering
@@ -102,13 +103,8 @@
       
       In order to mitigate this problem and to bias the opinions correctly it was necessary to check for existence of such modifier words in a proximity of opinion words.
       
-      Following expressions illustrate the problem:
-      \begin{itemize}
-        \item \emph{not} \textbf{good},
-        \item \emph{not} necessarily \textbf{good},
-        \item \emph{not} at all \textbf{good}.
-      \end{itemize}
-      One can clearly see that it is not necessary to check just one word before an opinion. I have decided to cover all three cases mentioned above even though there may be more edge cases. Hence, modifier words were only checked as far as two words from an opinion and were not taken into consideration if there were another opinion or keyword in between them, for example in messages like \textquote{\emph{not} \textbf{bad}, \textbf{good} even,} where not stopping after one opinion have been found would cause the modifier to act on both opinions instead.
+      Following expressions illustrate the problem: \textquote{\emph{not} \textbf{good},} \textquote{\emph{not} sufficient \textbf{good},} \textquote{\emph{not} at all \textbf{good}.}
+      One can clearly see that it is not necessary to check just one word before an opinion. I have decided to cover all three cases like that even though there may be more edge cases. Hence, modifier words were only checked as far as two words from an opinion and were not taken into consideration if there were another opinion or keyword in between them, for example in messages like \textquote{\emph{not} \textbf{bad}, \textbf{good} even,} where not stopping after one opinion have been found would cause the modifier to act on both opinions instead.
 
   \subsection{Average path length}
 
@@ -156,17 +152,17 @@
       \end{equation}
       where $\alpha$ and $\beta$ run over all $i$'s neighbouring objects. For example, as shown in figure \ref{fig:cs_network}, the collaborative similarity of user $i$ is $C_u(i) = \sfrac{7}{18}$. According to the definition, a user whose collections are very similar to each other will have high collaborative similarity. For example, a user who only watches science fiction movies is probably of higher collaborative similarity than the one who has very diverse interests of movies. The user collaborative similarity of the whole network is defined as
       \begin{equation}
-        C_u = \frac{1}{N\prime} \sum_{i} C_u(i)\mbox{,}
+        C_u = \frac{1}{N^\prime} \sum_{i} C_u(i)\mbox{,}
       \end{equation}
-      where $i$ runs over all users with degrees larger than $1$ and $N\prime$ denotes the number of these users. The degree-dependent collaborative similarity, $C_u(k)$, is defined as the average collaborative similarity over all the $k$-degree users. Corresponding definitions for objects are as following:
+      where $i$ runs over all users with degrees larger than $1$ and $N^\prime$ denotes the number of these users. The degree-dependent collaborative similarity, $C_u(k)$, is defined as the average collaborative similarity over all the $k$-degree users. Corresponding definitions for objects are as following:
       \begin{equation}
         C_o(\alpha) = \frac{1}{d_\alpha(d_\alpha-1)} \sum_{i\neq j} s_{ij}\mbox{,}
       \end{equation}
       where $s_{ij} = \left| \frac{\Gamma_i \cap \Gamma_j}{\Gamma_i \cup \Gamma_j} \right|$ is the Jaccard similarity between users $i$ and $j$ and:
       \begin{equation}
-        C_o = \frac{1}{M\prime} \sum_\alpha C_o(\alpha)\mbox{,}
+        C_o = \frac{1}{M^\prime} \sum_\alpha C_o(\alpha)\mbox{,}
       \end{equation}
-      where $M\prime$ denotes the number of objects with degrees larger than $1$. $C_o(d)$ is the average collaborative similarity over all the $d$-degree objects.
+      where $M^\prime$ denotes the number of objects with degrees larger than $1$. $C_o(d)$ is the average collaborative similarity over all the $d$-degree objects.
 
     \subsubsection{Results}
     
@@ -193,9 +189,9 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
       \end{table}
 
       Table \ref{tab:cs_properties} summarises basic statistics of selected data buckets. $N$, $M$ and $E$ denote the number of users, messages and edges connecting them, respectively. $\langle k \rangle$ and $\langle d \rangle$ are the average user degree and average message degree. $C_u$ and $C_m$ are the average collaborative similarity for users and messages, and for comparison, $\bar s_m$ and $\bar s_u$ are the average similarities over all message pairs and over all user pairs, respectively. The user selection is considered to be poorly clustered (i.e., more diverse) because the condition for that is $C_u \gg \bar s_m$ whereas $C_u$ is the same order of magnitude as $\bar s_m$. Unfortunately, this basically means that it will not be easy to identify groups of users that may have formed in this message board and I had to abandon this somewhat interesting index. Figure \ref{fig:cs_cusm} show the way $C_u$ and $\bar s_m$ were changing over time. In no bucket, $C_u$ was much greater than $\bar s_m$ and even in bucket 84 they were pretty close to each other: $0.0746$ vs $0.0683$ respectively.
-      This does not however disqualify that method completely. The results only mean that it will not be easy to find any anomalies. There are $52605$ users in the database so I could just run over a $C_u(i)$ of every user and look for suspicious changes. However strenuous it sounds, it may be worth it. What we are looking for are users whose $C_u(i)$ is significantly different than it was before possible \textquote{marketing campaign}.
+      This does not however disqualify that method completely. The results only mean that it will not be easy to find any anomalies. There are $52605$ users in the database so I could just run over a $C_u(i)$ of every user and look for suspicious changes. However strenuous it sounds, it may be worth it. What we are looking for are users whose $C_u(i)$ is significantly different than it was before, incidating possible \emph{marketing campaign}.
       \begin{figure}[H]
-        \includegraphics[width=\textwidth]{chapters/03_implementation/C_us_m}
+        \includegraphics[width=0.9\textwidth]{chapters/03_implementation/C_us_m}
         \caption{Changes of $C_u$ and $\bar s_m$ over time.}
         \label{fig:cs_cusm}
       \end{figure}
@@ -236,9 +232,51 @@ $141$ & $2080$ & $5250$ & $94994$ & $45.67$ & $18.09$ & $0.0915$ & $0.0757$ & $0
       \end{enumerate}
       The battle struggled between brands \emph{Sennheiser} and \emph{STAX} for a longer period, with the former eventually winning 20-0. I think that the analysis of this topic alone would bring some interesting results. The only problem is that, because of this topic, I had to completely skip the results for buckets 106 and 107 due to the fact that the results would be distorted.
       
-    \subsubsection{Substructures derived from $C_u(i)$ fluctuations}
+    \subsubsection{$C_u(i)$ fluctuation patterns found} \label{sec:cs_fluctuations}
     
-      Interesting experiment would be to analyse different type of fluctuations of observed $C_u(i)$ in order to check if similar shapes of $C_u(i)$ reflect similar behaviour of users.
+      Figure \ref{fig:cs_fluctuations} shows various types of patters of $C_u(i)$ fluctuations that seem to repeat throughout individual users. I will not try to interpret these as it would require further, thorough examination which I did not perform due to time constraints.
+      
+      \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.32\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/u1}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/u217}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/u455}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/u33338}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/u61222}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/u72553}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/u112071}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/u113353}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{chapters/03_implementation/u137702}
+        \end{subfigure}
+        \caption{Patterns of $C_u(i)$ fluctuations.}
+        \label{fig:cs_fluctuations}
+      \end{figure}
 
   \subsection{Motifs}
   

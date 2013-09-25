@@ -32,5 +32,7 @@
 *.tdo
 code/results
 code/cs
+code/scur_mgr*
+code/triangles
 atlassian-ide-plugin.xml
 .texpadtmp/

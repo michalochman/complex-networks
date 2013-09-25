@@ -1,132 +1,142 @@
 \chapter{Natural language processing}
 
-  \emph{Natural language processing} (\emph{NLP}) is a field of computer science, artificial intelligence, and linguistics concerned with the interactions between computers and human (natural) languages. As such, NLP is related to the area of human–computer interaction. Many challenges in NLP involve natural language understanding -- that is, enabling computers to derive meaning from human or natural language input. The history of NLP generally starts in the 1950s, although work can be found from earlier periods. In 1950, Alan Turing published an article titled \emph{Computing Machinery and Intelligence} which proposed what is now called the Turing test as a criterion of intelligence\cite{Turing1950}.
+  The history of \emph{natural language processing} (\emph{NLP}) starts in the 1950 with an article titled \emph{Computing Machinery and Intelligence} by Alan Turing, the father of modern computing. He proposed what is now called the Turing test as a criterion of intelligence\cite{Turing1950}. This field of linguistics, computer science and artificial intelligence is focused on interactions between computers and human languages. Of many challenges NLP has to tackle, the most important concern the understanding of natural language---that is, enabling computers to derive meaning from the input like human language.
 
   \section{Text segmentation}
 
-    \emph{Text segmentation} is the process of dividing written text into meaningful units, such as words, sentences, or topics. The term applies both to mental processes used by humans when reading text, and to artificial processes implemented in computers, which are the subject of natural language processing. 
-      
-    The problem seems trivial in English, where words usually have explicit word boundary markers, such as the word spaces it is certainly non-trivial in other written languages where such signals are sometimes ambiguous and not present. The equivalent to this character is not found in all written scripts, and without it word segmentation is a difficult problem. Languages which do not have a trivial word segmentation process include Chinese, Japanese, where sentences but not words are delimited, Thai and Lao, where phrases and sentences but not words are delimited, and Vietnamese, where syllables but not words are delimited. However---even in written English---it is not as easy as one may think, because users of the forum are neither exclusively native English speakers nor they use completely grammatically correct spelling and punctuation. Despite the fact that in English, the space is a good approximation of a word delimiter, incorrect use of punctuation makes the problem more difficult; there are many edge cases such as hyphenated words, emoticons, and larger constructs such as URIs (which for some purposes may count as single tokens). A classic example is \textquote{New York-based}, which a naive tokenizer may break at the space even though the better break is (arguably) at the hyphen. Some other examples where the space character alone may not be sufficient include contractions like \emph{can't} for \emph{can not}.
-      
+    A process of breaking down the text into meaningful units like words or sentences is called \emph{text segmentation}. The term can be applied to either intellectual actions performed by humans while they read the text or artificial processes computer implement, which are the subject of natural language processing. 
+
+    The problem seems trivial in English, because words have explicit boundaries---spaces---but it most certainly is not trivial in some other written languages where such markers are sometimes ambiguous or are simply absent. However, the space \textquote{character} may not be sufficient also in English, the most apparent example include common contradictions like \emph{don't} $\to$ \emph{do not}.
+    Another problem is that the users of the language may neither be the native speakers exclusively nor they can use completely grammatically correct spelling and punctuation. Despite the fact that in English, the space is a good approximation of a word delimiter, incorrect use of punctuation makes the problem more difficult; there are many examples such as hyphenated words, emoticons or larger constructs like URIs.
+    
+    The equivalent of the space character is not found in languages like Chinese or Japanese, where sentences are delimited but words are not and in Vietnamese, where syllables, instead of words, are delimited. All these sophistications make the process very difficult in many cases, but fortunately we are working with English text exclusively in the next chapter.
+
     The Unicode Consortium has published a Standard Annex\cite{Davis2012} on Text Segmentation, exploring the issues of segmentation in multiscript texts.
-      
 
   \section{Word stemming}
 
-    In linguistic morphology and information retrieval, stemming is the process for reducing inflected (or sometimes derived) words to their \emph{stem}, \emph{base} or \emph{root form}---generally a written word form. The stem need not be identical to the morphological root of the word; it is usually sufficient that related words map to the same stem, even if this stem is not in itself a valid root. Algorithms for stemming have been studied in computer science since 1968. Many search engines treat words with the same stem as synonyms as a kind of query broadening, a process called conflation.
+    \emph{Stemming} is the process of linguistic normalisation, which goal is to reduce inflected (or sometimes derived) words to their \emph{stem}, \emph{base} or \emph{root form}, or more generally a common form of a written word.
+    Stemming programs are commonly referred to as stemming algorithms or stemmers.
+    A stemming algorithm may for example reduce word \emph{cats} to its root word \emph{cat}. It does not mean that the step need to be identical to the morphological root of the word. For example, the word \emph{argues} could be reduced to the stem \emph{argu}, which is not a word.
 
-    Stemming programs are commonly referred to as stemming algorithms or stemmers.      
-    
-    A stemmer for English, for example, should identify the string \textquote{cats} (and possibly \textquote{catlike}, \textquote{catty} etc.) as based on the root \textquote{cat}, and \textquote{stemmer}, \textquote{stemming}, \textquote{stemmed} as based on \textquote{stem}. A stemming algorithm reduces the words \textquote{fishing}, \textquote{fished}, \textquote{fish}, and \textquote{fisher} to the root word, \textquote{fish}. On the other hand, \textquote{argue}, \textquote{argued}, \textquote{argues}, \textquote{arguing}, and \textquote{argus} reduce to the stem \textquote{argu} (illustrating the case where the stem is not itself a word or root) but \textquote{argument} and \textquote{arguments} reduce to the stem \textquote{argument}.
-    
-    There are several types of stemming algorithms which differ in respect to performance and accuracy and how certain stemming obstacles are overcome, with the most used being:
-    \begin{description}
-      \item[Lookup algorithms] are simple stemmers looking up the inflected form in a lookup table. The advantages of this approach is that it is simple, fast, and easily handles exceptions. The disadvantages are that all inflected forms must be explicitly listed in the table: new or unfamiliar words are not handled, even if they are perfectly regular (e.g. iPads $\sim$ iPad), and the table may be large. For languages with simple morphology, like English, table sizes are modest, but highly inflected languages like Turkish may have hundreds of potential inflected forms for each root.
-      \item[Suffix-stripping algorithms] do not rely on a lookup table that consists of inflected forms and root form relations. Instead, a typically smaller list of \textquote{rules} is stored which provides a path for the algorithm, given an input word form, to find its root form. Some examples of the rules include:
-        \begin{itemize}
-          \item if the word ends in \emph{ed}, remove the \emph{ed}
-          \item if the word ends in \emph{ing}, remove the \emph{ing}
-          \item if the word ends in \emph{ly}, remove the \emph{ly}
-        \end{itemize}
-        Suffix stripping approaches enjoy the benefit of being much simpler to maintain than brute force algorithms, assuming the maintainer is sufficiently knowledgeable in the challenges of linguistics and morphology and encoding suffix stripping rules. Suffix stripping algorithms are sometimes regarded as crude given the poor performance when dealing with exceptional relations (like 'ran' and 'run'). The solutions produced by suffix stripping algorithms are limited to those lexical categories which have well known suffixes with few exceptions. This, however, is a problem, as not all parts of speech have such a well formulated set of rules. Lemmatisation attempts to improve upon this challenge.       \item[Lemmatisation algorithms] are a more complex approach to the problem of determining a stem of a word is lemmatisation. This process involves first determining the part of speech of a word, and applying different normalisation rules for each part of speech. The part of speech is first detected prior to attempting to find the root since for some languages, the stemming rules change depending on a word's part of speech.
-
-        This approach is highly conditional upon obtaining the correct lexical category (part of speech). While there is overlap between the normalisation rules for certain categories, identifying the wrong category or being unable to produce the right category limits the added benefit of this approach over suffix stripping algorithms. The basic idea is that, if we are able to grasp more information about the word to be stemmed, then we are able to more accurately apply normalisation rules (which are, more or less, suffix stripping rules).
-      \item[Stochastic algorithms] involve using probability to identify the root form of a word. Stochastic algorithms are trained (they "learn") on a table of root form to inflected form relations to develop a probabilistic model. This model is typically expressed in the form of complex linguistic rules, similar in nature to those in suffix stripping or lemmatisation. Stemming is performed by inputting an inflected form to the trained model and having the model produce the root form according to its internal ruleset, which again is similar to suffix stripping and lemmatisation, except that the decisions involved in applying the most appropriate rule, or whether or not to stem the word and just return the same word, or whether to apply two different rules sequentially, are applied on the grounds that the output word will have the highest probability of being correct (which is to say, the smallest probability of being incorrect, which is how it is typically measured).
-    \end{description}
-
-
-  \section{Word classification}
+    It is usually satisfactory to reduce related words to the same stem (even if this stem is not in itself a valid root). Algorithms for stemming have been studied in computer science since 1968\cite{Lovins1968}. Treating the words with the same stem as synonyms are used by many search engines as a kind of query broadening, a process called conflation\cite{Levin2010}.
+    \\\\
+    Several types of stemming algorithms exist. Their main differences lay in how well they perform, how accurate they are and what kind of obstacles they may overcome. The most used stemmers are described in following sections.
 
     \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-    \subsection{Function words}
+    \subsection{Lookup algorithms}
     \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
-    
-      Function words (or grammatical words or synsemantic words or structure-class words) are words that have little lexical meaning or have ambiguous meaning, but instead serve to express grammatical relationships with other words within a sentence, or specify the attitude or mood of the speaker. They signal the structural relationships that words have to one another and are the glue that holds sentences together. Thus, they serve as important elements to the structures of sentences.
+
+      \emph{Lookup algorithms} are stemmers that are employing lookup table to find the inflected form of a word. This approach is very simple, fast and easily handles exceptions. The problem is that it is memory or disk space consuming as all inflected forms must be found in the table, and that can make the table size very large. Also new or unfamiliar words are not handled, even if they are perfectly regular, e.g. HD-800s $\to$ HD-800 (Sennheiser HD-800 headphones). For languages with simple morphology, like English, the sizes of tables are moderate. For languages like Polish, which are highly inflected tables may contain hundreds of potential inflected forms for each root.
+
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+    \subsection{Suffix-stripping algorithms}
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
+      \emph{Suffix-stripping algorithms}, in contrast to lookup algorithms, do not rely on a lookup tables, but instead they use a generally smaller list of \emph{rules}, which provide solutions for the algorithm.
+
+      Algorithms of this type were introduced by Martin Porter in 1980\cite{Porter1980}. Stemmers like that were very widely used since then and became a \emph{de facto} standard for working with English texts.
       
-      Function words might be prepositions, pronouns, auxiliary verbs, conjunctions, grammatical articles or particles, all of which belong to the group of closed-class words. Interjections are sometimes considered function words but they belong to the group of open-class words. Function words might or might not be inflected or might have affixes.
+      Given an input word form they then take these rules and try to find the root form of input word. For example the rules for words ending in \emph{ed}, \emph{ing} or \emph{ly} may just say to remove these endings.
 
-      Function words belong to the closed class of words in grammar in that it is very uncommon to have new function words created in the course of speech, whereas in the open class of words (that is, nouns, verbs, adjectives, or adverbs) new words may be added readily (such as slang words, technical terms, and adoptions and adaptations of foreign words). See neologism.
+      Thanks to the concept of suffix stripping it is much easier to maintain a list of rules like that than to use brute force algorithms (assuming the maintainer knows the challenges of linguistics and morphology and know how to encode suffix stripping rules).
+      
+      The performance of suffix stripping algorithms if poor when dealing with exceptions, like \emph{ran} and \emph{run}. The solutions produced by suffix stripping algorithms are limited to those parts of speech that have well known suffixes, with not many exceptions. On the other hand, a well formulated set of rules does not exist for all parts of speech so it may be a problem.
 
-      Each function word either gives some grammatical information on other words in a sentence or clause, and cannot be isolated from other words, or it may indicate the speaker's mental model as to what is being said.
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+    \subsection{Lemmatisation algorithms}
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
+      \emph{Lemmatisation algorithms} attempt to improve upon the challenge of exceptions and missing rules for suffix-stripping algorithms. The process involves determining the part of speech first and then applying different normalisation rules for each. The reason why this determination is conducted first is that the stemming rules may have to change depending on a word's part of speech in some languages. These algorithms are based on a simple idea stating that if we are able to obtain more information about the word, then we are able to more accurately apply normalisation rules (which are, more or less, suffix stripping rules).
+
+      The main disadvantage of lemmatisation is that it is highly dependent on correct identification of the lexical category the word falls in. Even though the normalisation rules seem to overlap for certain parts of speech, incorrect identification of the lexical category negates the added benefit of this solution over suffix-stripping algorithms.
+
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+    \subsection{Stochastic algorithms}
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
+      Using a probability to identify the root form of a word is a domain of so-called \emph{stochastic algorithms}. They are trained using a table of relations between an inflected and a root form to develop a probabilistic model. The model they create is usually expressed in the form of some linguistic rules, which are complex, similar to those in suffix-stripping. The stemming itself is then is executed by inputting an inflected form to the model learned by algorithms. Then the word is processed in accordance to the internal rules of the model and the root form of a word is produced. This is again similar to suffix stripping, except that the model decides whether to apply the most appropriate rule or just return the word inputted on the grounds of the smallest probability of the output being incorrect.
+
+  \section{Word classification}
       
     \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
     \subsection{Stop words}
     \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 
-      In computing, stop words are words which are filtered out prior to, or after, processing of natural language data (text). There is not one definite list of stop words which all tools use, if even used. Some tools specifically avoid removing them to support phrase search.
+      The most common words are called \emph{stop words}. They are usually filtered out prior to, or after, processing of text. They usually have little meaning. There is no single list of stop words that can be used across all tasks. Any group of words may form a list of stop words to serve a particular purpose. Table \ref{tab:stopwords} shows 10 most common English words by sorted by their rank\cite{OxfordEnglishCorpus}.
+      
+      \begin{table}[H]
+      \centering
+      \begin{tabularx}{0.3\textwidth}{|L{1}|L{1}|} \hline
+        \rowcolor[gray]{0.75} \textbf{Rank} & \textbf{Word} \\\hline
+          1 & the \\
+          2 & be \\
+          3 & to \\
+          4 & of \\
+          5 & and \\
+          6 & a \\
+          7 & in \\
+          8 & that \\
+          9 & have \\
+          10 & I \\\hline
+      \end{tabularx}
+      \caption{The most common words in English.}
+      \label{tab:stopwords}
+    \end{table}
 
-      Any group of words can be chosen as the stop words for a given purpose. For some search machines, these are some of the most common, short function words, such as \emph{the}, \emph{is}, \emph{at}, \emph{which}, and \emph{on}. In this case, stop words can cause problems when searching for phrases that include them, particularly in names such as `The Who', `The The', or `Take That'. Other search engines remove some of the most common words—including lexical words, such as "want"—from a query in order to improve performance.
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+    \subsection{Function words (closed class)}
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+    
+      \emph{Function words}, also called \emph{grammatical words} or \emph{structure-class words}, are words that does not have semantic content of their own or they have ambiguous meaning. They are instead defined in terms of their use or of the function they serve. For example, they may express grammatical relationships with other words within a sentence. They may specify the attitude or mood of the speaker as well. Another purpose of these words is to hold sentences together.
+      
+      Function words might be pronouns, determiners and prepositions. They also may be auxiliary verbs, conjunctions, grammatical articles or particles, all of which belong to the group of closed-class words which means that it is very uncommon to have new function words created in the course of speech. Interjections may sometimes be considered as function words with an exception that they do not belong to the closed class words.
+
+      Because function words are used to glue sentences together, it is impossible to isolate them from another words in the sentence as they may indicate the speaker's mental model as to what is being said.
 
     \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
     \subsection{Content words (open class)}
     \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 
-      In linguistics content words are words such as nouns, most verbs, adjectives, and adverbs that refer to some object, action, or other non-linguistic meaning. Content words are open class words, meaning that new content words can be added to the lexicon easily, through such processes as compounding, derivation, inflection, coining, and borrowing.
-        
-      Content words, or lexical words, (including nouns, verbs, adjectives, and most adverbs) are words that carry the content or the meaning of a sentence and are open-class words. Words in open classes (content/lexical words) carry the primary communicative force of an utterance. These words are usually variable in form (inflected), especially in inflecting languages. Their distribution is not definable by the grammar.
+      \emph{Content words}, often called \emph{lexical words} or an \emph{open class words}, are words such as nouns, most verbs (although, not it all languages), adjectives and adverbs that carry the content of the meaning of a sentence. They usually refer to some object, an action or some other meaning that may not be linguistic. The meaning of an open class words is that new words can be and, in fact, are added to the lexicon easily. The processes through new words are added are for example compounding, derivation or borrowing (from other languages). Words of this class carry the main articulation of sentences. They are usually inflected, which means they may vary in form, especially in languages that are highly inflected.
 
-      Typical open classes are the class of nouns, the class of verbs, the class of adjectives, and the class of adverbs. However, this varies between languages; for example, in Japanese, pronouns form an open class (the distinction between nouns and pronouns is not always clear in Japanese), while verbs form a closed class.
-
-      Open-class words are not considered part of the core language[citation needed] and as such they can be changed, replaced or dropped from the common lexicon, which can encompass many thousands of them. For living languages, this change is noticeable within an individual lifespan, and usually faster. Closed-class words, on the other hand, are always relatively few and resistant to change. They are unproductively and are generally invariable in form (except demonstratives, modals and some pronouns).
-  
   \section{Zipf's law}
-  
-    Zipf's law, an empirical law formulated using mathematical statistics, refers to the fact that many types of data studied in the physical and social sciences can be approximated with a Zipfian distribution, one of a family of related discrete power law probability distributions. The law is named after the American linguist George Kingsley Zipf (1902–1950), who first proposed it (Zipf 1935, 1949), though the French stenographer Jean-Baptiste Estoup (1868-1950) appears to have noticed the regularity before Zipf\cite{ManningSchutze1999}. It was also noted in 1913 by German physicist Felix Auerbach\cite{Auerbach1913}.
-    
-      Zipf's law states that given some corpus of natural language utterances, the frequency of any word is inversely proportional to its rank in the frequency table. Thus the most frequent word will occur approximately twice as often as the second most frequent word, three times as often as the third most frequent word, etc. For example, in the Brown Corpus of American English text, the word "the" is the most frequently occurring word, and by itself accounts for nearly 7\% of all word occurrences (69,971 out of slightly over 1 million). True to Zipf's Law, the second-place word \textquote{of} accounts for slightly over 3.5\% of words (36,411 occurrences), followed by \textquote{and} (28,852). Only 135 vocabulary items are needed to account for half the Brown Corpus.
-  
-      The same relationship occurs in many other rankings unrelated to language, such as the population ranks of cities in various countries, corporation sizes, income rankings, and so on. The appearance of the distribution in rankings of cities by population was first noticed by Felix Auerbach in 1913\cite{Auerbach1913}. Empirically, a data set can be tested to see if Zipf's law applies by running the regression $log R = a - b log n$ where $R$ is the rank of the datum, $n$ is its value and $a$ and $b$ are constants. Zipf's law applies when $b = 1$. When this regression is applied to cities, a better fit has been found with $b = 1.07$. While Zipf's law holds for the upper tail of the distribution, the entire distribution of cities is log-normal and follows Gibrat's law\cite{Eeckhout2004}. Both laws are consistent because a log-normal tail can typically not be distinguished from a Pareto (Zipf) tail.
 
-      Zipf's law is most easily observed by plotting the data on a log-log graph, with the axes being log (rank order) and log (frequency). For example, the word \textquote{the} (as described above) would appear at $x = \mbox{log}1$, $y = \mbox{log}69971$. The data conform to Zipf's law to the extent that the plot is linear.
-      
-      Formally, let:
-      \begin{itemize}
-        \item $N$ be the number of elements;
-        \item $k$ be their rank;
-        \item $s$ be the value of the exponent characterizing the distribution.
-      \end{itemize}
-      Zipf's law then predicts that out of a population of $N$ elements, the frequency of elements of rank $k\mbox{,} f(k;s,N)$, is:
+    \emph{Zipf's law} is an empirical law proposed by American linguist George Kingsley Zipf\cite{Zipf1935,Zipf1949} although the French stenographer Jean-Baptiste Estoup appears to have noticed the regularity before Zipf\cite{ManningSchutze1999}. The law is defined using mathematical statistics. It refers to the fact that many types of data studied in the physical and social sciences can be approximated with a specific distribution, now called \emph{Zipfian}, which is one of a family of related discrete power law probability distributions.
+
+      Zipf's law states that given some corpus\footnote{A corpus (pl. corpora) or text corpus is a large and structured set of texts. They are used to do statistical analysis and hypothesis testing, checking occurrences or validating linguistic rules within a specific language territory.} of natural language statements, the frequency of any word is inversely proportional to its rank in the frequency table. Thus the most frequent word will occur approximately twice as often as the second most frequent word, three times as often as the third most frequent word, \emph{etc.} For example, in the Brown Corpus of American English text, the word \emph{the} is the most frequently occurring word, and by itself accounts for nearly 7\% of all word occurrences (69,971 out of slightly over 1 million). True to Zipf's Law, the second-place word \emph{of} accounts for slightly over 3.5\% of words (36,411 occurrences), followed by \emph{and} (28,852). Only 135 vocabulary items are needed to account for half the Brown Corpus.
+
+      Empirically, a data set can be tested to see if Zipf's law applies by running the regression
       \begin{equation}
-        f(k;s,N)=\frac{\sfrac{1}{k^s}}{\sum\limits_{n=1}^N \frac{1}{n^s}}\mbox{.}
+        \mbox{log}\,R = a - b\,\mbox{log}\,n \mbox{,}
       \end{equation}
+      where $R$ is the rank of the datum, $n$ is its value and $a$ and $b$ are constants. Zipf's law applies when $b = 1$. 
+      
+      Zipf's law is most easily observed by plotting the data on a log-log graph, with the axes being rank order and frequency. For example, the word \emph{the} (as described above) would appear at $x = \mbox{log}\,1$, $y = \mbox{log}\,69971$. The data conform to Zipf's law to the extent that the plot is linear.
+      
+      Formally, Zipf's law predicts that out of a population of $N$ elements, the frequency of elements of rank $k\mbox{,} f(k; s, N)$, is:
+      \begin{equation}
+        f(k;s,N)=\frac{\frac{1}{k^s}}{\sum\limits_{n=1}^N \frac{1}{n^s}}\mbox{,}
+      \end{equation}
+      where $s$ is the value of the exponent characterising the distribution.
 
       Zipf's law holds if the number of occurrences of each element are independent and identically distributed random variables with power law distribution $p(f) = \alpha f^{-1-\sfrac{1}{s}}$\cite{AdamicHuberman2002}.
 
-      In the example of the frequency of words in the English language, $N$ is the number of words in the English language and, if we use the classic version of Zipf's law, the exponent $s$ is $1$. $f(k; s,N)$ will then be the fraction of the time the $k$th most common word occurs.
+      In the example of the frequency of words in the English language, $N$ is the number of words in the English language and, if we use the classic version of Zipf's law, the exponent $s$ is $1$. $f(k; s, N)$ will then be the fraction of the time the $k$th most common word occurs.
 
       The law may also be written:
       \begin{equation}
-        f(k;s,N)=\frac{1}{k^s H_{N,s}}\mbox{,}
+        f(k; s, N)=\frac{1}{k^s H_{N, s}}\mbox{,}
       \end{equation}
       where $H_{N,s}$ is the $N$th generalized harmonic number.
-The simplest case of Zipf's law is a \textquote{$\sfrac{1}{f}$ function}. Given a set of Zipfian distributed frequencies, sorted from most common to least common, the second most common frequency will occur $\sfrac{1}{2}$ as often as the first. The third most common frequency will occur $\sfrac{1}{3}$ as often as the first. The $n$th most common frequency will occur $\sfrac{1}{n}$ as often as the first. However, this cannot hold exactly, because items must occur an integer number of times; there cannot be $2.5$ occurrences of a word. Nevertheless, over fairly wide ranges, and to a fairly good approximation, many natural phenomena obey Zipf's law.
-
-      Mathematically, the sum of all relative frequencies in a Zipf distribution is equal to the harmonic series, and
-      \begin{equation}
-        \sum_{n=1}^\infty \frac{1}{n}=\infty\mbox{.}
-      \end{equation}
-      In human languages, word frequencies have a very heavy-tailed distribution, and can therefore be modeled reasonably well by a Zipf distribution with an $s$ close to $1$.
-
-      As long as the exponent $s$ exceeds $1$, it is possible for such a law to hold with infinitely many words, since if $s > 1$ then
-      \begin{equation}
-        \zeta (s) = \sum_{n=1}^\infty \frac{1}{n^s}<\infty\mbox{,}
-      \end{equation}
-      where $\zeta$ is Riemann's zeta function.
-      
-      It is not known why Zipf's law holds for most languages\cite{Brillouin2004}. However, it may be partially explained by the statistical analysis of randomly generated texts. Wentian Li has shown that in a document in which each character has been chosen randomly from a uniform distribution of all letters (plus a space character), the \textquote{words} follow the general trend of Zipf's law (appearing approximately linear on log-log plot)\cite{Li1992}. Vitold Belevitch in a paper, \emph{On the Statistical Laws of Linguistic Distribution} offered a mathematical derivation. He took a large class of well-behaved statistical distributions (not only the normal distribution) and expressed them in terms of rank. He then expanded each expression into a Taylor series. In every case Belevitch obtained the remarkable result that a first-order truncation of the series resulted in Zipf's law. Further, a second-order truncation of the Taylor series resulted in Mandelbrot's law\cite{Neumann2013,Belevitch1959}.
-
-      Zipf himself proposed that neither speakers nor hearers using a given language want to work any harder than necessary to reach understanding, and the process that results in approximately equal distribution of effort leads to the observed Zipf distribution\cite{Zipf1949,CanchoSole2003}.
+The simplest case of Zipf's law is a \emph{$\sfrac{1}{f}$ function}. Given a set of Zipfian distributed frequencies, sorted from most common to least common, the second most common frequency will occur $\sfrac{1}{2}$ as often as the first. The third most common frequency will occur $\sfrac{1}{3}$ as often as the first. The $n$th most common frequency will occur $\sfrac{1}{n}$ as often as the first. However, this cannot hold exactly, because items must occur an integer number of times; there cannot be $2.5$ occurrences of a word. Nevertheless, over fairly wide ranges, and to a fairly good approximation, many natural phenomena obey Zipf's law.
   
   \section{Heaps' law}
   
-    In linguistics, Heaps' law (also called Herdan's law) is an empirical law which describes the number of distinct words in a document (or set of documents) as a function of the document length (so called type-token relation). It can be formulated as
+    \emph{Heaps' law}, also called \emph{Herdan's law}, is an empirical law describing the number of distinct words in a document as a function of the length of the document. That type of relation is sometimes called a \emph{type-token relation}. The law can be formulated as
     \begin{equation}
       V_R(n) = Kn^\beta\mbox{,}
     \end{equation}
-    where $V_R$ is the number of distinct words in an instance text of size $n$. $K$ and $\beta$ are free parameters determined empirically. With English text corpora\footnote{A corpus (pl. corpora) or text corpus is a large and structured set of texts. They are used to do statistical analysis and hypothesis testing, checking occurrences or validating linguistic rules within a specific language territory.}, typically $K$ is between $10$ and $100$, and $\beta$ is between $0.4$ and $0.6$.
+    where $V_R$ is the number of distinct words in a text document of size $n$. $K$ and $\beta$ are free parameters determined empirically. With English text corpora, $K$ is usually between $10$ and $100$, and $\beta$ is usually found in a range of $[0.4; 0.6]$. Heaps' law means that as more text is read, discovery of new, not previously found, words is less apparent.
 
-    The law is frequently attributed to Harold Stanley Heaps, but was originally discovered by Gustav Herdan in 1960\cite{Egghe2007}. Under mild assumptions, the Herdan–Heaps law is asymptotically equivalent to Zipf's law concerning the frequencies of individual words within a text\cite{Kornai1999}. This is a consequence of the fact that the type-token relation (in general) of a homogenous text can be derived from the distribution of its types\cite{Milicka2009}.
-
-    Heaps' law means that as more instance text is gathered, there will be diminishing returns in terms of discovery of the full vocabulary from which the distinct terms are drawn.
-
-    It is interesting to note that Heaps' law also applies to situations in which the \textquote{vocabulary} is just some set of distinct types which are attributes of some collection of objects. For example, the objects could be people, and the types could be country of origin of the person. If persons are selected randomly (that is, we are not selecting based on country of origin), then Heaps' law says we will quickly have representatives from most countries (in proportion to their population) but it will become increasingly difficult to cover the entire set of countries by continuing this method of sampling.
+    The law was originally discovered by Gustav Herdan in 1960\cite{Egghe2007}, but is frequently attributed to Harold Stanley Heaps. Under mild assumptions, the Heaps' law is an asymptotic equivalent of Zipf's law concerning the frequencies of individual words within a text\cite{Kornai1999}. This is a consequence of the fact that, in general, the type-token relation of a homogenous text can be derived from the distribution of its types\cite{Milicka2009}.

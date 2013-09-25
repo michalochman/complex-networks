@@ -1,49 +1,27 @@
 \chapter{Summary}
 
-  One of the biggest challenges was coping with such a huge amount of data. The thesis assumed that it will be possible to find examples of surreptitious messages glorifying or condemning certain products. Unfortunately such examples were never found manually and the whole analysis was performed on a blind assumption that they are there somewhere in hope of finding them. If such messages were available \emph{a priori} then the methodology could have been adjusted appropriately. It is possible that this forum has very good moderation which has been making sure that malicious messages are removed. Nevertheless, it was very inspiring to conduct such analysis to see what can we find out about the community by exploring the way it communicates.
-  
-  \ldots
-  
-  conclusions coming from interpretation of networks acquired using collaborative similarity and motif discovery
-  
-  \ldots
-  
-  summary of the complex networks theory as a tool for understanding data as such presented here
-  
-  \ldots
-
-%  There is, and there will probably never be, an universal way of exploring complex networks.
-
-  \section{What I did}
+  This paper has shown the steps required to perform an analysis of opinion networks. It described the methodology necessary for obtaining the data as well as shown a way the data can be normalised prior to study and has examined the problems that may arise during this process.
+  \\\\
+  The thesis, boldly assumed, that it will be possible to find examples of surreptitious messages glorifying or condemning certain products. Unfortunately such examples were never found manually and whole analysis was performed on a blind assumption that they really exist in hope of finding them. If such messages were found \emph{a priori} of the study then the methodology could have been adjusted appropriately. It is very likely that this forum has very good moderation which has been making sure that malicious messages are removed. It would be hard to believe that certain businesses do not try to exploit a message board like this since it is a very tasty morsel. Nevertheless, it was very inspiring to conduct such analysis to see what can we find out about the community by exploring the properties of the network it communicates in.
+  \\\\
+  A new measure has been proposed in section \ref{sec:opinion_estimation} that may help estimating the opinions some agents may have or may say they have. The measure can be used in various applications, for instance as a basis of a recommendation system. It may be used as a popularity estimate among groups of users of message boards.
+  \\\\
+  One of the biggest challenges was coping with such a huge amount of data. Most computations were conducted using 4-8 processing cores with up to 20 used in extreme cases. Any manual intervention was laborious and every mistake in calculations was a great waste of time.
+  \\\\
+  Usage of the complex networks theory as a tool for understanding data as such presented here may be easily justified. It is sufficient to look at only three important measures: average path length, degree distributions and network clustering coefficient in order to get a general idea of the network. On the other hand, there is no and probably there will never be a single methodology for exploration of different kinds of networks. Choosing correct approach is one of the most difficult tasks before anyone trying to understand the mechanisms governing in the networks. As a side note, one has to be very careful in drawing conclusions from the study.
 
   \section{Potential future work}
     
-    \ldots
+    In this part I would like to describe other promising approaches I did not have time to tackle or I did not perform due to various reasons.
+    \\\\
+    First experiment that I would like to tackle if I had more time would be to analyse different type of fluctuations of $C_u(i)$ observed in section \ref{sec:cs_fluctuations}. It would be very interesting to check if similar shapes of $C_u(i)$ changes reflect similar behaviour of users.
+    \\\\
+    I would also like to study the popularity of products based on the keywords appearing in \emph{long discussions} or in very old, bumped discussions. I am also curious what kind of user groups I could identify that are discussing the most and the least popular topics. 
+    \\\\
+    During the course of the assignment I have come to a conclusion that instead of trying to find malicious posts, I can use some of the metrics and come up with a methodology allowing for some kind of marketing campaign.
     
-    complete antithesis --- marketing campaign focused on users based on the changes of their product preferences (as well as their nearest neighbour's preferences)
-    
-    \ldots
+    This would be the complete counter-assumption of what was proposed in the thesis. The marketing campaign could be focused on users like the recommendation system. It could be based on the changes of their product preferences, as well as their nearest neighbour's preferences. Then it could contextually offer new products to the users that system marks as highly interested. Another investigation that could be performed would be to examine the opinion persistence of hubs over time and how the \textquote{followers} of these hubs react to those changes.
 
-  \section{Other promising approaches I did not have time to tackle}
-  
-    \ldots
+    In my opinion it would be very suspicious to post comprehensive answers (that can be trusty) to various questions posted on the forum immediately after they were asked. Hence, response time distribution could be designated to find the optimal time of operation for marketing purposes.
     
-    popularity of products based on the keywords appearing in \textquote{long discussions} or in very old, bumped discussions
-    
-    \ldots
-    
-    identification of user groups discussing the most and the least popular topics
-    
-    \ldots
-    
-    distribution of keywords by the time they take part in discussions
-    
-    \ldots
-    
-    response time distributions --- finding the optimal time of operation for marketing purposes
-    
-    \ldots
-    
-    investigation of opinion persistence of hubs over time
-    
-    \ldots
+    In spite of the concept being interesting, the actual implementation might not work well as it may seem, referring to a very interesting opinion of one of the users of this forum: \textquote{I like reading others' opinions. But my buying decision ultimately depends on my personal judgement. If I don't like something I bought, I would just return it. In most cases, I rarely returned items that I bought as I tend to do a lot of researches before I decided to buy the item.}

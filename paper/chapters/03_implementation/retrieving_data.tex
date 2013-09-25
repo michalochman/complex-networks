@@ -1,13 +1,13 @@
 \section{Data retrieval}
 
-  The purpose of this thesis was to analyse the discussions that may appear on message boards (or Internet forums) or news groups, hence a set of data like that had to be obtained. I had a freedom of choice, so I decided to take a look at the messages posted on an Internet forum called \emph{\href{http://www.head-fi.org/f/}{head-fi}}. It is a forum gathering users wanting to talk about audio equipment such as headphones (mainly), amplifiers or speakers. I was already familiar with this message board so I knew---\textit{more or less}---what to expect from the community taking part in conversations on this forum. I also knew the topological structure so it was easier for me to write the software used to \emph{crawl} the site and save the messages in my database.
+  The purpose of this thesis was to analyse the discussions that may appear on message boards (or Internet forums) or news groups, hence a set of data like that had to be obtained. I had a freedom of choice, so I decided to take a look at the messages posted on an Internet forum called \emph{head-fi} (http://www.head-fi.org/f/). It is a forum gathering users wanting to talk about audio equipment such as headphones (mainly), amplifiers or speakers. I was already familiar with this message board so I knew---\textit{more or less}---what to expect from the community taking part in conversations on this forum. I also knew the \emph{physical} topological structure so it was easier for me to write the software used to \emph{crawl} the site and save the messages in my database.
   
-  Initially, I have anticipated to download every single message posted on this forum from the beginning of its' existence and that was neither hidden nor removed---i.e. available to browse---at the time of downloading the data. I looked at the most recent \emph{identifier} (or ID) of a post and knew that the total number of messages posted on the forum was nearing $8.5$ million, providing that the posts were not removed during its existence. Section \ref{sec:crawling} describes procedures used to browse the forum.
+  Initially, I have anticipated to download every single message posted on this forum from the beginning of its existence and that was neither hidden nor removed---i.e. available to browse---at the time of downloading the data. I looked at the most recent \emph{identifier} (or ID) of a post and knew that the total number of messages posted on the forum was nearing $8.5$ million, providing that the posts were not removed during its existence. Section \ref{sec:crawling} describes procedures used to browse the forum.
   
-  \subsection{Initial data structure}
+  \subsection{Data structure}
     Because the messages on the Internet forums are traditionally saved in a relational dabatase I have decided to reflect the structure of this particular forum in my own---also relational---database, but with a simpler, more fit to my needs, structure.
     
-    I chose to split the board into three logical parts: \emph{forums}, \emph{topics} (or \emph{threads}) and \emph{posts} (or \emph{messages}) that were also following the order in which the message board was being crawled. Because posts are written by \emph{users} (or \emph{members}), I have also decided to further \emph{normalise} the database by creating a separate table for them. The structure of the database at a time was then as follows, with all the information I could---and wanted---to save:
+    I chose to split the board into three logical parts: \emph{forums}, \emph{topics} (or \emph{threads}) and \emph{posts} (or \emph{messages}) that were also following the order in which the message board was being crawled. Because posts are written by \emph{users} (or \emph{members}), I have also decided to further \emph{normalise} the database by creating a separate table for them. The structure of the database at a time was then as presented in tables \ref{tab:data_forums}, \ref{tab:data_topics}, \ref{tab:data_users} and \ref{tab:data_posts}, containing all the information I could---and wanted---to save.
     \begin{table}[H]
       \begin{tabularx}{\textwidth}{|L{0.3}|L{1.7}|} \hline
         \rowcolor[gray]{0.75} \textbf{Field} & \textbf{Description} \\\hline
@@ -15,6 +15,7 @@
         title & The title of the forum as text. \\\hline
       \end{tabularx}
       \caption{Forums table structure.}
+      \label{tab:data_forums}
     \end{table}
     
     \begin{table}[H]
@@ -25,6 +26,7 @@
         title & The title of the topic as text. \\\hline
       \end{tabularx}
       \caption{Topics table structure.}
+      \label{tab:data_topics}
     \end{table}
     
     \begin{table}[H]
@@ -34,6 +36,7 @@
         name & The name of the user as text. \\\hline
       \end{tabularx}
       \caption{Users table structure.}
+      \label{tab:data_users}
     \end{table}
     
     \begin{table}[H]
@@ -47,6 +50,7 @@
         body & Post contents as text. \\\hline
       \end{tabularx}
       \caption{Posts table structure.}
+      \label{tab:data_posts}
     \end{table}
     
     A database table with posts features a \emph{in\_reply\_to} field which I thought would be good to have to specifically bind messages that quote others. However, it was never used later.
@@ -257,20 +261,21 @@
       \\\\
       Separate problem was finding stems for products. Many headphone models differ only by a prefix or suffix letter(s). Additionally, users tend to refer to many models appending a \emph{s} letter to the model name. For example, one user wrote \textquote{I ruined my grado SR80s.} while discussing \emph{Grado SR80} headphone model. The problem is that some models have this \textquote{extra} \emph{s} letter appended to the model name itself, example being \emph{Denon AH-NC732s} headphones. This meant that while stemming keywords related to products U had to be \emph{extremely} cautious and careful---any error here would skew the results later.
       
-      Fortunately, I had a solid base of products gathered from classification step that made this process somewhat easier, as I could almost automatically remove unnecesary \emph{s} by marking the products that did not have it in their name. The product keyword number was reduced to 3,668 thanks to that process.
+      Fortunately, I had a solid base of products gathered from classification step that made this process somewhat easier, as I could almost automatically remove unnecesary \emph{s} by marking the products that did not have it in their name. The product keyword number was reduced to 3,668 (23\% reduction) thanks to that process.
       
     \subsubsection{Results} \label{sec:cs_results}
 
-      The resulting word set I could begin to work with is displayed in table \ref{tab:words}. Keywords represent $4.38\%$ of all words.
+      The resulting word set I could begin to work with is presented in table \ref{tab:words}. Keywords represent $4.38\%$ of all words.
       \begin{table}[H]
         \centering
         \begin{tabularx}{\textwidth}{|L{1}|L{1}|L{1}|L{1}|L{1}|L{1}|L{1}|} \hline
           \rowcolor[gray]{0.8} \textbf{Products} & \textbf{Positive opinions} & \textbf{Negative opinions} & \textbf{Prices} & \textbf{Function words} & \textbf{Regular words} & \textbf{Total words} \\\hline
-$3,668$ & $2,111$ & $4,360$ & $10,259$ & $1,085$ & $468,532$ & $490,015$ \\\hline
+$3,668$ & $2,111$ & $4,360$ & $10,259$ & $1,085$ & $468,532$ & $490,015$\footnotemark \\\hline
         \end{tabularx}
         \caption{Breakdown of the number of words and the category they belong to.}
         \label{tab:words}
       \end{table}
+      \footnotetext{The number certainly looks very high but there are over 2 billion words contained in Oxford English Corpus\cite{OxfordEnglishCorpus}}
       
       The results were saved into separate database table for further reference and usage. Its structure is shown in table \ref{tab:db_relationships}. I have decided to call this table a \emph{relationship} table, because it indicates clear associations between the words written by users as posts.
       \begin{table}[H]
