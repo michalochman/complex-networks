@@ -146,7 +146,7 @@
       \begin{equation}
         s_{\alpha\beta} = \frac{\Gamma_\alpha \cap \Gamma_\beta}{\Gamma_\alpha \cup \Gamma_\beta}\mbox{,}
       \end{equation}
-      where $\Gamma_\alpha$ and $\Gamma_\beta$ are the sets of neighbouring nodes of $\alpha$ and $\beta$, respectively. Obviously, $s_{\alpha\beta} = s_{\beta\alpha}$ and $0 \leq s_{\alpha\beta} \leq 1$ for any $\alpha$ and $\beta$. For example, as shown in figure \ref{fig:cs_network}, $s_{\alpha\beta} = s{\beta\gamma} = \sfrac{1}{3}$ and ${\alpha\gamma} = \sfrac{1}{2}$. The collaborative similarity of user $i$ is then defined as the average similarity between $i$'s selected objects:
+      where $\Gamma_\alpha$ and $\Gamma_\beta$ are the sets of neighbouring nodes of $\alpha$ and $\beta$, respectively. Obviously, $s_{\alpha\beta} = s_{\beta\alpha}$ and $0 \leq s_{\alpha\beta} \leq 1$ for any $\alpha$ and $\beta$. For example, as shown in figure \ref{fig:cs_network}, $s_{\alpha\beta} = s_{\beta\gamma} = \sfrac{1}{3}$ and $s_{\alpha\gamma} = \sfrac{1}{2}$. The collaborative similarity of user $i$ is then defined as the average similarity between $i$'s selected objects:
       \begin{equation}
         C_u(i) = \frac{1}{k_i(k_i-1)} \sum_{\alpha\neq\beta} s_{\alpha\beta}\mbox{,}
       \end{equation}
