@@ -1,0 +1,375 @@
+% Copyright 2003 by Till Tantau <tantau@users.sourceforge.net>
+% Copyright 2009 by Barbara Filip <basiaf@fatcat.ftj.agh.edu.pl>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+%
+
+\mode<presentation>
+
+% Some images:
+
+\pgfdeclareimage[width=14pt,height=12pt]{beamericonbook}{beamericonbook}
+\pgfdeclareimage[width=14pt,height=12pt]{beamericonbookshaded}{beamericonbook.20}
+\pgfaliasimage{beamericonbook.!20opaque}{beamericonbookshaded}
+\pgfaliasimage{beamericonbook.!15opaque}{beamericonbookshaded}
+\pgfaliasimage{beamericonbook.!10opaque}{beamericonbookshaded}
+\pgfaliasimage{beamericonbook.!5opaque}{beamericonbookshaded}
+\pgfaliasimage{beamericonbook.!2opaque}{beamericonbookshaded}
+\pgfdeclareimage[width=11pt,height=14pt]{beamericonarticle}{beamericonarticle}
+\pgfdeclareimage[width=11pt,height=14pt]{beamericonarticleshaded}{beamericonarticle.20}
+\pgfaliasimage{beamericonarticle.!20opaque}{beamericonarticleshaded}
+\pgfaliasimage{beamericonarticle.!15opaque}{beamericonarticleshaded}
+\pgfaliasimage{beamericonarticle.!10opaque}{beamericonarticleshaded}
+\pgfaliasimage{beamericonarticle.!5opaque}{beamericonarticleshaded}
+\pgfaliasimage{beamericonarticle.!2opaque}{beamericonarticleshaded}
+%
+% and more images...
+%
+
+%  \setbeamersize{text margin right=0cm}
+  \setbeamersize{sidebar width left=0.9cm}
+
+
+%
+% Title page: agh
+%
+
+\defbeamertemplate*{title page}{agh}[1][]
+{
+  \vskip-.15ex
+  \hskip-11.4ex
+  \vbox{\color{fg}\pgfuseimage{Title}} \vss
+ 
+\vspace{0.5cm}\noindent\hspace{0.78cm}\parbox[c]{13cm}{
+
+  \vbox{}
+  \vfill    
+    \begin{beamercolorbox}[sep=0pt,left,#1]{title}
+
+      	\usebeamerfont{title}\inserttitle\par%
+
+      	\ifx\insertsubtitle\@empty%
+      	\else%
+        	\vskip0.4em%
+        	{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      	\fi%     
+    \end{beamercolorbox}%
+    \vskip4em\par
+    \begin{beamercolorbox}[sep=0pt,left,#1]{author}		%czy napewno bez autora??
+       	\usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+%    \begin{beamercolorbox}[sep=0pt,left,#1]{institute}
+	      \usebeamerfont{institute}\insertinstitute
+%    \end{beamercolorbox}
+    \vskip10pt\par
+%    \begin{beamercolorbox}[sep=0pt,left,#1]{date}
+	      \usebeamerfont{date}\insertdate
+%    \end{beamercolorbox}\vskip0.5em
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+  \vfill
+
+}\vspace{0.5cm}
+
+}
+
+
+% Part page: agh
+
+\defbeamertemplate*{part page}{agh}[1][]
+{
+  \begin{flushleft}
+    {\usebeamerfont{part name}\usebeamercolor[fg]{part name}\partname~\insertromanpartnumber}
+    \vskip1em\par
+%    \begin{beamercolorbox}[sep=8pt,center,#1]{part title}
+      \usebeamerfont{part title}\insertpart\par
+%    \end{beamercolorbox}
+  \end{flushleft}
+}
+
+
+%
+% Table of contents
+%
+
+% \defbeamertemplateparent{sections/subsections in toc}{section in toc,subsection in toc}
+% {}
+% \defbeamertemplateparent{sections/subsections in toc shaded}{section in toc shaded,subsection in toc shaded}[1][20]
+% {[#1]}
+
+
+% (sub-)section in toc:
+
+\defbeamertemplate*{section in toc}{agh}
+{\inserttocsection\par}
+
+\defbeamertemplate*{subsection in toc}{agh}
+{\leavevmode\leftskip=1.5em\inserttocsubsection\par}
+
+%\defbeamertemplate*{subsubsection in toc}{default}
+%{\leavevmode\normalsize\usebeamerfont{subsection in toc}\leftskip=3em%
+%  \usebeamerfont{subsubsection in toc}\inserttocsubsubsection\par}
+
+
+% (sub-)section in toc shaded
+
+\defbeamertemplate*{section in toc shaded}{agh}[1][20]
+{\begin{colormixin}{#1!parent.bg}\usebeamertemplate{section in toc}\end{colormixin}\unskip}
+
+\defbeamertemplate*{subsection in toc shaded}{agh}[1][20]
+{\begin{colormixin}{#1!parent.bg}\usebeamertemplate{subsection in toc}\end{colormixin}\unskip}
+
+%\defbeamertemplate*{subsubsection in toc shaded}{default}[1][20]
+%{\begin{colormixin}{#1!parent.bg}\usebeamertemplate{subsubsection in toc}\end{colormixin}\unskip}
+
+
+
+%
+% Item
+%
+
+\setbeamertemplate{items}[circle]
+%\setbeamertemplate{sections/subsections in toc}[circle]
+
+% Enumerate items, agh
+
+\defbeamertemplate*{enumerate item}{agh}{\insertenumlabel.}
+\defbeamertemplate*{enumerate subitem}{agh}{\insertenumlabel.\insertsubenumlabel}
+\defbeamertemplate*{enumerate subsubitem}{agh}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
+\defbeamertemplate*{enumerate mini template}{agh}{\insertenumlabel}
+
+
+
+% Alerted text
+
+\defbeamertemplate*{alerted text begin}{agh}{\setbeamercolor{local structure}{parent=alerted text}}
+
+
+% Structured text
+
+% empyt defaults
+
+
+
+% Bibliography items
+
+\defbeamertemplate*{bibliography item}{agh}
+{\lower3.5pt\hbox{\hskip2pt\pgfuseimage{beamericonarticle}\hskip1pt}}
+
+\defbeamertemplate*{bibliography entry article}{agh}{}
+\defbeamertemplate*{bibliography entry title}{agh}{\par}
+\defbeamertemplate*{bibliography entry location}{agh}{\par}
+\defbeamertemplate*{bibliography entry note}{agh}{\par}
+
+
+
+
+% Buttons
+
+\newdimen\beamer@dima%
+\newdimen\beamer@dimb%
+
+\defbeamertemplate*{button}{agh}
+{%
+  \setbox\beamer@tempbox=\hbox{{\insertbuttontext}}%
+  \ht\beamer@tempbox=6pt%
+  \dp\beamer@tempbox=0pt%
+  \setbox\beamer@tempbox=\vbox{\box\beamer@tempbox\vskip2pt}%
+  \beamer@tempdim=\wd\beamer@tempbox%
+  \beamer@dima=\beamer@tempdim\advance\beamer@dima by2.2pt
+  \beamer@dimb=\beamer@tempdim\advance\beamer@dimb by4pt
+  \begin{pgfpicture}{-4pt}{0pt}{\the\beamer@tempdim}{8pt}
+    \color{bg}
+    \pgfsetlinewidth{0.8pt}
+    \pgfqmoveto{0}{0}
+    \pgfqcurveto{-2.2}{0}{-4}{1.8}{-4}{4}
+    \pgfqcurveto{-4}{6.2}{-2.2}{8}{0}{8}
+    \pgflineto{\pgfpoint{\the\beamer@tempdim}{8pt}}
+    \pgfcurveto%
+    {\pgfpoint{\the\beamer@dima}{8pt}}%
+    {\pgfpoint{\the\beamer@dimb}{6.2pt}}%
+    {\pgfpoint{\the\beamer@dimb}{4pt}}
+    \pgfcurveto%
+    {\pgfpoint{\the\beamer@dimb}{1.8pt}}%
+    {\pgfpoint{\the\beamer@dima}{0pt}}%
+    {\pgfpoint{\the\beamer@tempdim}{0pt}}
+    \pgfclosepath
+    \pgffill
+    \colorlet{bg}{parent.bg}
+    \usebeamercolor[fg]{button border}
+    \pgfqmoveto{0}{0}
+    \pgfqcurveto{-2.2}{0}{-4}{1.8}{-4}{4}
+    \pgfqcurveto{-4}{6.2}{-2.2}{8}{0}{8}
+    \pgflineto{\pgfpoint{\the\beamer@tempdim}{8pt}}
+    \pgfcurveto%
+    {\pgfpoint{\the\beamer@dima}{8pt}}%
+    {\pgfpoint{\the\beamer@dimb}{6.2pt}}%
+    {\pgfpoint{\the\beamer@dimb}{4pt}}
+    \pgfcurveto%
+    {\pgfpoint{\the\beamer@dimb}{1.8pt}}%
+    {\pgfpoint{\the\beamer@dima}{0pt}}%
+    {\pgfpoint{\the\beamer@tempdim}{0pt}}
+    \pgfclosepath
+    \pgfstroke
+  \end{pgfpicture}%
+  \hskip-\beamer@tempdim%
+  \box\beamer@tempbox%
+  \kern4pt%
+}
+
+
+% Abstract
+
+\defbeamertemplate*{abstract title}{agh}
+{%
+  \begin{center}%
+    \abstractname
+  \end{center}%
+}
+
+\defbeamertemplate*{abstract begin}{agh}
+{\beamercolorbox[vmode]{abstract}\leftskip2em\rightskip2em plus 1fill\usebeamerfont*{abstract}}
+
+\defbeamertemplate*{abstract end}{agh}
+{\medskip\endbeamercolorbox}
+
+
+% Verse
+
+\defbeamertemplate*{verse begin}{agh}
+{\beamercolorbox[vmode]{verse}}
+
+\defbeamertemplate*{verse end}{agh}
+{\endbeamercolorbox}
+
+
+% Quotation
+
+\defbeamertemplate*{quotation begin}{agh}
+{\beamercolorbox[vmode]{quotation}}
+
+\defbeamertemplate*{quotation end}{agh}
+{\endbeamercolorbox}
+
+
+% Quote
+
+\defbeamertemplate*{quote begin}{agh}
+{\beamercolorbox[vmode]{quote}}
+
+\defbeamertemplate*{quote end}{agh}
+{\endbeamercolorbox}
+
+
+% Footnotes
+
+\defbeamertemplate*{footnote}{agh}
+{
+  \parindent 1em\noindent%
+  \raggedright
+  \hbox to 1.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
+}
+
+
+% Captions
+
+\defbeamertemplate*{caption}{agh}
+{%
+  \raggedright
+  {%
+    \usebeamercolor[fg]{caption name}%
+    \usebeamerfont*{caption name}%
+    \insertcaptionname:%
+  }
+  \insertcaption\par
+}
+
+
+% Blocks
+
+\defbeamertemplate*{block begin}{agh}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=.75ex]{block title}
+    \usebeamerfont*{block title}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title}
+  {}
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[colsep*=.75ex,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+\defbeamertemplate*{block end}{agh}
+{\end{beamercolorbox}\vskip\smallskipamount}
+
+\defbeamertemplate*{block alerted begin}{agh}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=.75ex]{block title alerted}
+    \usebeamerfont*{block title alerted}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title alerted}
+  {}
+  {\ifbeamercolorempty[bg]{block body alerted}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body alerted}%
+  \begin{beamercolorbox}[colsep*=.75ex,vmode]{block body alerted}%
+    \ifbeamercolorempty[bg]{block body alerted}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+
+\defbeamertemplate*{block alerted end}{agh}
+{\end{beamercolorbox}\vskip\smallskipamount}
+
+
+\defbeamertemplate*{block example begin}{agh}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=.75ex]{block title example}
+    \usebeamerfont*{block title example}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title example}
+  {}
+  {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body example}%
+  \begin{beamercolorbox}[colsep*=.75ex,vmode]{block body example}%
+    \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+\defbeamertemplate*{block example end}{agh}
+{\end{beamercolorbox}\vskip\smallskipamount}
+
+
+
+
+% Theorems
+
+\defbeamertemplate*{theorem begin}{agh}
+{%
+  \begin{\inserttheoremblockenv}
+  {%
+    \inserttheoremname
+    \ifx\inserttheoremaddition\@empty\else\ (\inserttheoremaddition)\fi%
+  }%
+}
+
+\defbeamertemplate*{theorem end}{agh}
+{\end{\inserttheoremblockenv}}
+
+
+% Proofs
+\defbeamertemplate*{proof begin}{agh}
+{\begin{block}{\insertproofname}}
+
+\defbeamertemplate*{proof end}{agh}
+{\end{block}}
+
+\defbeamertemplate*{qed symbol}{agh}
+{\openbox}
+
+
+
+
+\mode
+<all>
